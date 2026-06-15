@@ -1,0 +1,71 @@
+export const wedding = {
+  coverImage: '/images/cover.jpg',
+  audioSrc: '/audio/bgm.mp3',
+  kakaoMapAppKey: import.meta.env.VITE_KAKAO_MAP_APP_KEY as string | undefined,
+  groom: {
+    name: '김민준',
+    nameFull: '김민준',
+    fatherName: '김철수',
+    motherName: '이영희',
+    phone: '010-1234-5678',
+  },
+  bride: {
+    name: '이지은',
+    nameFull: '이지은',
+    fatherName: '이대한',
+    motherName: '박민서',
+    phone: '010-9876-5432',
+  },
+  date: {
+    year: 2026,
+    month: 10,
+    day: 10,
+    time: '오후 2시 30분',
+    dayOfWeek: '토요일',
+  },
+  venue: {
+    name: '서울 웨딩홀',
+    hall: '그랜드볼룸 3층',
+    address: '서울특별시 강남구 테헤란로 123',
+    tel: '02-1234-5678',
+    lat: 37.5012,
+    lng: 127.0396,
+  },
+  greeting: `저희 두 사람이 사랑을 약속하는 자리에
+소중한 분들을 초대합니다.
+
+바쁘신 중에도 함께해 주시어
+저희의 기쁨을 나눠 주시면 감사하겠습니다.`,
+  gallery: [
+    '/images/gallery/01.jpg',
+    '/images/gallery/02.jpg',
+    '/images/gallery/03.jpg',
+    '/images/gallery/04.jpg',
+    '/images/gallery/05.jpg',
+    '/images/gallery/06.jpg',
+    '/images/gallery/07.jpg',
+    '/images/gallery/08.jpg',
+    '/images/gallery/09.jpg',
+    '/images/gallery/10.jpg',
+    '/images/gallery/11.jpg',
+    '/images/gallery/12.jpg',
+    '/images/gallery/13.jpg',
+    '/images/gallery/14.jpg',
+    '/images/gallery/15.jpg',
+    '/images/gallery/16.jpg',
+    '/images/gallery/17.jpg',
+    '/images/gallery/18.jpg',
+    '/images/gallery/19.jpg',
+    '/images/gallery/20.jpg',
+  ],
+  accounts: [
+    { owner: '신랑 김민준', bank: '신한은행', number: '110-123-456789' },
+    { owner: '신부 이지은', bank: '국민은행', number: '123-45-678901' },
+    { owner: '신랑측 아버지 김철수', bank: '우리은행', number: '1002-123-456789' },
+    { owner: '신부측 아버지 이대한', bank: '하나은행', number: '12345-67890-12345' },
+  ],
+  rsvp: {
+    formspreeId: import.meta.env.VITE_FORMSPREE_ID as string | undefined,
+    deadline: '2026년 9월 30일',
+  },
+}

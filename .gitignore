@@ -1,0 +1,8 @@
+node_modules
+dist
+.env
+.env.local
+
+# 임시 파일 (커밋 금지)
+PLAN_*.md
+codex_review_out.txt
