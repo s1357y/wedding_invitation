@@ -8,7 +8,7 @@ import Map from './components/Map'
 import Contact from './components/Contact'
 import Account from './components/Account'
 import Rsvp from './components/Rsvp'
-import AudioPlayer from './components/AudioPlayer'
+import FloatingUI from './components/FloatingUI'
 
 function AnimatedSection({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
   const ref = useScrollAnimation(delay)
@@ -24,7 +24,7 @@ export default function App() {
 
   return (
     <main className="max-w-md mx-auto">
-      <AudioPlayer />
+      <FloatingUI />
       <Cover />
       <AnimatedSection delay={0}><Greeting /></AnimatedSection>
       <AnimatedSection delay={100}><EventInfo /></AnimatedSection>
