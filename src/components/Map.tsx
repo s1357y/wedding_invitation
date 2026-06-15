@@ -20,7 +20,7 @@ const NAV_BUTTONS = [
   {
     label: 'T맵',
     iconSrc: '/images/icons/tmap.png',
-    href: `https://apis.openapi.sk.com/tmap/app/routes?appKey=undefined&name=${encodeURIComponent(name)}&lon=${lng}&lat=${lat}`,
+    href: `https://tmap.life/shortcut/go/?goalLat=${lat}&goalLon=${lng}&goalName=${encodeURIComponent(name)}`,
     appHref: `tmap://route?goalname=${encodeURIComponent(name)}&goallat=${lat}&goallon=${lng}`,
   },
   {
@@ -39,17 +39,25 @@ const NAV_BUTTONS = [
 
 function openNav(webHref: string, appHref: string) {
   const isMobile = /iPhone|iPad|iPod|Android/.test(navigator.userAgent)
-  if (isMobile) {
-    const start = Date.now()
-    window.location.href = appHref
-    setTimeout(() => {
-      if (Date.now() - start < 500) {
-        window.open(webHref, '_blank', 'noopener,noreferrer')
-      }
-    }, 300)
-  } else {
+  if (!isMobile) {
     window.open(webHref, '_blank', 'noopener,noreferrer')
+    return
   }
+
+  // 앱이 열리면 페이지가 hidden 상태가 됨 → fallback 타이머 취소
+  const timer = setTimeout(() => {
+    if (!document.hidden) {
+      window.open(webHref, '_blank', 'noopener,noreferrer')
+    }
+  }, 1500)
+
+  const onVisChange = () => {
+    if (document.hidden) clearTimeout(timer)
+    document.removeEventListener('visibilitychange', onVisChange)
+  }
+  document.addEventListener('visibilitychange', onVisChange)
+
+  window.location.href = appHref
 }
 
 export default function Map() {
