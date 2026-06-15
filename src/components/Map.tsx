@@ -16,39 +16,62 @@ declare global {
 
 const { lat, lng, name, hall, address, tel } = wedding.venue
 
+const webTmap = `https://tmap.life/shortcut/go/?goalLat=${lat}&goalLon=${lng}&goalName=${encodeURIComponent(name)}`
+const webKakao = `https://map.kakao.com/link/to/${encodeURIComponent(name)},${lat},${lng}`
+const webNaver = `https://map.naver.com/v5/directions/-/-/-/car?destination=${encodeURIComponent(address)}`
+
 const NAV_BUTTONS = [
   {
     label: 'T맵',
     iconSrc: '/images/icons/tmap.png',
-    href: `https://tmap.life/shortcut/go/?goalLat=${lat}&goalLon=${lng}&goalName=${encodeURIComponent(name)}`,
+    href: webTmap,
     appHref: `tmap://route?goalname=${encodeURIComponent(name)}&goallat=${lat}&goallon=${lng}`,
+    intentHref: `intent://route?goalname=${encodeURIComponent(name)}&goallat=${lat}&goallon=${lng}#Intent;scheme=tmap;package=com.skt.tmap.ku;S.browser_fallback_url=${encodeURIComponent(webTmap)};end`,
   },
   {
     label: '카카오내비',
     iconSrc: '/images/icons/kakao_navi.png',
-    href: `https://map.kakao.com/link/to/${encodeURIComponent(name)},${lat},${lng}`,
+    href: webKakao,
     appHref: `kakaomap://route?ep=${lat},${lng}&by=CAR`,
+    intentHref: `intent://route?ep=${lat},${lng}&by=CAR#Intent;scheme=kakaomap;package=net.daum.android.map;S.browser_fallback_url=${encodeURIComponent(webKakao)};end`,
   },
   {
     label: '네이버지도',
     iconSrc: '/images/icons/naver_map.jpg',
-    href: `https://map.naver.com/v5/directions/-/-/-/car?destination=${encodeURIComponent(address)}`,
+    href: webNaver,
     appHref: `nmap://route/car?dlat=${lat}&dlng=${lng}&dname=${encodeURIComponent(name)}&appname=wedding`,
+    intentHref: `intent://nmap/route/car?dlat=${lat}&dlng=${lng}&dname=${encodeURIComponent(name)}&appname=wedding#Intent;scheme=nmap;package=com.nhn.android.nmap;S.browser_fallback_url=${encodeURIComponent(webNaver)};end`,
   },
 ]
 
-function openNav(webHref: string, appHref: string) {
-  const isMobile = /iPhone|iPad|iPod|Android/.test(navigator.userAgent)
+function openNav(href: string, appHref: string, intentHref: string) {
+  const ua = navigator.userAgent
+  const isAndroid = /Android/.test(ua)
+  const isMobile = /iPhone|iPad|iPod|Android/.test(ua)
+
   if (!isMobile) {
-    window.open(webHref, '_blank', 'noopener,noreferrer')
+    window.open(href, '_blank', 'noopener,noreferrer')
     return
   }
 
-  // 앱이 열리면 페이지가 hidden 상태가 됨 → fallback 타이머 취소
+  if (isAndroid) {
+    // intent URL: Android OS가 앱 실행을 가로채므로 WebView 페이지 유지
+    // 앱 미설치 시 S.browser_fallback_url로 자동 폴백
+    window.location.href = intentHref
+    return
+  }
+
+  // iOS: <a> 클릭 방식으로 현재 페이지 유지
+  const link = document.createElement('a')
+  link.href = appHref
+  link.style.display = 'none'
+  document.body.appendChild(link)
+  link.click()
+  document.body.removeChild(link)
+
+  // iOS 앱 미설치 폴백
   const timer = setTimeout(() => {
-    if (!document.hidden) {
-      window.open(webHref, '_blank', 'noopener,noreferrer')
-    }
+    if (!document.hidden) window.open(href, '_blank', 'noopener,noreferrer')
   }, 1500)
 
   const onVisChange = () => {
@@ -56,8 +79,6 @@ function openNav(webHref: string, appHref: string) {
     document.removeEventListener('visibilitychange', onVisChange)
   }
   document.addEventListener('visibilitychange', onVisChange)
-
-  window.location.href = appHref
 }
 
 export default function Map() {
@@ -125,10 +146,10 @@ export default function Map() {
 
         {/* 네비게이션 버튼 */}
         <div className="grid grid-cols-3 gap-2">
-          {NAV_BUTTONS.map(({ label, iconSrc, href, appHref }) => (
+          {NAV_BUTTONS.map(({ label, iconSrc, href, appHref, intentHref }) => (
             <button
               key={label}
-              onClick={() => openNav(href, appHref)}
+              onClick={() => openNav(href, appHref, intentHref)}
               aria-label={`${label}으로 길찾기`}
               className="flex items-center justify-center gap-1.5 py-2.5 px-2 rounded-xl bg-white border border-gray-200 shadow-sm hover:bg-gray-50 active:scale-95 transition-all"
             >
