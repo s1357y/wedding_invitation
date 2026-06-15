@@ -1,7 +1,7 @@
 export const wedding = {
   coverImage: '/images/cover.jpg',
   audioSrc: '/audio/bgm.mp3',
-  kakaoMapAppKey: import.meta.env.VITE_KAKAO_MAP_APP_KEY as string | undefined,
+  kakaoMapAppKey: (import.meta.env.VITE_KAKAO_MAP_APP_KEY as string | undefined)?.replace(/^﻿/, '').trim(),
   groom: {
     name: '김민준',
     nameFull: '김민준',

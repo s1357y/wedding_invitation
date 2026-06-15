@@ -77,7 +77,7 @@ export default function Map() {
     if (!document.getElementById(scriptId)) {
       const script = document.createElement('script')
       script.id = scriptId
-      script.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${appKey}&autoload=false`
+      script.src = `https://dapi.kakao.com/v2/maps/sdk.js?appkey=${appKey}&autoload=false`
       script.async = true
       script.onload = initMap
       document.head.appendChild(script)
