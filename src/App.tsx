@@ -14,7 +14,7 @@ import FloatingUI from './components/FloatingUI'
 function AnimatedSection({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
   const ref = useScrollAnimation(delay)
   return (
-    <div ref={ref as React.RefObject<HTMLDivElement>}>
+    <div ref={ref as React.RefObject<HTMLDivElement>} className="fade-up">
       {children}
     </div>
   )

@@ -44,10 +44,10 @@ export default function GuestBook() {
       <div className="max-w-md mx-auto">
         <div className="text-center mb-8">
           <MessageCircleHeart className="w-5 h-5 mx-auto mb-3 opacity-70" style={{ color: '#bca38a' }} aria-hidden />
-          <p className="text-[10px] tracking-[0.35em] uppercase font-medium" style={{ color: '#bca38a' }}>
-            Guest Book
+          <p className="text-sm font-serif-theme font-medium mb-1" style={{ color: '#4a4a4a' }}>
+            축복의 기도 편지함
           </p>
-          <p className="text-xs mt-1 font-light" style={{ color: '#8a7a6a' }}>축하 메시지를 남겨주세요</p>
+          <p className="text-xs mt-1 font-light" style={{ color: '#8a7a6a' }}>신랑신부를 위한 축복과 기도를 더해주세요.</p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-3 mb-8">
@@ -75,7 +75,7 @@ export default function GuestBook() {
             className="w-full py-3 rounded-xl text-sm font-medium border transition-colors"
             style={{ borderColor: '#bca38a', color: '#bca38a', background: '#ffffff' }}
           >
-            {submitted ? '감사합니다 ♡' : '메시지 남기기'}
+            {submitted ? '감사합니다 ♡' : '+ 축복의 기도 편지 작성하기'}
           </button>
         </form>
 

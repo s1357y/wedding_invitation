@@ -107,12 +107,10 @@ export default function Map() {
 
   return (
     <section className="py-16 px-8" style={{ background: '#ffffff' }}>
-      <p
-        className="text-[10px] tracking-[0.35em] uppercase text-center mb-8 font-medium"
-        style={{ color: '#bca38a' }}
-      >
-        Location
-      </p>
+      <div className="text-center mb-8">
+        <p className="text-base font-serif-theme font-medium mb-1" style={{ color: '#4a4a4a' }}>예식장 오시는 길</p>
+        <p className="text-[10px] tracking-[0.35em] uppercase font-medium" style={{ color: '#bca38a' }}>Location</p>
+      </div>
 
       <div className="max-w-md mx-auto space-y-6">
         {/* 지도 */}

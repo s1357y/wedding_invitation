@@ -3,43 +3,45 @@ export const wedding = {
   audioSrc: '/audio/bgm.mp3',
   kakaoMapAppKey: (import.meta.env.VITE_KAKAO_MAP_APP_KEY as string | undefined)?.replace(/^﻿/, '').trim(),
   groom: {
-    name: '김민준',
-    nameFull: '김민준',
-    fatherName: '김철수',
-    motherName: '이영희',
-    phone: '010-1234-5678',
+    name: '임은총',
+    nameFull: '임은총',
+    fatherName: '임국재',
+    motherName: '김경화',
+    phone: '010-0000-0000',
   },
   bride: {
-    name: '이지은',
-    nameFull: '이지은',
-    fatherName: '이대한',
-    motherName: '박민서',
-    phone: '010-9876-5432',
+    name: '김세연',
+    nameFull: '김세연',
+    fatherName: '김성중',
+    motherName: '김정옥',
+    phone: '010-0000-0000',
   },
   date: {
     year: 2026,
     month: 10,
-    day: 10,
-    time: '오후 2시 30분',
+    day: 24,
+    time: '오후 4시',
     dayOfWeek: '토요일',
   },
   venue: {
-    name: '서울 웨딩홀',
-    hall: '그랜드볼룸 3층',
-    address: '서울특별시 강남구 테헤란로 123',
-    tel: '02-1234-5678',
-    lat: 37.5012,
-    lng: 127.0396,
-    subway: '2호선 강남역 1번 출구에서 도보 약 5분',
-    bus: '강남역 정류장 하차\n간선: 146, 360, 740\n지선: 3412, 4412',
-    parking: '웨딩홀 지하 주차장 이용 가능 (3시간 무료)',
-    note: '화환은 정중히 사양합니다. 너른 양해 부탁드립니다.',
+    name: '주님의교회 중예배실',
+    hall: '루이스홀 (정신여자고등학교 내)',
+    address: '서울특별시 송파구 올림픽로4길 16',
+    tel: '02-0000-0000',
+    lat: 37.5130,
+    lng: 127.0716,
+    subway: '2호선, 9호선 종합운동장역 3번 출구에서 153m (도보 약 3분)',
+    bus: '종합운동장사거리 정류장 하차\n간선: 301, 333, 341, 342, 350\n지선: 2415, 3217, 3411, 3412, 3414, 3417, 3422, 4318',
+    parking: '교내 대운동장에 여유롭게 주차 가능합니다.',
+    note: '교내 시설 지침에 따라, 화환은 정중히 사양합니다. 너른 양해 부탁드립니다.',
   },
-  greeting: `저희 두 사람이 사랑을 약속하는 자리에
-소중한 분들을 초대합니다.
+  greeting: `13년이라는 시간 동안 서로의 곁을 지키며 깨달았습니다.
+대수롭지 않은 하루도 이 사람과 함께라면
+온통 빛나고 소중할 것임을.
 
-바쁘신 중에도 함께해 주시어
-저희의 기쁨을 나눠 주시면 감사하겠습니다.`,
+저희 두 사람의 부부됨의 첫 걸음에 함께하시어,
+하나님 앞에서 맺는 언약의 복된 증인이
+되어주시기 바랍니다.`,
   gallery: [
     '/images/gallery/01.jpg',
     '/images/gallery/02.jpg',
@@ -63,13 +65,16 @@ export const wedding = {
     '/images/gallery/20.jpg',
   ],
   accounts: [
-    { owner: '신랑 김민준', bank: '신한은행', number: '110-123-456789' },
-    { owner: '신부 이지은', bank: '국민은행', number: '123-45-678901' },
-    { owner: '신랑측 아버지 김철수', bank: '우리은행', number: '1002-123-456789' },
-    { owner: '신부측 아버지 이대한', bank: '하나은행', number: '12345-67890-12345' },
+    { owner: '신랑 임은총', bank: 'OO은행', number: '000-000-000000' },
+    { owner: '신부 김세연', bank: 'OO은행', number: '000-000-000000' },
+    { owner: '신랑측 아버지 임국재', bank: 'OO은행', number: '000-000-0000000' },
+    { owner: '신랑측 어머니 김경화', bank: 'OO은행', number: '000-000-0000000' },
+    { owner: '신부측 아버지 김성중', bank: 'OO은행', number: '000-000-0000000' },
+    { owner: '신부측 어머니 김정옥', bank: 'OO은행', number: '000-000-0000000' },
   ],
   rsvp: {
     formspreeId: import.meta.env.VITE_FORMSPREE_ID as string | undefined,
-    deadline: '2026년 9월 30일',
+    deadline: '2026년 10월 10일',
+    description: '동행인 수와 식사 여부 조사를 위해\n참석 여부를 알려주시면 감사하겠습니다.',
   },
 }

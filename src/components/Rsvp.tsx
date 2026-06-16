@@ -32,7 +32,7 @@ export default function Rsvp() {
 
   return (
     <section className="py-16 px-8" style={{ background: '#fdfcf9' }}>
-      <div className="max-w-md mx-auto fade-up">
+      <div className="max-w-md mx-auto">
         {status === 'success' ? (
           <div className="text-center py-8">
             <p className="font-serif-theme text-lg mb-2" style={{ color: '#4a4a4a' }}>
@@ -50,9 +50,8 @@ export default function Rsvp() {
               참석 여부 전달
             </h2>
             <div className="w-8 mx-auto mb-4 opacity-50" style={{ height: '1px', background: '#bca38a' }} />
-            <p className="text-sm font-light leading-relaxed mb-6" style={{ color: '#6a5a4a' }}>
-              귀한 발걸음, 정성껏 맞이하고 싶습니다.<br />
-              {wedding.rsvp.deadline}까지 참석 여부를 알려주시면 감사하겠습니다.
+            <p className="text-sm font-light leading-relaxed mb-6 whitespace-pre-line" style={{ color: '#6a5a4a' }}>
+              {'귀한 발걸음, 정성껏 맞이하고 싶습니다.\n'}{wedding.rsvp.description ?? `${wedding.rsvp.deadline}까지 참석 여부를 알려주시면 감사하겠습니다.`}
             </p>
             <span
               className="inline-flex items-center gap-2 text-xs font-medium uppercase tracking-widest"

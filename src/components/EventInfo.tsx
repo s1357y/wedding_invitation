@@ -39,7 +39,7 @@ export default function EventInfo() {
 
   return (
     <section className="py-12 px-6" style={{ background: '#ffffff' }}>
-      <div className="max-w-md mx-auto space-y-8 fade-up">
+      <div className="max-w-md mx-auto space-y-8">
         {/* 날짜 */}
         <div className="text-center space-y-2">
           <Calendar className="w-5 h-5 mx-auto mb-3 opacity-90" style={{ color: '#bca38a' }} aria-hidden />

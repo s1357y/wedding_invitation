@@ -34,13 +34,15 @@ async function copyAccount(number: string, onToast: (msg: string) => void) {
 
 const GROUPS = [
   {
-    label: '신랑측',
+    label: '신랑측 마음 전하실 곳',
+    short: '신랑측',
     accounts: wedding.accounts.filter((a) =>
       a.owner.includes('신랑') || a.owner.includes(wedding.groom.name)
     ),
   },
   {
-    label: '신부측',
+    label: '신부측 마음 전하실 곳',
+    short: '신부측',
     accounts: wedding.accounts.filter((a) =>
       a.owner.includes('신부') || a.owner.includes(wedding.bride.name)
     ),
@@ -64,16 +66,13 @@ export default function Account() {
 
   return (
     <section className="py-16 px-8" style={{ background: '#fdfcf9' }}>
-      <p
-        className="text-[10px] tracking-[0.35em] uppercase text-center mb-2 font-medium"
-        style={{ color: '#bca38a' }}
-      >
-        Maeum Jeonhagi
+      <p className="text-base font-serif-theme font-medium text-center mb-2" style={{ color: '#4a4a4a' }}>
+        마음 전하실 곳
       </p>
-      <p className="text-xs text-center mb-8 font-light" style={{ color: '#8a7a6a' }}>마음 전하기</p>
+      <div className="w-6 mx-auto mb-8" style={{ height: '1px', background: '#bca38a', opacity: 0.5 }} />
 
       <div className="max-w-md mx-auto space-y-3">
-        {GROUPS.map(({ label, accounts }) => (
+        {GROUPS.map(({ label, short, accounts }) => (
           <div key={label} className="rounded-2xl border overflow-hidden" style={{ borderColor: '#f0ede9' }}>
             <button
               className="w-full flex items-center justify-between px-6 py-4 text-left"
@@ -81,7 +80,7 @@ export default function Account() {
               onClick={() => toggle(label)}
               aria-expanded={openGroup === label}
             >
-              <span className="text-sm font-medium" style={{ color: '#4a4a4a' }}>{label}</span>
+              <span className="text-sm font-medium" style={{ color: '#4a4a4a' }}>{short} <span className="font-light text-xs" style={{ color: '#8a7a6a' }}>마음 전하실 곳</span></span>
               <ChevronDown
                 className="w-4 h-4 transition-transform duration-300"
                 style={{
