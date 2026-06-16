@@ -17,13 +17,13 @@
     <td><img src="docs/screenshots/modern_01_cover.png" width="190"/></td>
     <td><img src="docs/screenshots/modern_02_greeting.png" width="190"/></td>
     <td><img src="docs/screenshots/modern_03_gallery.png" width="190"/></td>
-    <td><img src="docs/screenshots/modern_04_rsvp.png" width="190"/></td>
+    <td><img src="docs/screenshots/modern_04_map.png" width="190"/></td>
   </tr>
   <tr>
     <td align="center">커버</td>
     <td align="center">인사말</td>
     <td align="center">갤러리</td>
-    <td align="center">RSVP</td>
+    <td align="center">오시는 길</td>
   </tr>
 </table>
 
@@ -36,13 +36,13 @@
     <td><img src="docs/screenshots/floral_01_cover.png" width="190"/></td>
     <td><img src="docs/screenshots/floral_02_greeting.png" width="190"/></td>
     <td><img src="docs/screenshots/floral_03_gallery.png" width="190"/></td>
-    <td><img src="docs/screenshots/floral_04_rsvp.png" width="190"/></td>
+    <td><img src="docs/screenshots/floral_04_map.png" width="190"/></td>
   </tr>
   <tr>
     <td align="center">커버</td>
     <td align="center">인사말</td>
     <td align="center">갤러리</td>
-    <td align="center">RSVP</td>
+    <td align="center">오시는 길</td>
   </tr>
 </table>
 
@@ -55,13 +55,13 @@
     <td><img src="docs/screenshots/luxury_01_cover.png" width="190"/></td>
     <td><img src="docs/screenshots/luxury_02_greeting.png" width="190"/></td>
     <td><img src="docs/screenshots/luxury_03_gallery.png" width="190"/></td>
-    <td><img src="docs/screenshots/luxury_04_rsvp.png" width="190"/></td>
+    <td><img src="docs/screenshots/luxury_04_map.png" width="190"/></td>
   </tr>
   <tr>
     <td align="center">커버</td>
     <td align="center">인사말</td>
     <td align="center">갤러리</td>
-    <td align="center">RSVP</td>
+    <td align="center">오시는 길</td>
   </tr>
 </table>
 
