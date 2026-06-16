@@ -1,141 +1,65 @@
-# 모바일 청첩장
+# 모바일 웨딩 청첩장
 
-모바일 친화적인 웹 청첩장입니다. Vite + React + TypeScript + Tailwind CSS로 제작되었으며 Vercel을 통해 무료로 배포할 수 있습니다.
+임은총 & 김세연 결혼식을 위한 모바일 청첩장 웹앱입니다.
 
----
+**라이브 링크**: [mobileweddinginvitation.vercel.app](https://mobileweddinginvitation.vercel.app)
+
+## 샘플 화면 (feature/sehyun)
+
+<table>
+  <tr>
+    <td align="center"><b>커버</b></td>
+    <td align="center"><b>인사말 · 캘린더</b></td>
+  </tr>
+  <tr>
+    <td><img src="docs/screenshots/sehyun_01_cover.png" width="200"/></td>
+    <td><img src="docs/screenshots/sehyun_02_greeting_calendar.png" width="200"/></td>
+  </tr>
+  <tr>
+    <td align="center"><b>갤러리</b></td>
+    <td align="center"><b>예식장 오시는 길</b></td>
+  </tr>
+  <tr>
+    <td><img src="docs/screenshots/sehyun_03_gallery_rsvp.png" width="200"/></td>
+    <td><img src="docs/screenshots/sehyun_04_map_account.png" width="200"/></td>
+  </tr>
+</table>
 
 ## 주요 기능
 
-- **3가지 테마** — `modern` / `floral` / `luxury` 환경변수 하나로 전환
-- **갤러리** — 3열 그리드 + 클릭 시 Swiper 라이트박스
-- **카카오 지도** — 예식장 위치 표시 (API 키 없으면 주소 + 안내 문구로 대체)
-- **길찾기 버튼** — T맵 · 카카오내비 · 네이버지도 앱 연동
-- **배경음악** — 우상단 토글 버튼으로 재생/정지
-- **스크롤 애니메이션** — 섹션이 뷰포트에 진입할 때 페이드인
-- **RSVP 폼** — Formspree 연동 (서버 불필요)
-- **계좌 정보** — 클립보드 복사 지원
-
----
+- **커버** — 웨딩 사진 + 다크 그래디언트 오버레이, 신랑·신부 이름 및 날짜
+- **인사말** — 성경 구절 인용, 개인 메시지
+- **날짜 · D-day** — 월별 캘린더 위젯, 실시간 카운트다운 타이머
+- **혼주 연락처** — 전화 버튼 포함 카드 UI
+- **참석 여부 전달** — 카드 버튼 → 인라인 폼 전환 (Formspree 연동)
+- **갤러리** — 2열 3:4 비율 그리드, 라이트박스
+- **예식장 오시는 길** — 카카오맵 연동, T맵·카카오내비·네이버지도 딥링크, 교통 정보
+- **축복의 기도 편지함** — localStorage 기반 방명록
+- **마음 전하실 곳** — 신랑·신부측 아코디언 계좌번호 (복사 기능)
+- **배경음악** — 토글 가능한 오디오 플레이어
+- **공유** — Web Share API
 
 ## 기술 스택
 
 | 구분 | 기술 |
 |------|------|
-| 프레임워크 | Vite + React 19 + TypeScript |
-| 스타일 | Tailwind CSS v3 |
-| 갤러리 | Swiper.js |
-| 지도 | Kakao Maps JavaScript SDK |
+| 프레임워크 | Vite + React + TypeScript |
+| 스타일 | Tailwind CSS + CSS Variables |
+| 아이콘 | lucide-react |
+| 지도 | Kakao Maps SDK |
 | RSVP | Formspree |
-| 테스트 | Vitest + @testing-library/react |
-| 배포 | Vercel |
+| 배포 | Vercel (`feature/sehyun` 브랜치) |
 
----
+## 환경 변수
 
-## 시작하기
+```env
+VITE_KAKAO_MAP_APP_KEY=카카오맵_앱키
+VITE_FORMSPREE_ID=Formspree_폼ID
+```
 
-### 1. 의존성 설치
+## 로컬 실행
 
 ```bash
 npm install
-```
-
-### 2. 환경변수 설정
-
-`.env.example`을 복사해 `.env` 파일을 만들고 값을 채웁니다.
-
-```bash
-cp .env.example .env
-```
-
-```env
-VITE_THEME=modern              # 테마: modern | floral | luxury
-VITE_FORMSPREE_ID=xrevrnlb     # Formspree 폼 ID (https://formspree.io)
-VITE_KAKAO_MAP_APP_KEY=        # 카카오 지도 앱 키 (https://developers.kakao.com)
-```
-
-### 3. 로컬 실행
-
-```bash
 npm run dev
 ```
-
-브라우저에서 `http://localhost:5173` 접속
-
-### 4. 빌드
-
-```bash
-npm run build
-```
-
----
-
-## 콘텐츠 수정
-
-모든 청첩장 내용은 **`src/config/wedding.ts`** 한 파일에서 관리합니다.
-
-```ts
-export const wedding = {
-  coverImage: '/images/cover.jpg',   // 커버 배경사진
-  audioSrc: '/audio/bgm.mp3',        // 배경음악
-
-  groom: { name: '신랑이름', ... },
-  bride: { name: '신부이름', ... },
-  date: { year: 2026, month: 10, day: 10, time: '오후 2시 30분', ... },
-  venue: { name: '웨딩홀명', address: '주소', lat: 37.5, lng: 127.0, ... },
-  greeting: `인사말 텍스트`,
-  gallery: ['/images/gallery/01.jpg', ...],   // 갤러리 이미지 경로
-  accounts: [{ owner: '신랑 홍길동', bank: '신한은행', number: '...' }],
-  rsvp: { deadline: '2026년 9월 30일' },
-}
-```
-
-### 이미지 교체
-
-| 파일 경로 | 용도 |
-|-----------|------|
-| `public/images/cover.jpg` | 커버 전체화면 배경 |
-| `public/images/gallery/01.jpg` ~ `20.jpg` | 갤러리 사진 (최대 20장) |
-| `public/audio/bgm.mp3` | 배경음악 |
-
----
-
-## 테마 변경
-
-`.env`의 `VITE_THEME` 값만 바꾸면 전체 디자인이 변경됩니다.
-
-```env
-VITE_THEME=floral   # modern | floral | luxury
-```
-
-| 테마 | 분위기 |
-|------|--------|
-| `modern` | 심플하고 모던한 화이트 톤 |
-| `floral` | 부드러운 로즈 계열 플로럴 |
-| `luxury` | 고급스러운 골드 & 딥 블루 |
-
----
-
-## 배포 (Vercel)
-
-1. [Vercel](https://vercel.com) 접속 → GitHub 연동
-2. 이 레포지토리 Import
-3. **Environment Variables** 탭에서 `.env`와 동일하게 값 입력
-4. **Deploy** 클릭
-
-이후 `main` 브랜치에 push하면 자동으로 재배포됩니다.
-
----
-
-## 테스트
-
-```bash
-npm test
-```
-
-56개 단위 테스트가 포함되어 있습니다.
-
----
-
-## 라이선스
-
-개인 사용 목적으로 자유롭게 수정·배포 가능합니다.
