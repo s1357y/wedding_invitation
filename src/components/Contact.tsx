@@ -1,48 +1,65 @@
+import { Phone } from 'lucide-react'
 import { wedding } from '../config/wedding'
 
-interface PersonCardProps {
-  label: string
-  name: string
-  phone: string
-}
+const { groom, bride } = wedding
 
-function PersonCard({ label, name, phone }: PersonCardProps) {
+function PhoneBtn({ phone }: { phone: string }) {
   return (
-    <div className="flex items-center justify-between py-3 border-b border-theme-border last:border-0">
-      <div>
-        <p className="text-theme-muted text-xs">{label}</p>
-        <p className="text-theme-text text-sm font-medium mt-0.5">{name}</p>
-      </div>
-      <a
-        href={`tel:${phone}`}
-        className="flex items-center gap-1.5 text-theme-accent text-sm border border-theme-accent rounded-full px-4 py-1.5"
-      >
-        <span>전화</span>
-      </a>
-    </div>
+    <a
+      href={`tel:${phone}`}
+      className="ml-3 flex-shrink-0 w-7 h-7 rounded-full border flex items-center justify-center"
+      style={{ borderColor: '#bca38a', color: '#bca38a' }}
+      aria-label={`${phone}에 전화하기`}
+    >
+      <Phone className="w-3 h-3" aria-hidden />
+    </a>
   )
 }
 
 export default function Contact() {
   return (
-    <section className="px-6 py-20 bg-theme-bg">
-      <p className="font-serif-theme text-sm tracking-[0.25em] text-theme-accent uppercase mb-10 text-center">
-        Contact
-      </p>
+    <section
+      className="py-12 px-8 text-center border-t border-b"
+      style={{ background: '#ffffff', borderColor: '#f0ede9' }}
+    >
+      <div className="max-w-md mx-auto fade-up">
+        <div className="max-w-xs mx-auto">
+          <div
+            className="py-5 px-6 rounded-2xl border space-y-5"
+            style={{ background: '#fdfcf9', borderColor: '#f0ede9' }}
+          >
+            {/* 신랑 */}
+            <div className="text-left">
+              <p className="text-[10px] mb-1 tracking-wider font-medium" style={{ color: '#8a7a6a' }}>
+                신랑 혼주
+              </p>
+              <div className="flex items-center justify-between">
+                <p className="text-sm leading-none" style={{ color: '#4a4a4a' }}>
+                  {groom.fatherName} · {groom.motherName}
+                  <span className="text-xs mx-1" style={{ color: '#8a7a6a' }}>의 아들</span>
+                  <span className="font-semibold text-base" style={{ color: '#4a4a4a' }}>{groom.name}</span>
+                </p>
+                <PhoneBtn phone={groom.phone} />
+              </div>
+            </div>
 
-      <div className="max-w-sm mx-auto space-y-6">
-        <div className="border border-theme-border rounded-xl p-5 bg-theme-surface">
-          <p className="font-serif-theme text-theme-accent text-xs tracking-widest mb-3">GROOM</p>
-          <PersonCard label="신랑" name={wedding.groom.nameFull} phone={wedding.groom.phone} />
-          <PersonCard label="신랑 아버지" name={wedding.groom.fatherName} phone={wedding.groom.phone} />
-          <PersonCard label="신랑 어머니" name={wedding.groom.motherName} phone={wedding.groom.phone} />
-        </div>
+            <div className="h-px" style={{ background: '#f0ede9' }} />
 
-        <div className="border border-theme-border rounded-xl p-5 bg-theme-surface">
-          <p className="font-serif-theme text-theme-accent text-xs tracking-widest mb-3">BRIDE</p>
-          <PersonCard label="신부" name={wedding.bride.nameFull} phone={wedding.bride.phone} />
-          <PersonCard label="신부 아버지" name={wedding.bride.fatherName} phone={wedding.bride.phone} />
-          <PersonCard label="신부 어머니" name={wedding.bride.motherName} phone={wedding.bride.phone} />
+            {/* 신부 */}
+            <div className="text-left">
+              <p className="text-[10px] mb-1 tracking-wider font-medium" style={{ color: '#8a7a6a' }}>
+                신부 혼주
+              </p>
+              <div className="flex items-center justify-between">
+                <p className="text-sm leading-none" style={{ color: '#4a4a4a' }}>
+                  {bride.fatherName} · {bride.motherName}
+                  <span className="text-xs mx-1" style={{ color: '#8a7a6a' }}>의 딸</span>
+                  <span className="font-semibold text-base" style={{ color: '#4a4a4a' }}>{bride.name}</span>
+                </p>
+                <PhoneBtn phone={bride.phone} />
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>

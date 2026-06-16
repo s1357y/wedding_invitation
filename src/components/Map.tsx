@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react'
+import { MapPin, Train, Bus, ParkingCircle } from 'lucide-react'
 import { wedding } from '../config/wedding'
 
 declare global {
@@ -14,7 +15,7 @@ declare global {
   }
 }
 
-const { lat, lng, name, hall, address, tel } = wedding.venue
+const { lat, lng, name, hall, address, tel, subway, bus, parking } = wedding.venue
 
 const webTmap = `https://tmap.life/shortcut/go/?goalLat=${lat}&goalLon=${lng}&goalName=${encodeURIComponent(name)}`
 const webKakao = `https://map.kakao.com/link/to/${encodeURIComponent(name)},${lat},${lng}`
@@ -49,19 +50,13 @@ function openNav(href: string, appHref: string, intentHref: string) {
   const isAndroid = /Android/.test(ua)
   const isMobile = /iPhone|iPad|iPod|Android/.test(ua)
 
-  if (!isMobile) {
-    window.open(href, '_blank', 'noopener,noreferrer')
-    return
-  }
+  if (!isMobile) { window.open(href, '_blank', 'noopener,noreferrer'); return }
 
   if (isAndroid) {
-    // intent URL: Android OS가 앱 실행을 가로채므로 WebView 페이지 유지
-    // 앱 미설치 시 S.browser_fallback_url로 자동 폴백
     window.location.href = intentHref
     return
   }
 
-  // iOS: <a> 클릭 방식으로 현재 페이지 유지
   const link = document.createElement('a')
   link.href = appHref
   link.style.display = 'none'
@@ -69,7 +64,6 @@ function openNav(href: string, appHref: string, intentHref: string) {
   link.click()
   document.body.removeChild(link)
 
-  // iOS 앱 미설치 폴백
   const timer = setTimeout(() => {
     if (!document.hidden) window.open(href, '_blank', 'noopener,noreferrer')
   }, 1500)
@@ -87,17 +81,13 @@ export default function Map() {
 
   useEffect(() => {
     if (!appKey) return
-
     const scriptId = 'kakao-map-sdk'
 
     function initMap() {
       window.kakao.maps.load(() => {
         if (!mapRef.current) return
         const position = new window.kakao.maps.LatLng(lat, lng)
-        const map = new window.kakao.maps.Map(mapRef.current, {
-          center: position,
-          level: 4,
-        })
+        const map = new window.kakao.maps.Map(mapRef.current, { center: position, level: 4 })
         const marker = new window.kakao.maps.Marker({ position })
         marker.setMap(map)
       })
@@ -116,32 +106,35 @@ export default function Map() {
   }, [appKey])
 
   return (
-    <section className="px-6 py-20 bg-theme-surface">
-      <p className="font-serif-theme text-sm tracking-[0.25em] text-theme-accent uppercase mb-10 text-center">
+    <section className="py-16 px-8" style={{ background: '#ffffff' }}>
+      <p
+        className="text-[10px] tracking-[0.35em] uppercase text-center mb-8 font-medium"
+        style={{ color: '#bca38a' }}
+      >
         Location
       </p>
 
-      <div className="max-w-sm mx-auto">
-        {/* 지도 영역 */}
+      <div className="max-w-md mx-auto space-y-6">
+        {/* 지도 */}
         {appKey ? (
-          <div ref={mapRef} className="h-64 w-full rounded-xl overflow-hidden border border-theme-border" />
+          <div ref={mapRef} className="h-56 w-full rounded-2xl overflow-hidden border" style={{ borderColor: '#f0ede9' }} />
         ) : (
-          <div className="h-64 w-full rounded-xl overflow-hidden border border-theme-border flex flex-col items-center justify-center bg-gray-100 text-gray-500 text-sm gap-2">
-            <span className="text-4xl">📍</span>
-            <p className="font-medium">{name}</p>
-            <p className="text-xs text-center px-4">{address}</p>
-            <p className="text-xs text-gray-400 mt-1">VITE_KAKAO_MAP_APP_KEY 설정 시 지도 표시</p>
+          <div
+            className="h-56 w-full rounded-2xl overflow-hidden border flex flex-col items-center justify-center gap-2"
+            style={{ borderColor: '#f0ede9', background: '#f5f1eb' }}
+          >
+            <MapPin className="w-6 h-6" style={{ color: '#bca38a' }} aria-hidden />
+            <p className="text-sm font-medium" style={{ color: '#4a4a4a' }}>{name}</p>
+            <p className="text-xs text-center px-4" style={{ color: '#8a7a6a' }}>{address}</p>
           </div>
         )}
 
         {/* 장소 정보 */}
-        <div className="mt-4 text-center space-y-1 mb-5">
-          <p className="text-theme-text font-medium">{name}</p>
-          <p className="text-theme-muted text-sm">{hall}</p>
-          <p className="text-theme-muted text-xs">{address}</p>
-          <p className="text-theme-muted text-xs">
-            <a href={`tel:${tel}`} className="underline">{tel}</a>
-          </p>
+        <div className="text-center space-y-1">
+          <p className="font-serif-theme text-base" style={{ color: '#4a4a4a' }}>{name}</p>
+          <p className="text-sm font-light" style={{ color: '#8a7a6a' }}>{hall}</p>
+          <p className="text-xs" style={{ color: '#8a7a6a' }}>{address}</p>
+          <a href={`tel:${tel}`} className="text-xs underline" style={{ color: '#8a7a6a' }}>{tel}</a>
         </div>
 
         {/* 네비게이션 버튼 */}
@@ -151,16 +144,44 @@ export default function Map() {
               key={label}
               onClick={() => openNav(href, appHref, intentHref)}
               aria-label={`${label}으로 길찾기`}
-              className="flex items-center justify-center gap-1.5 py-2.5 px-2 rounded-xl bg-white border border-gray-200 shadow-sm hover:bg-gray-50 active:scale-95 transition-all"
+              className="flex items-center justify-center gap-1.5 py-3 px-2 rounded-xl border transition-all active:scale-95"
+              style={{ background: '#ffffff', borderColor: '#f0ede9' }}
             >
-              <img
-                src={iconSrc}
-                alt={label}
-                className="w-6 h-6 rounded-md object-cover flex-shrink-0"
-              />
-              <span className="text-gray-700 text-xs font-medium whitespace-nowrap">{label}</span>
+              <img src={iconSrc} alt={label} className="w-5 h-5 rounded object-cover flex-shrink-0" />
+              <span className="text-xs font-medium" style={{ color: '#4a4a4a' }}>{label}</span>
             </button>
           ))}
+        </div>
+
+        {/* 교통 정보 */}
+        <div className="rounded-2xl border divide-y" style={{ borderColor: '#f0ede9' }}>
+          {subway && (
+            <div className="px-5 py-4 flex gap-3">
+              <Train className="w-4 h-4 mt-0.5 flex-shrink-0" style={{ color: '#bca38a' }} aria-hidden />
+              <div>
+                <p className="text-[10px] tracking-wider font-medium mb-1" style={{ color: '#8a7a6a' }}>지하철</p>
+                <p className="text-xs leading-relaxed" style={{ color: '#4a4a4a' }}>{subway}</p>
+              </div>
+            </div>
+          )}
+          {bus && (
+            <div className="px-5 py-4 flex gap-3" style={{ borderTopColor: '#f0ede9', borderTopWidth: '1px' }}>
+              <Bus className="w-4 h-4 mt-0.5 flex-shrink-0" style={{ color: '#bca38a' }} aria-hidden />
+              <div>
+                <p className="text-[10px] tracking-wider font-medium mb-1" style={{ color: '#8a7a6a' }}>버스</p>
+                <p className="text-xs leading-relaxed whitespace-pre-line" style={{ color: '#4a4a4a' }}>{bus}</p>
+              </div>
+            </div>
+          )}
+          {parking && (
+            <div className="px-5 py-4 flex gap-3" style={{ borderTopColor: '#f0ede9', borderTopWidth: '1px' }}>
+              <ParkingCircle className="w-4 h-4 mt-0.5 flex-shrink-0" style={{ color: '#bca38a' }} aria-hidden />
+              <div>
+                <p className="text-[10px] tracking-wider font-medium mb-1" style={{ color: '#8a7a6a' }}>주차</p>
+                <p className="text-xs leading-relaxed" style={{ color: '#4a4a4a' }}>{parking}</p>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </section>

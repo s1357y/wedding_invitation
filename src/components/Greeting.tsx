@@ -1,31 +1,30 @@
+import { Heart } from 'lucide-react'
 import { wedding } from '../config/wedding'
 
 export default function Greeting() {
   return (
-    <section className="px-8 py-20 text-center bg-theme-bg">
-      <p className="font-serif-theme text-sm tracking-[0.25em] text-theme-accent uppercase mb-10">
-        Greeting
-      </p>
+    <section className="py-20 px-8 text-center" style={{ background: '#fdfcf9' }}>
+      <div className="max-w-md mx-auto space-y-8 fade-up">
+        <Heart className="w-5 h-5 mx-auto opacity-70" style={{ color: '#bca38a' }} aria-hidden />
 
-      <p className="text-theme-text text-sm leading-8 whitespace-pre-line">
-        {wedding.greeting}
-      </p>
+        <div className="space-y-4">
+          <p
+            className="text-sm font-serif-theme italic leading-relaxed py-4 px-6 rounded-xl border"
+            style={{ color: '#6a5a4a', background: '#f5f1eb', borderColor: '#ece6dd' }}
+          >
+            " 이는 내 뼈 중의 뼈요 살 중의 살이라 "
+          </p>
+        </div>
 
-      <div className="mt-10 text-theme-muted text-sm space-y-1">
-        <p>
-          <span className="text-theme-text">{wedding.groom.fatherName}</span>
-          <span> · </span>
-          <span className="text-theme-text">{wedding.groom.motherName}</span>
-          <span className="text-theme-muted text-xs ml-2">의 아들</span>
-          <span className="font-serif-theme text-theme-accent ml-2">{wedding.groom.name}</span>
-        </p>
-        <p>
-          <span className="text-theme-text">{wedding.bride.fatherName}</span>
-          <span> · </span>
-          <span className="text-theme-text">{wedding.bride.motherName}</span>
-          <span className="text-theme-muted text-xs ml-2">의 딸</span>
-          <span className="font-serif-theme text-theme-accent ml-2">{wedding.bride.name}</span>
-        </p>
+        <div className="space-y-6 font-light text-sm leading-relaxed" style={{ color: '#5a4a3a' }}>
+          <h2
+            className="text-base font-serif-theme font-medium tracking-wide mb-4"
+            style={{ color: '#4a4a4a' }}
+          >
+            소중한 분들을 초대합니다
+          </h2>
+          <p className="whitespace-pre-line">{wedding.greeting}</p>
+        </div>
       </div>
     </section>
   )

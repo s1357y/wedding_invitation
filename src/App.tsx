@@ -1,38 +1,39 @@
-import { useTheme } from './hooks/useTheme'
 import { useScrollAnimation } from './hooks/useScrollAnimation'
 import Cover from './components/Cover'
 import Greeting from './components/Greeting'
 import EventInfo from './components/EventInfo'
+import Contact from './components/Contact'
+import Rsvp from './components/Rsvp'
 import Gallery from './components/Gallery'
 import Map from './components/Map'
-import Contact from './components/Contact'
+import GuestBook from './components/GuestBook'
 import Account from './components/Account'
-import Rsvp from './components/Rsvp'
+import Footer from './components/Footer'
 import FloatingUI from './components/FloatingUI'
 
 function AnimatedSection({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
   const ref = useScrollAnimation(delay)
   return (
-    <div ref={ref as React.RefObject<HTMLDivElement>} className="fade-up">
+    <div ref={ref as React.RefObject<HTMLDivElement>}>
       {children}
     </div>
   )
 }
 
 export default function App() {
-  useTheme()
-
   return (
-    <main className="max-w-md mx-auto">
+    <main className="max-w-md mx-auto" style={{ background: '#fdfcf9' }}>
       <FloatingUI />
       <Cover />
-      <AnimatedSection delay={0}><Greeting /></AnimatedSection>
-      <AnimatedSection delay={100}><EventInfo /></AnimatedSection>
-      <AnimatedSection delay={0}><Gallery /></AnimatedSection>
-      <AnimatedSection delay={0}><Map /></AnimatedSection>
-      <AnimatedSection delay={0}><Contact /></AnimatedSection>
-      <AnimatedSection delay={0}><Account /></AnimatedSection>
-      <AnimatedSection delay={0}><Rsvp /></AnimatedSection>
+      <AnimatedSection><Greeting /></AnimatedSection>
+      <AnimatedSection><EventInfo /></AnimatedSection>
+      <AnimatedSection><Contact /></AnimatedSection>
+      <AnimatedSection><Rsvp /></AnimatedSection>
+      <AnimatedSection><Gallery /></AnimatedSection>
+      <AnimatedSection><Map /></AnimatedSection>
+      <AnimatedSection><GuestBook /></AnimatedSection>
+      <AnimatedSection><Account /></AnimatedSection>
+      <Footer />
     </main>
   )
 }

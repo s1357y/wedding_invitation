@@ -1,47 +1,41 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Cinzel:wght@400;600&family=Noto+Sans+KR:wght@300;400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Noto+Sans+KR:wght@300;400;500&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  --color-bg: #FFFFFF;
-  --color-surface: #F8F8F8;
-  --color-text: #2C2C2C;
-  --color-muted: #888888;
-  --color-accent: #B8A99A;
-  --color-border: #E8E8E8;
-  --font-serif: 'Playfair Display';
-  --font-sans: 'Noto Sans KR';
+  --sy-bg: #fdfcf9;
+  --sy-white: #ffffff;
+  --sy-accent: #bca38a;
+  --sy-text: #4a4a4a;
+  --sy-muted: #8a7a6a;
+  --sy-sub: #6a5a4a;
+  --sy-border: #f0ede9;
+  --sy-card: #fdfcf9;
 }
 
-* {
-  box-sizing: border-box;
-}
-
-html {
-  scroll-behavior: smooth;
-}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
 
 body {
-  background-color: var(--color-bg);
-  color: var(--color-text);
-  font-family: var(--font-sans), sans-serif;
+  background-color: var(--sy-bg);
+  color: var(--sy-text);
+  font-family: 'Noto Sans KR', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 .font-serif-theme {
-  font-family: var(--font-serif), Georgia, serif;
+  font-family: 'Playfair Display', 'Cormorant Garamond', Georgia, serif;
 }
 
 /* 스크롤 애니메이션 */
 .fade-up {
   opacity: 0;
-  transform: translateY(32px);
+  transform: translateY(24px);
   transition: opacity 0.7s ease, transform 0.7s ease;
 }
-
 .fade-up.visible {
   opacity: 1;
   transform: translateY(0);
