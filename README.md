@@ -4,24 +4,64 @@
 
 **라이브 링크**: [mobileweddinginvitation.vercel.app](https://mobileweddinginvitation.vercel.app)
 
-## 샘플 화면 (feature/sehyun)
+## 테마별 샘플 화면
+
+`main` 브랜치는 `VITE_THEME` 환경 변수로 3가지 테마를 지원합니다.
+
+### Modern (기본)
+
+흰 배경 · 베이지 포인트 · Playfair Display
 
 <table>
   <tr>
-    <td align="center"><b>커버</b></td>
-    <td align="center"><b>인사말 · 캘린더</b></td>
+    <td><img src="docs/screenshots/modern_01_cover.png" width="190"/></td>
+    <td><img src="docs/screenshots/modern_02_greeting.png" width="190"/></td>
+    <td><img src="docs/screenshots/modern_03_gallery.png" width="190"/></td>
+    <td><img src="docs/screenshots/modern_04_rsvp.png" width="190"/></td>
   </tr>
   <tr>
-    <td><img src="docs/screenshots/sehyun_01_cover.png" width="200"/></td>
-    <td><img src="docs/screenshots/sehyun_02_greeting_calendar.png" width="200"/></td>
+    <td align="center">커버</td>
+    <td align="center">인사말</td>
+    <td align="center">갤러리</td>
+    <td align="center">RSVP</td>
+  </tr>
+</table>
+
+### Floral
+
+크림 배경 · 로즈핑크 포인트 · Cormorant Garamond
+
+<table>
+  <tr>
+    <td><img src="docs/screenshots/floral_01_cover.png" width="190"/></td>
+    <td><img src="docs/screenshots/floral_02_greeting.png" width="190"/></td>
+    <td><img src="docs/screenshots/floral_03_gallery.png" width="190"/></td>
+    <td><img src="docs/screenshots/floral_04_rsvp.png" width="190"/></td>
   </tr>
   <tr>
-    <td align="center"><b>갤러리</b></td>
-    <td align="center"><b>예식장 오시는 길</b></td>
+    <td align="center">커버</td>
+    <td align="center">인사말</td>
+    <td align="center">갤러리</td>
+    <td align="center">RSVP</td>
+  </tr>
+</table>
+
+### Luxury
+
+다크 배경 · 골드 포인트 · Cinzel
+
+<table>
+  <tr>
+    <td><img src="docs/screenshots/luxury_01_cover.png" width="190"/></td>
+    <td><img src="docs/screenshots/luxury_02_greeting.png" width="190"/></td>
+    <td><img src="docs/screenshots/luxury_03_gallery.png" width="190"/></td>
+    <td><img src="docs/screenshots/luxury_04_rsvp.png" width="190"/></td>
   </tr>
   <tr>
-    <td><img src="docs/screenshots/sehyun_03_gallery_rsvp.png" width="200"/></td>
-    <td><img src="docs/screenshots/sehyun_04_map_account.png" width="200"/></td>
+    <td align="center">커버</td>
+    <td align="center">인사말</td>
+    <td align="center">갤러리</td>
+    <td align="center">RSVP</td>
   </tr>
 </table>
 
