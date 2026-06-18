@@ -4,15 +4,16 @@ const { groom, bride, date } = wedding
 
 export default function Footer() {
   return (
-    <footer className="py-16 px-8 text-center" style={{ background: '#fdfcf9' }}>
-      <div className="max-w-md mx-auto">
+    <footer className="text-center" style={{ background: '#fdfcf9' }}>
+      {/* 푸터 사진 */}
+      <img
+        src="/images/footer.jpg"
+        alt="은총 & 세연"
+        style={{ width: '100%', display: 'block', objectFit: 'cover', maxHeight: '320px' }}
+      />
+
+      <div className="max-w-md mx-auto px-8 py-16">
         <div className="w-12 mx-auto mb-6" style={{ height: '1px', background: '#bca38a', opacity: 0.5 }} />
-        <p className="font-serif-theme text-xl tracking-wide mb-2" style={{ color: '#4a4a4a' }}>
-          {groom.name} &amp; {bride.name}
-        </p>
-        <p className="text-xs font-light mb-8" style={{ color: '#8a7a6a' }}>
-          {date.year}. {String(date.month).padStart(2, '0')}. {String(date.day).padStart(2, '0')}.
-        </p>
         <p className="text-[10px] tracking-widest mb-4 font-medium" style={{ color: '#bca38a' }}>
           Thank You
         </p>
@@ -24,6 +25,17 @@ export default function Footer() {
         </p>
         <div className="w-12 mx-auto mt-8" style={{ height: '1px', background: '#bca38a', opacity: 0.3 }} />
       </div>
+
+      <p style={{
+        fontFamily: "'Gowun Batang', serif",
+        fontSize: '0.65rem',
+        color: '#bca38a',
+        letterSpacing: '0.12em',
+        paddingBottom: '1.5rem',
+        textAlign: 'center',
+      }}>
+        copyright Seyeon Kim with Claude. All rights reserved.
+      </p>
     </footer>
   )
 }

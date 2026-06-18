@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Calendar, Clock } from 'lucide-react'
+import { Calendar } from 'lucide-react'
 import { wedding } from '../config/wedding'
 
 const { date, venue } = wedding
@@ -46,9 +46,6 @@ export default function EventInfo() {
           <p className="text-base font-serif-theme tracking-widest" style={{ color: '#4a4a4a' }}>
             {date.year}년 {date.month}월 {date.day}일 {date.dayOfWeek} {date.time}
           </p>
-          <p className="text-sm font-light" style={{ color: '#8a7a6a' }}>
-            {venue.name} {venue.hall}
-          </p>
         </div>
 
         {/* 달력 */}
@@ -69,22 +66,38 @@ export default function EventInfo() {
               const isWedding = d === date.day
               return (
                 <div key={i} className="relative flex items-center justify-center h-8">
-                  {isWedding && (
-                    <div
-                      className="absolute inset-0 rounded-full scale-75 shadow-sm"
-                      style={{ background: '#bca38a', opacity: 1 }}
-                    />
-                  )}
                   {d !== null && (
-                    <span
-                      className="text-sm z-10 relative"
-                      style={{
-                        color: isWedding ? '#ffffff' : '#4a4a4a',
-                        fontWeight: isWedding ? 700 : 400,
-                      }}
-                    >
-                      {d}
-                    </span>
+                    isWedding ? (
+                      <>
+                        <svg
+                          className="absolute"
+                          viewBox="0 0 32 29"
+                          style={{ width: '2.2rem', height: '2.2rem', opacity: 0.4, top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M16 27 C16 27 2 18 2 9.5 C2 5.36 5.36 2 9.5 2 C12.04 2 14.28 3.28 16 5.18 C17.72 3.28 19.96 2 22.5 2 C26.64 2 30 5.36 30 9.5 C30 18 16 27 16 27Z"
+                            fill="#c9a98a"
+                          />
+                        </svg>
+                        <span
+                          className="text-sm z-10 relative"
+                          style={{ color: '#5a3a2a', fontWeight: 700 }}
+                        >
+                          {d}
+                        </span>
+                      </>
+                    ) : (
+                      <span
+                        className="text-sm z-10 relative"
+                        style={{
+                          color: (i % 7 === 0 || [3, 5, 9].includes(d)) ? '#c9a0a0' : i % 7 === 6 ? '#90aec0' : '#4a4a4a',
+                          fontWeight: 400,
+                        }}
+                      >
+                        {d}
+                      </span>
+                    )
                   )}
                 </div>
               )
@@ -120,13 +133,6 @@ export default function EventInfo() {
           </p>
         )}
 
-        {/* 장소 연락처 */}
-        <div className="text-center">
-          <Clock className="w-3.5 h-3.5 inline mr-1 opacity-70" style={{ color: '#bca38a' }} aria-hidden />
-          <a href={`tel:${venue.tel}`} className="text-xs underline" style={{ color: '#8a7a6a' }}>
-            {venue.tel}
-          </a>
-        </div>
       </div>
     </section>
   )

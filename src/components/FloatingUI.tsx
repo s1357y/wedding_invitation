@@ -3,16 +3,30 @@ import { wedding } from '../config/wedding'
 
 export default function FloatingUI() {
   const audioRef = useRef<HTMLAudioElement>(null)
-  const [playing, setPlaying] = useState(false)
+  const [muted, setMuted] = useState(false)
   const [showScrollTop, setShowScrollTop] = useState(false)
   const [copied, setCopied] = useState(false)
 
-  /* ── 오디오 초기화 ── */
+  /* ── 오디오 자동재생 ── */
   useEffect(() => {
     const audio = audioRef.current
     if (!audio) return
     audio.loop = true
     audio.volume = 0.4
+
+    const tryPlay = () => audio.play().catch(() => {})
+
+    tryPlay().then(() => {}).catch(() => {})
+
+    const onInteraction = () => {
+      tryPlay()
+      document.removeEventListener('touchstart', onInteraction)
+      document.removeEventListener('scroll', onInteraction)
+      document.removeEventListener('click', onInteraction)
+    }
+    document.addEventListener('touchstart', onInteraction, { once: true, passive: true })
+    document.addEventListener('scroll', onInteraction, { once: true, passive: true })
+    document.addEventListener('click', onInteraction, { once: true })
   }, [])
 
   /* ── 스크롤 감지 ── */
@@ -24,15 +38,11 @@ export default function FloatingUI() {
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
-  function toggleMusic() {
+  function toggleMute() {
     const audio = audioRef.current
     if (!audio) return
-    if (playing) {
-      audio.pause()
-      setPlaying(false)
-    } else {
-      audio.play().then(() => setPlaying(true)).catch(() => {})
-    }
+    audio.muted = !audio.muted
+    setMuted(audio.muted)
   }
 
   function scrollToTop() {
@@ -62,7 +72,7 @@ export default function FloatingUI() {
 
   return (
     <>
-      <audio ref={audioRef} src={wedding.audioSrc} preload="none" />
+      <audio ref={audioRef} src={wedding.audioSrc} preload="auto" loop />
 
       {/* fixed 오버레이 — max-w-md 안에 버튼 고정 */}
       <div className="fixed inset-x-0 top-0 bottom-0 pointer-events-none z-50">
@@ -70,18 +80,18 @@ export default function FloatingUI() {
 
           {/* 음악 토글 — 우상단 */}
           <button
-            aria-label={playing ? '배경음악 끄기' : '배경음악 켜기'}
-            onClick={toggleMusic}
+            aria-label={muted ? '음소거 해제' : '음소거'}
+            onClick={toggleMute}
             className={`absolute top-4 right-4 ${btnBase}`}
           >
-            {playing ? (
+            {muted ? (
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
-                <path d="M13.5 4.06c0-1.336-1.616-2.005-2.56-1.06l-4.5 4.5H4.508c-1.141 0-2.318.664-2.66 1.905A9.76 9.76 0 0 0 1.5 12c0 .898.121 1.768.35 2.595.341 1.24 1.518 1.905 2.659 1.905h1.93l4.5 4.5c.945.945 2.561.276 2.561-1.06V4.06ZM18.584 5.106a.75.75 0 0 1 1.06 0c3.808 3.807 3.808 9.98 0 13.788a.75.75 0 0 1-1.06-1.06 8.25 8.25 0 0 0 0-11.668.75.75 0 0 1 0-1.06Z" />
-                <path d="M15.932 7.757a.75.75 0 0 1 1.061 0 6 6 0 0 1 0 8.486.75.75 0 0 1-1.06-1.061 4.5 4.5 0 0 0 0-6.364.75.75 0 0 1 0-1.06Z" />
+                <path d="M13.5 4.06c0-1.336-1.616-2.005-2.56-1.06l-4.5 4.5H4.508c-1.141 0-2.318.664-2.66 1.905A9.76 9.76 0 0 0 1.5 12c0 .898.121 1.768.35 2.595.341 1.24 1.518 1.905 2.659 1.905h1.93l4.5 4.5c.945.945 2.561.276 2.561-1.06V4.06ZM17.78 9.22a.75.75 0 1 0-1.06 1.06L18.44 12l-1.72 1.72a.75.75 0 1 0 1.06 1.06L19.5 13.06l1.72 1.72a.75.75 0 1 0 1.06-1.06L20.56 12l1.72-1.72a.75.75 0 1 0-1.06-1.06L19.5 10.94l-1.72-1.72Z" />
               </svg>
             ) : (
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
-                <path d="M13.5 4.06c0-1.336-1.616-2.005-2.56-1.06l-4.5 4.5H4.508c-1.141 0-2.318.664-2.66 1.905A9.76 9.76 0 0 0 1.5 12c0 .898.121 1.768.35 2.595.341 1.24 1.518 1.905 2.659 1.905h1.93l4.5 4.5c.945.945 2.561.276 2.561-1.06V4.06ZM17.78 9.22a.75.75 0 1 0-1.06 1.06L18.44 12l-1.72 1.72a.75.75 0 1 0 1.06 1.06L19.5 13.06l1.72 1.72a.75.75 0 1 0 1.06-1.06L20.56 12l1.72-1.72a.75.75 0 1 0-1.06-1.06L19.5 10.94l-1.72-1.72Z" />
+                <path d="M13.5 4.06c0-1.336-1.616-2.005-2.56-1.06l-4.5 4.5H4.508c-1.141 0-2.318.664-2.66 1.905A9.76 9.76 0 0 0 1.5 12c0 .898.121 1.768.35 2.595.341 1.24 1.518 1.905 2.659 1.905h1.93l4.5 4.5c.945.945 2.561.276 2.561-1.06V4.06ZM18.584 5.106a.75.75 0 0 1 1.06 0c3.808 3.807 3.808 9.98 0 13.788a.75.75 0 0 1-1.06-1.06 8.25 8.25 0 0 0 0-11.668.75.75 0 0 1 0-1.06Z" />
+                <path d="M15.932 7.757a.75.75 0 0 1 1.061 0 6 6 0 0 1 0 8.486.75.75 0 0 1-1.06-1.061 4.5 4.5 0 0 0 0-6.364.75.75 0 0 1 0-1.06Z" />
               </svg>
             )}
           </button>

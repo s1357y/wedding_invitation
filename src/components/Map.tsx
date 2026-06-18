@@ -17,17 +17,20 @@ declare global {
 
 const { lat, lng, name, hall, address, tel, subway, bus, parking } = wedding.venue
 
-const webTmap = `https://tmap.life/shortcut/go/?goalLat=${lat}&goalLon=${lng}&goalName=${encodeURIComponent(name)}`
-const webKakao = `https://map.kakao.com/link/to/${encodeURIComponent(name)},${lat},${lng}`
-const webNaver = `https://map.naver.com/v5/directions/-/-/-/car?destination=${encodeURIComponent(address)}`
+const navName = '주님의교회'
+const navQuery = `${navName}(서울 송파구 올림픽로4길 16)`
+
+const webTmap = `https://www.tmap.co.kr/`
+const webKakao = `https://map.kakao.com/link/to/${encodeURIComponent(navName)},${lat},${lng}`
+const webNaver = `https://map.naver.com/v5/search/${encodeURIComponent(navQuery)}`
 
 const NAV_BUTTONS = [
   {
     label: 'T맵',
     iconSrc: '/images/icons/tmap.png',
     href: webTmap,
-    appHref: `tmap://route?goalname=${encodeURIComponent(name)}&goallat=${lat}&goallon=${lng}`,
-    intentHref: `intent://route?goalname=${encodeURIComponent(name)}&goallat=${lat}&goallon=${lng}#Intent;scheme=tmap;package=com.skt.tmap.ku;S.browser_fallback_url=${encodeURIComponent(webTmap)};end`,
+    appHref: `tmap://route?goalname=${encodeURIComponent(navQuery)}&goallat=${lat}&goallon=${lng}`,
+    intentHref: `intent://route?goalname=${encodeURIComponent(navQuery)}&goallat=${lat}&goallon=${lng}#Intent;scheme=tmap;package=com.skt.tmap.ku;S.browser_fallback_url=${encodeURIComponent(webTmap)};end`,
   },
   {
     label: '카카오내비',
@@ -40,8 +43,8 @@ const NAV_BUTTONS = [
     label: '네이버지도',
     iconSrc: '/images/icons/naver_map.jpg',
     href: webNaver,
-    appHref: `nmap://route/car?dlat=${lat}&dlng=${lng}&dname=${encodeURIComponent(name)}&appname=wedding`,
-    intentHref: `intent://nmap/route/car?dlat=${lat}&dlng=${lng}&dname=${encodeURIComponent(name)}&appname=wedding#Intent;scheme=nmap;package=com.nhn.android.nmap;S.browser_fallback_url=${encodeURIComponent(webNaver)};end`,
+    appHref: `nmap://route/car?dlat=${lat}&dlng=${lng}&dname=${encodeURIComponent(navQuery)}&appname=wedding`,
+    intentHref: `intent://nmap/route/car?dlat=${lat}&dlng=${lng}&dname=${encodeURIComponent(navQuery)}&appname=wedding#Intent;scheme=nmap;package=com.nhn.android.nmap;S.browser_fallback_url=${encodeURIComponent(webNaver)};end`,
   },
 ]
 
@@ -108,11 +111,19 @@ export default function Map() {
   return (
     <section className="py-16 px-8" style={{ background: '#ffffff' }}>
       <div className="text-center mb-8">
-        <p className="text-base font-serif-theme font-medium mb-1" style={{ color: '#4a4a4a' }}>예식장 오시는 길</p>
-        <p className="text-[10px] tracking-[0.35em] uppercase font-medium" style={{ color: '#bca38a' }}>Location</p>
+        <p className="text-lg font-serif-theme font-medium" style={{ color: '#4a4a4a' }}>예식장 오시는 길</p>
+        <div style={{ height: '1.5rem' }} />
+        <svg viewBox="0 0 24 24" fill="none" stroke="#bca38a" strokeWidth="1.5" strokeLinecap="round" className="w-4 h-4 mx-auto mb-4" aria-hidden>
+          <line x1="12" y1="2" x2="12" y2="22" />
+          <line x1="5" y1="7" x2="19" y2="7" />
+        </svg>
+        <p style={{ fontFamily: "'Gowun Batang', serif", fontSize: '0.95rem', fontWeight: 700, color: '#4a4a4a', marginBottom: '0.3rem' }}>{name}</p>
+        <p style={{ fontFamily: "'Gowun Batang', serif", fontSize: '0.8rem', color: '#8a7a6a', marginBottom: '0.2rem' }}>{hall}</p>
+        <p style={{ fontFamily: "'Gowun Batang', serif", fontSize: '0.78rem', color: '#8a7a6a' }}>{address}</p>
       </div>
 
       <div className="max-w-md mx-auto space-y-6">
+
         {/* 지도 */}
         {appKey ? (
           <div ref={mapRef} className="h-56 w-full rounded-2xl overflow-hidden border" style={{ borderColor: '#f0ede9' }} />
@@ -126,14 +137,6 @@ export default function Map() {
             <p className="text-xs text-center px-4" style={{ color: '#8a7a6a' }}>{address}</p>
           </div>
         )}
-
-        {/* 장소 정보 */}
-        <div className="text-center space-y-1">
-          <p className="font-serif-theme text-base" style={{ color: '#4a4a4a' }}>{name}</p>
-          <p className="text-sm font-light" style={{ color: '#8a7a6a' }}>{hall}</p>
-          <p className="text-xs" style={{ color: '#8a7a6a' }}>{address}</p>
-          <a href={`tel:${tel}`} className="text-xs underline" style={{ color: '#8a7a6a' }}>{tel}</a>
-        </div>
 
         {/* 네비게이션 버튼 */}
         <div className="grid grid-cols-3 gap-2">
