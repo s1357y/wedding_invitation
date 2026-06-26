@@ -1,6 +1,6 @@
 # 모바일 웨딩 청첩장
 
-임은총 & 김세연 결혼식을 위한 모바일 청첩장 웹앱입니다
+임은총 & 김세연 결혼식을 위한 모바일 청첩장 웹앱입니다.
 
 **라이브 링크**: [mobileweddinginvitation.vercel.app](https://mobileweddinginvitation.vercel.app)
 
