@@ -7,26 +7,23 @@ export default function FloatingUI() {
   const [showScrollTop, setShowScrollTop] = useState(false)
   const [copied, setCopied] = useState(false)
 
-  /* ── 오디오 자동재생 ── */
+  /* ── 오디오 초기화: 첫 터치/클릭 시 재생 ── */
   useEffect(() => {
     const audio = audioRef.current
     if (!audio) return
     audio.loop = true
     audio.volume = 0.4
 
-    const tryPlay = () => audio.play().catch(() => {})
-
-    tryPlay().then(() => {}).catch(() => {})
-
     const onInteraction = () => {
-      tryPlay()
-      document.removeEventListener('touchstart', onInteraction)
-      document.removeEventListener('scroll', onInteraction)
-      document.removeEventListener('click', onInteraction)
+      audio.play().catch(() => {})
     }
     document.addEventListener('touchstart', onInteraction, { once: true, passive: true })
-    document.addEventListener('scroll', onInteraction, { once: true, passive: true })
     document.addEventListener('click', onInteraction, { once: true })
+
+    return () => {
+      document.removeEventListener('touchstart', onInteraction)
+      document.removeEventListener('click', onInteraction)
+    }
   }, [])
 
   /* ── 스크롤 감지 ── */
