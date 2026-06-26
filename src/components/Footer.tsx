@@ -1,6 +1,3 @@
-import { wedding } from '../config/wedding'
-
-const { groom, bride, date } = wedding
 
 export default function Footer() {
   return (

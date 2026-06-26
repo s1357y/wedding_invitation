@@ -15,7 +15,7 @@ declare global {
   }
 }
 
-const { lat, lng, name, hall, address, tel, subway, bus, parking } = wedding.venue
+const { lat, lng, name, hall, address, subway, bus, parking } = wedding.venue
 
 const navName = '주님의교회'
 const navQuery = `${navName}(서울 송파구 올림픽로4길 16)`

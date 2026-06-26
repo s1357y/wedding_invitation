@@ -20,7 +20,7 @@ describe('wedding config', () => {
 
   it('계좌번호 목록에 owner, bank, number 필드가 있다', () => {
     for (const acc of wedding.accounts) {
-      expect(acc.owner).toBeTruthy()
+      expect(acc.name).toBeTruthy()
       expect(acc.bank).toBeTruthy()
       expect(acc.number).toBeTruthy()
     }

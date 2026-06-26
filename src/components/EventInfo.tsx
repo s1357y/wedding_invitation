@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { Calendar } from 'lucide-react'
 import { wedding } from '../config/wedding'
 
-const { date, venue } = wedding
+const { date } = wedding
 const WEDDING_DATE = new Date(date.year, date.month - 1, date.day, 16, 0, 0)
 
 function buildCalendar(year: number, month: number) {

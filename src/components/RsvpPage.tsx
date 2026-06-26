@@ -1,6 +1,5 @@
 import { useState, type FormEvent } from 'react'
 import { X } from 'lucide-react'
-import { wedding } from '../config/wedding'
 
 interface Props {
   onClose: () => void

@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, type FormEvent } from 'react'
+import { useState, useEffect, type FormEvent } from 'react'
 import { createPortal } from 'react-dom'
 import { X } from 'lucide-react'
 import GuestBookViewer from './GuestBookViewer'
