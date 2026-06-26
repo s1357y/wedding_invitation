@@ -30,24 +30,6 @@ function AnimatedSection({ children, delay = 0 }: { children: React.ReactNode; d
   )
 }
 
-function SectionLabel({ num, name }: { num: number; name: string }) {
-  return (
-    <div style={{
-      position: 'relative',
-      zIndex: 9999,
-      background: '#ff0000',
-      color: '#fff',
-      fontSize: '28px',
-      fontWeight: 900,
-      padding: '8px 16px',
-      letterSpacing: '0.05em',
-      userSelect: 'none',
-      pointerEvents: 'none',
-    }}>
-      ★ {num}. {name}
-    </div>
-  )
-}
 
 const isAdmin = new URLSearchParams(window.location.search).has('admin')
 
@@ -99,27 +81,18 @@ export default function App() {
         <RsvpPage onClose={handleRsvpPageClose} />
       )}
       <FloatingUI />
-      <SectionLabel num={1} name="Cover (커버)" />
       <Cover />
-      <SectionLabel num={2} name="Greeting (인사말)" />
       <AnimatedSection delay={100}><Greeting /></AnimatedSection>
 
       {/* 모달 트리거 — Greeting 끝, EventInfo 시작 전 */}
       <div ref={triggerRef} style={{ height: '1px' }} />
 
-      <SectionLabel num={3} name="EventInfo (예식 정보)" />
       <AnimatedSection delay={100}><EventInfo /></AnimatedSection>
-      <SectionLabel num={4} name="Map (지도)" />
       <AnimatedSection delay={100}><Map /></AnimatedSection>
-      <SectionLabel num={5} name="Gallery (갤러리)" />
       <AnimatedSection delay={100}><Gallery /></AnimatedSection>
-      <SectionLabel num={6} name="Account (계좌번호)" />
       <AnimatedSection delay={100}><Account /></AnimatedSection>
-      <SectionLabel num={7} name="GuestBook (방명록)" />
       <AnimatedSection delay={100}><GuestBook /></AnimatedSection>
-      <SectionLabel num={8} name="RsvpSection (참석여부)" />
       <AnimatedSection delay={100}><RsvpSection onOpen={() => setShowRsvpPage(true)} /></AnimatedSection>
-      <SectionLabel num={8} name="Footer (푸터)" />
       <Footer />
     </main>
   )

@@ -111,7 +111,6 @@ export default function Map() {
   return (
     <section className="py-16 px-8" style={{ background: '#ffffff' }}>
       <div className="text-center mb-8">
-        <p className="text-lg font-serif-theme font-medium" style={{ color: '#4a4a4a' }}>예식장 오시는 길</p>
         <div style={{ height: '1.5rem' }} />
         <svg viewBox="0 0 24 24" fill="none" stroke="#bca38a" strokeWidth="1.5" strokeLinecap="round" className="w-4 h-4 mx-auto mb-4" aria-hidden>
           <line x1="12" y1="2" x2="12" y2="22" />

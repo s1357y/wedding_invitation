@@ -40,6 +40,14 @@ export default function EventInfo() {
   return (
     <section className="py-12 px-6" style={{ background: '#ffffff' }}>
       <div className="max-w-md mx-auto space-y-8">
+        {/* 섹션 제목 */}
+        <div className="text-center">
+          <div style={{ display: 'inline-flex', flexDirection: 'column', alignItems: 'stretch' }}>
+            <p className="text-lg font-serif-theme font-medium mb-1.5" style={{ color: '#4a4a4a' }}>일시 및 장소</p>
+            <div style={{ height: '1px', background: '#bca38a', opacity: 0.5 }} />
+          </div>
+        </div>
+
         {/* 날짜 */}
         <div className="text-center space-y-2">
           <Calendar className="w-5 h-5 mx-auto mb-3 opacity-90" style={{ color: '#bca38a' }} aria-hidden />

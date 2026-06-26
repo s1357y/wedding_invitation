@@ -38,7 +38,7 @@ export default function Greeting() {
           </div>
 
           {/* 중앙 장식 */}
-          <div style={{ display: 'flex', alignItems: 'flex-start', padding: '0.4rem 0.6rem' }}>
+          <div style={{ display: 'flex', alignItems: 'flex-start', padding: '2rem 0.6rem 0' }}>
             <svg viewBox="0 0 32 29" style={{ width: '1.1rem', height: '1.1rem', opacity: 0.45 }} xmlns="http://www.w3.org/2000/svg">
               <path d="M16 27 C16 27 2 18 2 9.5 C2 5.36 5.36 2 9.5 2 C12.04 2 14.28 3.28 16 5.18 C17.72 3.28 19.96 2 22.5 2 C26.64 2 30 5.36 30 9.5 C30 18 16 27 16 27Z" fill="#c9a98a" />
             </svg>

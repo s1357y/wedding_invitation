@@ -180,7 +180,10 @@ export default function GuestBook() {
       <div className="max-w-md mx-auto">
         {/* 헤더 */}
         <div className="text-center mb-8">
-          <p className="text-lg font-serif-theme font-medium mb-1" style={{ color: '#4a4a4a' }}>기도편지함</p>
+          <div style={{ display: 'inline-flex', flexDirection: 'column', alignItems: 'stretch', marginBottom: '0.5rem' }}>
+            <p className="text-lg font-serif-theme font-medium mb-1.5" style={{ color: '#4a4a4a' }}>기도편지함</p>
+            <div style={{ height: '1px', background: '#bca38a', opacity: 0.5 }} />
+          </div>
           <p className="text-xs font-light" style={{ color: '#8a7a6a' }}>신랑∙신부에게 축하 메시지를 남겨주세요.</p>
         </div>
 

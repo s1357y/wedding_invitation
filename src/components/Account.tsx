@@ -67,10 +67,12 @@ export default function Account() {
 
   return (
     <section className="py-16 px-8" style={{ background: '#fdfcf9' }}>
-      <p className="text-lg font-serif-theme font-medium text-center mb-2" style={{ color: '#4a4a4a' }}>
-        마음 전하실 곳
-      </p>
-      <div className="w-6 mx-auto mb-8" style={{ height: '1px', background: '#bca38a', opacity: 0.5 }} />
+      <div className="text-center mb-8">
+        <div style={{ display: 'inline-flex', flexDirection: 'column', alignItems: 'stretch' }}>
+          <p className="text-lg font-serif-theme font-medium mb-1.5" style={{ color: '#4a4a4a' }}>마음 전하실 곳</p>
+          <div style={{ height: '1px', background: '#bca38a', opacity: 0.5 }} />
+        </div>
+      </div>
 
       <div className="max-w-md mx-auto space-y-3">
         {GROUPS.map(({ short, accounts }) => (

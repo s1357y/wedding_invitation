@@ -9,9 +9,10 @@ export default function Gallery() {
   return (
     <section className="py-16 px-0" style={{ background: '#fdfcf9' }}>
       <div className="text-center mb-8 px-8">
-        <p className="text-lg font-serif-theme font-medium" style={{ color: '#4a4a4a' }}>
-          우리의 필름 한 롤
-        </p>
+        <div style={{ display: 'inline-flex', flexDirection: 'column', alignItems: 'stretch', marginBottom: '0.75rem' }}>
+          <p className="text-lg font-serif-theme font-medium mb-1.5" style={{ color: '#4a4a4a' }}>우리의 필름 한 롤</p>
+          <div style={{ height: '1px', background: '#bca38a', opacity: 0.5 }} />
+        </div>
         <p className="font-light text-sm" style={{ color: '#8a7a6a' }}>since 2013</p>
       </div>
 
