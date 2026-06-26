@@ -3,17 +3,32 @@ import { wedding } from '../config/wedding'
 
 export default function FloatingUI() {
   const audioRef = useRef<HTMLAudioElement>(null)
-  const [started, setStarted] = useState(false)
-  const [muted, setMuted] = useState(false)
+  const [muted, setMuted] = useState(true)
   const [showScrollTop, setShowScrollTop] = useState(false)
   const [copied, setCopied] = useState(false)
 
-  /* ── 오디오 초기화 ── */
+  /* ── 오디오: 음소거로 자동재생 → 첫 터치 시 언뮤트 ── */
   useEffect(() => {
     const audio = audioRef.current
     if (!audio) return
     audio.loop = true
     audio.volume = 0.4
+    audio.muted = true
+
+    // 음소거 자동재생 시도 (iOS 포함 대부분 허용)
+    audio.play().catch(() => {})
+
+    const unmute = () => {
+      audio.muted = false
+      setMuted(false)
+    }
+    document.addEventListener('touchstart', unmute, { once: true, passive: true })
+    document.addEventListener('click', unmute, { once: true })
+
+    return () => {
+      document.removeEventListener('touchstart', unmute)
+      document.removeEventListener('click', unmute)
+    }
   }, [])
 
   /* ── 스크롤 감지 ── */
@@ -25,15 +40,11 @@ export default function FloatingUI() {
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
-  function toggleMusic() {
+  function toggleMute() {
     const audio = audioRef.current
     if (!audio) return
-    if (!started) {
-      audio.play().then(() => setStarted(true)).catch(() => {})
-    } else {
-      audio.muted = !audio.muted
-      setMuted(audio.muted)
-    }
+    audio.muted = !audio.muted
+    setMuted(audio.muted)
   }
 
   function scrollToTop() {
@@ -71,16 +82,11 @@ export default function FloatingUI() {
 
           {/* 음악 토글 — 우상단 */}
           <button
-            aria-label={!started ? '음악 시작' : muted ? '음소거 해제' : '음소거'}
-            onClick={toggleMusic}
+            aria-label={muted ? '음소거 해제' : '음소거'}
+            onClick={toggleMute}
             className={`absolute top-4 right-4 ${btnBase}`}
           >
-            {!started ? (
-              /* 재생 아이콘 */
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
-                <path fillRule="evenodd" d="M4.5 5.653c0-1.427 1.529-2.33 2.779-1.643l11.54 6.347c1.295.712 1.295 2.573 0 3.286L7.28 19.99c-1.25.687-2.779-.217-2.779-1.643V5.653Z" clipRule="evenodd" />
-              </svg>
-            ) : muted ? (
+            {muted ? (
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
                 <path d="M13.5 4.06c0-1.336-1.616-2.005-2.56-1.06l-4.5 4.5H4.508c-1.141 0-2.318.664-2.66 1.905A9.76 9.76 0 0 0 1.5 12c0 .898.121 1.768.35 2.595.341 1.24 1.518 1.905 2.659 1.905h1.93l4.5 4.5c.945.945 2.561.276 2.561-1.06V4.06ZM17.78 9.22a.75.75 0 1 0-1.06 1.06L18.44 12l-1.72 1.72a.75.75 0 1 0 1.06 1.06L19.5 13.06l1.72 1.72a.75.75 0 1 0 1.06-1.06L20.56 12l1.72-1.72a.75.75 0 1 0-1.06-1.06L19.5 10.94l-1.72-1.72Z" />
               </svg>
