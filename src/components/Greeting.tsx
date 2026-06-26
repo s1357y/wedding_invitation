@@ -1,14 +1,18 @@
+import React from 'react'
+import { useScrollAnimation } from '../hooks/useScrollAnimation'
 import { wedding } from '../config/wedding'
 
 const { groom, bride, date, venue } = wedding
 
 export default function Greeting() {
+  const namesRef = useScrollAnimation(100)
+  const photoRef = useScrollAnimation(0)
   return (
-    <section className="px-8 text-center" style={{ background: '#fdfcf9' }}>
+    <section className="pt-16 px-8 text-center" style={{ background: '#fdfcf9' }}>
       <div className="max-w-md mx-auto">
 
         {/* 창세기 말씀 — 박스 없이 크게 */}
-        <div className="py-12">
+        <div className="pb-12">
           <p
             className="font-serif-theme italic leading-relaxed"
             style={{ fontSize: '1.15rem', color: '#6a5a4a' }}
@@ -26,6 +30,7 @@ export default function Greeting() {
         </div>
 
         {/* 이름 + 부모님 */}
+        <div ref={namesRef as React.RefObject<HTMLDivElement>} className="fade-up">
         <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'center', gap: '0', marginBottom: '1.5rem' }}>
           {/* 신랑 */}
           <div style={{ flex: 1, textAlign: 'center' }}>
@@ -69,15 +74,18 @@ export default function Greeting() {
         <p style={{ fontFamily: "'Gowun Batang', serif", fontSize: '0.85rem', color: '#7a6a5a', letterSpacing: '0.05em', paddingBottom: '3rem' }}>
           {venue.name} {venue.hall.split('(')[0].trim()}
         </p>
+        </div>
 
       </div>
 
       {/* 커플 사진 */}
-      <img
-        src="/images/greeting.jpg"
-        alt="은총 & 세연"
-        style={{ width: '100%', display: 'block', objectFit: 'cover', maxHeight: '480px', objectPosition: 'center top' }}
-      />
+      <div ref={photoRef as React.RefObject<HTMLDivElement>} className="fade-up">
+        <img
+          src="/images/greeting.jpg"
+          alt="은총 & 세연"
+          style={{ width: '100%', display: 'block', objectFit: 'cover', maxHeight: '480px', objectPosition: 'center top' }}
+        />
+      </div>
     </section>
   )
 }

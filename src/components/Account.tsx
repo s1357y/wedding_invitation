@@ -67,12 +67,7 @@ export default function Account() {
 
   return (
     <section className="py-16 px-8" style={{ background: '#fdfcf9' }}>
-      <div className="text-center mb-8">
-        <div style={{ display: 'inline-flex', flexDirection: 'column', alignItems: 'stretch' }}>
-          <p className="text-lg font-serif-theme font-medium mb-1.5" style={{ color: '#4a4a4a' }}>마음 전하실 곳</p>
-          <div style={{ height: '1px', background: '#bca38a', opacity: 0.5 }} />
-        </div>
-      </div>
+      <p className="text-lg font-serif-theme font-medium text-center mb-8" style={{ color: '#5a3020' }}>마음 전하실 곳</p>
 
       <div className="max-w-md mx-auto space-y-3">
         {GROUPS.map(({ short, accounts }) => (
@@ -99,7 +94,7 @@ export default function Account() {
                   <div
                     key={i}
                     className="flex items-center justify-between px-6 py-4 border-b last:border-b-0"
-                    style={{ borderColor: '#f0ede9', background: '#fdfcf9' }}
+                    style={{ borderColor: '#f0ede9', background: '#ffffff' }}
                   >
                     {/* 이름 + 역할 */}
                     <div>

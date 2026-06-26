@@ -31,6 +31,7 @@ function AnimatedSection({ children, delay = 0 }: { children: React.ReactNode; d
 }
 
 
+
 const isAdmin = new URLSearchParams(window.location.search).has('admin')
 
 export default function App() {

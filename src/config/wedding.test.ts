@@ -18,7 +18,7 @@ describe('wedding config', () => {
     expect(Array.isArray(wedding.gallery)).toBe(true)
   })
 
-  it('계좌번호 목록에 owner, bank, number 필드가 있다', () => {
+  it('계좌번호 목록에 name, bank, number 필드가 있다', () => {
     for (const acc of wedding.accounts) {
       expect(acc.name).toBeTruthy()
       expect(acc.bank).toBeTruthy()

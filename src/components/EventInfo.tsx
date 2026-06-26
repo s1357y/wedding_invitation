@@ -38,26 +38,26 @@ export default function EventInfo() {
   }, [])
 
   return (
-    <section className="py-12 px-6" style={{ background: '#ffffff' }}>
+    <section className="pt-16 pb-6 px-6" style={{ background: '#fdfcf9' }}>
       <div className="max-w-md mx-auto space-y-8">
         {/* 섹션 제목 */}
         <div className="text-center">
-          <div style={{ display: 'inline-flex', flexDirection: 'column', alignItems: 'stretch' }}>
-            <p className="text-lg font-serif-theme font-medium mb-1.5" style={{ color: '#4a4a4a' }}>일시 및 장소</p>
-            <div style={{ height: '1px', background: '#bca38a', opacity: 0.5 }} />
-          </div>
+          <p className="text-lg font-serif-theme font-medium mb-2" style={{ color: '#5a3020' }}>예식 안내</p>
         </div>
 
         {/* 날짜 */}
         <div className="text-center space-y-2">
           <Calendar className="w-5 h-5 mx-auto mb-3 opacity-90" style={{ color: '#bca38a' }} aria-hidden />
-          <p className="text-base font-serif-theme tracking-widest" style={{ color: '#4a4a4a' }}>
+          <p style={{ fontFamily: "'Gowun Batang', serif", fontSize: '0.95rem', fontWeight: 700, color: '#6a5a4a' }}>
             {date.year}년 {date.month}월 {date.day}일 {date.dayOfWeek} {date.time}
           </p>
         </div>
 
         {/* 달력 */}
-        <div className="p-6 rounded-2xl shadow-sm border" style={{ background: '#fdfcf9', borderColor: '#f0ede9' }}>
+        <div className="p-6 rounded-2xl shadow-sm border" style={{ background: '#ffffff', borderColor: '#f0ede9' }}>
+          <p className="text-center text-sm font-medium mb-4" style={{ fontFamily: "'Gowun Batang', serif", color: '#6a5a4a' }}>
+            October
+          </p>
           <div className="grid grid-cols-7 gap-2 text-center mb-4">
             {DAY_LABELS.map((d, i) => (
               <div
@@ -115,26 +115,9 @@ export default function EventInfo() {
 
         {/* 카운트다운 */}
         {countdown ? (
-          <div
-            className="grid grid-cols-4 gap-4 py-4 px-6 rounded-2xl border text-center max-w-xs mx-auto"
-            style={{ background: '#fdfcf9', borderColor: '#f0ede9' }}
-          >
-            {[
-              { value: countdown.days, label: '일' },
-              { value: countdown.hours, label: '시간' },
-              { value: countdown.minutes, label: '분' },
-              { value: countdown.seconds, label: '초' },
-            ].map(({ value, label }) => (
-              <div key={label}>
-                <div className="text-xl font-serif-theme" style={{ color: '#4a4a4a' }}>
-                  {String(value).padStart(2, '0')}
-                </div>
-                <div className="text-[10px] font-light mt-0.5" style={{ color: '#8a7a6a' }}>
-                  {label}
-                </div>
-              </div>
-            ))}
-          </div>
+          <p className="text-center text-sm font-light" style={{ fontFamily: "'Gowun Batang', serif", color: '#8a7a6a' }}>
+            결혼 예식까지 <span style={{ fontWeight: 700, color: '#5a3020' }}>{countdown.days}일</span> 남았습니다.
+          </p>
         ) : (
           <p className="text-center text-sm font-serif-theme" style={{ color: '#bca38a' }}>
             결혼했습니다 🎉

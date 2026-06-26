@@ -163,38 +163,19 @@ export default function GuestBook() {
     setEntries(prev => [entry, ...prev])
   }
 
-  async function handleDelete(ts: number) {
-    await fetch(SHEETS_URL, {
-      method: 'POST',
-      mode: 'no-cors',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ type: 'guestbook', action: 'delete', ts }),
-    })
-    setEntries(prev => prev.filter(e => e.ts !== ts))
-  }
-
   const preview = entries.slice(0, PREVIEW_COUNT)
 
   return (
-    <section className="py-16 px-6" style={{ background: '#ffffff' }}>
-      <div className="max-w-md mx-auto">
+    <section className="py-16 px-8" style={{ background: '#fdfcf9' }}>
+      <div className="max-w-md mx-auto text-center">
         {/* 헤더 */}
-        <div className="text-center mb-8">
-          <div style={{ display: 'inline-flex', flexDirection: 'column', alignItems: 'stretch', marginBottom: '0.5rem' }}>
-            <p className="text-lg font-serif-theme font-medium mb-1.5" style={{ color: '#4a4a4a' }}>기도편지함</p>
-            <div style={{ height: '1px', background: '#bca38a', opacity: 0.5 }} />
-          </div>
-          <p className="text-xs font-light" style={{ color: '#8a7a6a' }}>신랑∙신부에게 축하 메시지를 남겨주세요.</p>
-        </div>
+        <p className="text-lg font-serif-theme font-medium mb-2" style={{ color: '#5a3020' }}>기도편지함</p>
+        <p className="text-xs font-light leading-loose mb-8" style={{ color: '#8a7a6a' }}>신랑∙신부에게 축하 메시지를 남겨주세요.</p>
 
-        {/* 카드 목록 */}
-        {fetching ? (
-          <p className="text-center text-xs py-6" style={{ color: '#bca38a' }}>불러오는 중...</p>
-        ) : (
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', marginBottom: '1.25rem' }}>
-            {preview.length === 0 ? (
-              <p className="text-center text-xs py-6" style={{ color: '#bca38a' }}>아직 편지가 없습니다.</p>
-            ) : preview.map(entry => (
+        {/* 미리보기 카드 */}
+        {!fetching && preview.length > 0 && (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', marginBottom: '1.5rem', textAlign: 'left' }}>
+            {preview.map(entry => (
               <div
                 key={entry.ts}
                 style={{
@@ -205,22 +186,11 @@ export default function GuestBook() {
                   position: 'relative',
                 }}
               >
-                <button
-                  onClick={() => handleDelete(entry.ts)}
-                  style={{ position: 'absolute', top: '0.75rem', right: '0.75rem', background: 'none', border: 'none', cursor: 'pointer', color: '#c9b8a8', lineHeight: 1 }}
-                  aria-label="삭제"
-                >
-                  <X size={14} strokeWidth={1.5} />
-                </button>
-                <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.6rem', marginBottom: '0.5rem' }}>
-                  <span style={{ fontFamily: "'Gowun Batang', serif", fontSize: '0.88rem', fontWeight: 700, color: '#7a5a3a' }}>
-                    {entry.name}
-                  </span>
-                  <span style={{ fontFamily: "'Gowun Batang', serif", fontSize: '0.72rem', color: '#aaa090' }}>
-                    {formatDate(entry.ts)}
-                  </span>
+                <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.6rem', marginBottom: '0.4rem' }}>
+                  <span style={{ fontFamily: "'Gowun Batang', serif", fontSize: '0.85rem', fontWeight: 700, color: '#7a5a3a' }}>{entry.name}</span>
+                  <span style={{ fontFamily: "'Gowun Batang', serif", fontSize: '0.7rem', color: '#aaa090' }}>{formatDate(entry.ts)}</span>
                 </div>
-                <p style={{ fontFamily: "'Gowun Batang', serif", fontSize: '0.82rem', color: '#5a4a3a', lineHeight: 1.8, whiteSpace: 'pre-wrap', wordBreak: 'break-word' }}>
+                <p style={{ fontFamily: "'Gowun Batang', serif", fontSize: '0.8rem', color: '#5a4a3a', lineHeight: 1.8, whiteSpace: 'pre-wrap', wordBreak: 'break-word' }}>
                   {entry.message}
                 </p>
               </div>
@@ -229,34 +199,37 @@ export default function GuestBook() {
         )}
 
         {/* 하단 버튼 */}
-        <div style={{ display: 'flex', justifyContent: 'space-between', gap: '0.75rem', marginTop: '0.5rem' }}>
+        <button
+          onClick={() => setShowForm(true)}
+          style={{
+            padding: '0.9rem 3rem',
+            borderRadius: '12px',
+            background: '#7a6454',
+            color: '#ffffff',
+            fontFamily: "'Gowun Batang', serif",
+            fontSize: '0.9rem',
+            fontWeight: 700,
+            border: 'none',
+            cursor: 'pointer',
+            letterSpacing: '0.08em',
+            marginBottom: '1rem',
+          }}
+        >
+          편지 남기기
+        </button>
+        {entries.length > 0 && (
           <button
             onClick={() => setShowViewer(true)}
-            disabled={entries.length === 0}
             style={{
-              flex: 1, padding: '0.8rem',
-              border: '1px solid #ddd0c4', borderRadius: '10px',
-              background: '#fff', color: '#8a7a6a',
-              fontFamily: "'Gowun Batang', serif", fontSize: '0.85rem',
-              cursor: entries.length === 0 ? 'default' : 'pointer',
-              opacity: entries.length === 0 ? 0.4 : 1,
+              display: 'block', margin: '0 auto',
+              background: 'none', border: 'none', cursor: 'pointer',
+              fontFamily: "'Gowun Batang', serif", fontSize: '0.75rem',
+              color: '#bca38a', letterSpacing: '0.05em',
             }}
           >
-            전체보기 {entries.length > 0 && `(${entries.length})`}
+            더보기
           </button>
-          <button
-            onClick={() => setShowForm(true)}
-            style={{
-              flex: 1, padding: '0.8rem',
-              border: '1px solid #c9a98a', borderRadius: '10px',
-              background: '#fff', color: '#7a5a3a',
-              fontFamily: "'Gowun Batang', serif", fontSize: '0.85rem',
-              cursor: 'pointer',
-            }}
-          >
-            작성
-          </button>
-        </div>
+        )}
       </div>
 
       {showForm && (

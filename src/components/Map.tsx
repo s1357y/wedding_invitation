@@ -109,14 +109,14 @@ export default function Map() {
   }, [appKey])
 
   return (
-    <section className="py-16 px-8" style={{ background: '#ffffff' }}>
+    <section className="pt-0 pb-16 px-8" style={{ background: '#fdfcf9' }}>
       <div className="text-center mb-8">
         <div style={{ height: '1.5rem' }} />
         <svg viewBox="0 0 24 24" fill="none" stroke="#bca38a" strokeWidth="1.5" strokeLinecap="round" className="w-4 h-4 mx-auto mb-4" aria-hidden>
           <line x1="12" y1="2" x2="12" y2="22" />
           <line x1="5" y1="7" x2="19" y2="7" />
         </svg>
-        <p style={{ fontFamily: "'Gowun Batang', serif", fontSize: '0.95rem', fontWeight: 700, color: '#4a4a4a', marginBottom: '0.3rem' }}>{name}</p>
+        <p style={{ fontFamily: "'Gowun Batang', serif", fontSize: '0.95rem', fontWeight: 700, color: '#6a5a4a', marginBottom: '0.3rem' }}>{name}</p>
         <p style={{ fontFamily: "'Gowun Batang', serif", fontSize: '0.8rem', color: '#8a7a6a', marginBottom: '0.2rem' }}>{hall}</p>
         <p style={{ fontFamily: "'Gowun Batang', serif", fontSize: '0.78rem', color: '#8a7a6a' }}>{address}</p>
       </div>
@@ -129,7 +129,7 @@ export default function Map() {
         ) : (
           <div
             className="h-56 w-full rounded-2xl overflow-hidden border flex flex-col items-center justify-center gap-2"
-            style={{ borderColor: '#f0ede9', background: '#f5f1eb' }}
+            style={{ borderColor: '#f0ede9', background: '#ffffff' }}
           >
             <MapPin className="w-6 h-6" style={{ color: '#bca38a' }} aria-hidden />
             <p className="text-sm font-medium" style={{ color: '#4a4a4a' }}>{name}</p>

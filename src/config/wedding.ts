@@ -66,7 +66,7 @@ export const wedding = {
   ],
   accounts: [
     { name: '임은총', role: '신랑', bank: 'OO은행', number: '000-000-000000', phone: '010-0000-0000' },
-    { name: '김세연', role: '신부', bank: '신한은행', number: '110-468-483683', phone: '010-8338-6028' },
+    { name: '김세연', role: '신부', bank: '국민은행', number: '361402-04-282884', phone: '010-8338-6028' },
     { name: '임국재', role: '신랑측 아버지', bank: 'OO은행', number: '000-000-0000000', phone: '010-0000-0000' },
     { name: '김경화', role: '신랑측 어머니', bank: 'OO은행', number: '000-000-0000000', phone: '010-0000-0000' },
     { name: '김성중', role: '신부측 아버지', bank: '국민은행', number: '208-01-0494-698', phone: '010-2390-6028' },
