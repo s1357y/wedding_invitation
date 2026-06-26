@@ -1,4 +1,12 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Noto+Sans+KR:wght@300;400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap');
+
+@font-face {
+  font-family: 'OngeulipKonkon';
+  src: url('/fonts/OngeulipKonkon.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
 
 @tailwind base;
 @tailwind components;
@@ -21,20 +29,25 @@ html { scroll-behavior: smooth; }
 body {
   background-color: var(--sy-bg);
   color: var(--sy-text);
-  font-family: 'Noto Sans KR', sans-serif;
+  font-family: 'Gowun Batang', Georgia, serif;
+  font-weight: 400;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 .font-serif-theme {
-  font-family: 'Playfair Display', 'Cormorant Garamond', Georgia, serif;
+  font-family: 'OngeulipKonkon', 'Cormorant Garamond', cursive;
+  font-weight: normal;
+  letter-spacing: 0.02em;
 }
 
 /* 스크롤 애니메이션 */
 .fade-up {
   opacity: 0;
-  transform: translateY(24px);
-  transition: opacity 0.7s ease, transform 0.7s ease;
+  transform: translateY(40px);
+  transition: opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
 }
 .fade-up.visible {
   opacity: 1;

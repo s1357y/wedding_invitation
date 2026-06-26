@@ -19,8 +19,8 @@ export const themes: Record<ThemeName, ThemeVars> = {
     '--color-muted': '#888888',
     '--color-accent': '#B8A99A',
     '--color-border': '#E8E8E8',
-    '--font-serif': '"Playfair Display"',
-    '--font-sans': '"Noto Sans KR"',
+    '--font-serif': '"OngeulipKonkon"',
+    '--font-sans': '"Gowun Batang"',
   },
   floral: {
     '--color-bg': '#FDF8F3',
@@ -29,8 +29,8 @@ export const themes: Record<ThemeName, ThemeVars> = {
     '--color-muted': '#A08070',
     '--color-accent': '#D4A5A5',
     '--color-border': '#EDD9CC',
-    '--font-serif': '"Cormorant Garamond"',
-    '--font-sans': '"Noto Sans KR"',
+    '--font-serif': '"OngeulipKonkon"',
+    '--font-sans': '"Gowun Batang"',
   },
   luxury: {
     '--color-bg': '#1A1A1A',
@@ -39,8 +39,8 @@ export const themes: Record<ThemeName, ThemeVars> = {
     '--color-muted': '#9A9080',
     '--color-accent': '#C9A84C',
     '--color-border': '#383830',
-    '--font-serif': '"Cinzel"',
-    '--font-sans': '"Noto Sans KR"',
+    '--font-serif': '"OngeulipKonkon"',
+    '--font-sans': '"Gowun Batang"',
   },
 }
 

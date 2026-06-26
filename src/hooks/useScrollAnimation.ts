@@ -19,7 +19,7 @@ export function useScrollAnimation(delay = 0) {
           observer.unobserve(el)
         }
       },
-      { threshold: 0.12 }
+      { threshold: 0.15 }
     )
 
     observer.observe(el)
