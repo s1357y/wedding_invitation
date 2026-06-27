@@ -83,7 +83,7 @@ export default function RsvpModal({ onClose, onConfirm, onHideToday }: Props) {
           <div style={{ display: 'flex', alignItems: 'flex-start', gap: '0.65rem' }}>
             <MapPin size={13} strokeWidth={1.5} style={{ color: '#c9a98a', flexShrink: 0, marginTop: '2px' }} />
             <span style={{ fontFamily: "'Gowun Batang', serif", fontSize: '0.82rem', color: '#5a4a3a', lineHeight: 1.6 }}>
-              {venue.name} {venue.hall}
+              {venue.name}<br />{venue.hall}
             </span>
           </div>
         </div>
