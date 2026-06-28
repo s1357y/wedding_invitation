@@ -55,8 +55,7 @@ export default function RsvpModal({ onClose, onConfirm, onHideToday }: Props) {
         }}>
           귀한 발걸음, 정성껏 맞이하고 싶습니다.<br />
           동행인 수와 식사 여부 조사를 위해<br />
-          참석 여부를 알려주시면<br />
-          더욱 감사하겠습니다.
+          참석 여부를 알려주시면 감사하겠습니다.
         </p>
 
         {/* 점선 구분선 */}
@@ -83,7 +82,7 @@ export default function RsvpModal({ onClose, onConfirm, onHideToday }: Props) {
           <div style={{ display: 'flex', alignItems: 'flex-start', gap: '0.65rem' }}>
             <MapPin size={13} strokeWidth={1.5} style={{ color: '#c9a98a', flexShrink: 0, marginTop: '2px' }} />
             <span style={{ fontFamily: "'Gowun Batang', serif", fontSize: '0.82rem', color: '#5a4a3a', lineHeight: 1.6 }}>
-              {venue.name} {venue.hall}
+              {venue.name}<br />{venue.hall}
             </span>
           </div>
         </div>
