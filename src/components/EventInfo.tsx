@@ -39,7 +39,7 @@ export default function EventInfo() {
 
   return (
     <section className="pt-16 pb-6 px-6" style={{ background: '#fdfcf9' }}>
-      <div className="max-w-md mx-auto space-y-8">
+      <div className="max-w-md mx-auto space-y-5">
         {/* 섹션 제목 */}
         <div className="text-center">
           <p className="text-lg font-serif-theme font-medium mb-2" style={{ color: '#5a3020' }}>예식 안내</p>
