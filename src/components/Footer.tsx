@@ -15,10 +15,11 @@ export default function Footer() {
           Thank You
         </p>
         <p className="text-xs font-light leading-relaxed" style={{ color: '#8a7a6a' }}>
-          저희의 출발점에 고운 걸음 하셔서 축복해 주신<br />
-          모든 귀빈 여러분께 고개 숙여 진심으로 감사 인사를 드립니다.<br />
-          보내주신 축복의 말씀 그대로 간직하며<br />
-          서로 아껴주고 의지하여 복된 가정을 꾸리겠습니다.
+          저희의 시작을 아낌없이 응원해주신<br />
+          모든 분들께 진심으로 감사 인사를 드립니다.<br />
+          <br />
+          져주는 사람이 이기는 거라 믿으며<br />
+          사랑과 섬김으로 복된 가정을 꾸리겠습니다 <span style={{ fontSize: '0.95rem', lineHeight: 1, display: 'inline-block', transform: 'translateY(1px)' }}>☺♥︎</span>
         </p>
         <div className="w-12 mx-auto mt-8" style={{ height: '1px', background: '#bca38a', opacity: 0.3 }} />
       </div>

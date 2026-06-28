@@ -1,0 +1,16 @@
+{
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash scripts/auto-ship.sh",
+            "timeout": 120,
+            "statusMessage": "변경사항 검증 및 배포 중..."
+          }
+        ]
+      }
+    ]
+  }
+}
