@@ -55,8 +55,7 @@ export default function RsvpModal({ onClose, onConfirm, onHideToday }: Props) {
         }}>
           귀한 발걸음, 정성껏 맞이하고 싶습니다.<br />
           동행인 수와 식사 여부 조사를 위해<br />
-          참석 여부를 알려주시면<br />
-          더욱 감사하겠습니다.
+          참석 여부를 알려주시면 감사하겠습니다.
         </p>
 
         {/* 점선 구분선 */}
@@ -106,7 +105,7 @@ export default function RsvpModal({ onClose, onConfirm, onHideToday }: Props) {
             marginBottom: '1rem',
           }}
         >
-          참석 의사 전달하기
+          의사 전달하기
         </button>
 
         {/* 오늘 하루 보지않기 */}

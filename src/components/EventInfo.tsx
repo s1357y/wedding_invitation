@@ -39,18 +39,20 @@ export default function EventInfo() {
 
   return (
     <section className="pt-16 pb-6 px-6" style={{ background: '#fdfcf9' }}>
-      <div className="max-w-md mx-auto space-y-8">
+      <div className="max-w-md mx-auto space-y-5">
         {/* 섹션 제목 */}
         <div className="text-center">
           <p className="text-lg font-serif-theme font-medium mb-2" style={{ color: '#5a3020' }}>예식 안내</p>
         </div>
 
         {/* 날짜 */}
-        <div className="text-center space-y-2">
-          <Calendar className="w-5 h-5 mx-auto mb-3 opacity-90" style={{ color: '#bca38a' }} aria-hidden />
-          <p style={{ fontFamily: "'Gowun Batang', serif", fontSize: '0.95rem', fontWeight: 700, color: '#6a5a4a' }}>
-            {date.year}년 {date.month}월 {date.day}일 {date.dayOfWeek} {date.time}
-          </p>
+        <div className="text-center">
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.4rem' }}>
+            <Calendar className="w-4 h-4 opacity-90 flex-shrink-0" style={{ color: '#bca38a' }} aria-hidden />
+            <p style={{ fontFamily: "'Gowun Batang', serif", fontSize: '0.95rem', fontWeight: 700, color: '#6a5a4a' }}>
+              {date.year}년 {date.month}월 {date.day}일 {date.dayOfWeek} {date.time}
+            </p>
+          </div>
         </div>
 
         {/* 달력 */}

@@ -79,7 +79,7 @@ export default function Greeting() {
       </div>
 
       {/* 커플 사진 */}
-      <div ref={photoRef as React.RefObject<HTMLDivElement>} className="fade-up">
+      <div ref={photoRef as React.RefObject<HTMLDivElement>} className="fade-up" style={{ paddingTop: '4rem', paddingBottom: '4rem' }}>
         <img
           src="/images/greeting.jpg"
           alt="은총 & 세연"

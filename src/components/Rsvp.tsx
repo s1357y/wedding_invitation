@@ -57,7 +57,7 @@ export default function Rsvp() {
               className="inline-flex items-center gap-2 text-xs font-medium uppercase tracking-widest"
               style={{ color: '#bca38a' }}
             >
-              참석 의사 전달하기
+              의사 전달하기
               <ChevronRight className="w-3 h-3" aria-hidden />
             </span>
           </button>
@@ -116,7 +116,7 @@ export default function Rsvp() {
               className="w-full py-4 rounded-xl text-white text-sm font-medium tracking-widest disabled:opacity-50"
               style={{ background: '#bca38a' }}
             >
-              {status === 'loading' ? '전송 중...' : '참석 의사 전달하기'}
+              {status === 'loading' ? '전송 중...' : '의사 전달하기'}
             </button>
           </form>
         )}

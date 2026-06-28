@@ -28,7 +28,7 @@ export default function RsvpSection({ onOpen }: Props) {
             letterSpacing: '0.08em',
           }}
         >
-          참석 여부 전달하기
+          의사 전달하기
         </button>
       </div>
     </section>
