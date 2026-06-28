@@ -105,7 +105,7 @@ export default function RsvpModal({ onClose, onConfirm, onHideToday }: Props) {
             marginBottom: '1rem',
           }}
         >
-          참석 의사 전달하기
+          의사 전달하기
         </button>
 
         {/* 오늘 하루 보지않기 */}
