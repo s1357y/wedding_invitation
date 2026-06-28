@@ -169,8 +169,8 @@ export default function GuestBook() {
     <section className="py-16 px-8" style={{ background: '#fdfcf9' }}>
       <div className="max-w-md mx-auto text-center">
         {/* 헤더 */}
-        <p className="text-lg font-serif-theme font-medium mb-2" style={{ color: '#5a3020' }}>기도편지함</p>
-        <p className="text-xs font-light leading-loose mb-8" style={{ color: '#8a7a6a' }}>신랑∙신부에게 축하 메시지를 남겨주세요.</p>
+        <p className="text-lg font-serif-theme font-medium mb-2" style={{ color: '#5a3020' }}>편지함</p>
+        <p className="text-xs font-light leading-loose mb-8" style={{ color: '#8a7a6a' }}>축하 메시지를 남겨주세요.</p>
 
         {/* 미리보기 카드 */}
         {!fetching && preview.length > 0 && (
