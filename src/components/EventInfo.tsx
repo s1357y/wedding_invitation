@@ -46,11 +46,13 @@ export default function EventInfo() {
         </div>
 
         {/* 날짜 */}
-        <div className="text-center space-y-2">
-          <Calendar className="w-5 h-5 mx-auto mb-3 opacity-90" style={{ color: '#bca38a' }} aria-hidden />
-          <p style={{ fontFamily: "'Gowun Batang', serif", fontSize: '0.95rem', fontWeight: 700, color: '#6a5a4a' }}>
-            {date.year}년 {date.month}월 {date.day}일 {date.dayOfWeek} {date.time}
-          </p>
+        <div className="text-center">
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.4rem' }}>
+            <Calendar className="w-4 h-4 opacity-90 flex-shrink-0" style={{ color: '#bca38a' }} aria-hidden />
+            <p style={{ fontFamily: "'Gowun Batang', serif", fontSize: '0.95rem', fontWeight: 700, color: '#6a5a4a' }}>
+              {date.year}년 {date.month}월 {date.day}일 {date.dayOfWeek} {date.time}
+            </p>
+          </div>
         </div>
 
         {/* 달력 */}

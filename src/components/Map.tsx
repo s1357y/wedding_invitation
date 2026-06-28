@@ -112,11 +112,13 @@ export default function Map() {
     <section className="pt-0 pb-16 px-8" style={{ background: '#fdfcf9' }}>
       <div className="text-center mb-8">
         <div style={{ height: '1.5rem' }} />
-        <svg viewBox="0 0 24 24" fill="none" stroke="#bca38a" strokeWidth="1.5" strokeLinecap="round" className="w-4 h-4 mx-auto mb-4" aria-hidden>
-          <line x1="12" y1="2" x2="12" y2="22" />
-          <line x1="5" y1="7" x2="19" y2="7" />
-        </svg>
-        <p style={{ fontFamily: "'Gowun Batang', serif", fontSize: '0.95rem', fontWeight: 700, color: '#6a5a4a', marginBottom: '0.3rem' }}>{name}</p>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.4rem', marginBottom: '0.3rem' }}>
+          <svg viewBox="0 0 24 24" fill="none" stroke="#bca38a" strokeWidth="1.5" strokeLinecap="round" className="w-4 h-4 flex-shrink-0" aria-hidden>
+            <line x1="12" y1="2" x2="12" y2="22" />
+            <line x1="5" y1="7" x2="19" y2="7" />
+          </svg>
+          <p style={{ fontFamily: "'Gowun Batang', serif", fontSize: '0.95rem', fontWeight: 700, color: '#6a5a4a' }}>{name}</p>
+        </div>
         <p style={{ fontFamily: "'Gowun Batang', serif", fontSize: '0.8rem', color: '#8a7a6a', marginBottom: '0.2rem' }}>{hall}</p>
         <p style={{ fontFamily: "'Gowun Batang', serif", fontSize: '0.78rem', color: '#8a7a6a' }}>{address}</p>
       </div>
