@@ -1,15 +1,22 @@
+import React from 'react'
+import { useScrollAnimation } from '../hooks/useScrollAnimation'
 
 export default function Footer() {
+  const imgRef = useScrollAnimation(0)
+  const textRef = useScrollAnimation(200)
+
   return (
     <footer className="text-center" style={{ background: '#fdfcf9' }}>
       {/* 푸터 사진 */}
-      <img
-        src="/images/footer.jpg"
-        alt="은총 & 세연"
-        style={{ width: '100%', display: 'block', objectFit: 'cover', maxHeight: '320px' }}
-      />
+      <div ref={imgRef as React.RefObject<HTMLDivElement>} className="fade-up">
+        <img
+          src="/images/footer.jpg"
+          alt="은총 & 세연"
+          style={{ width: '100%', display: 'block', objectFit: 'cover', maxHeight: '320px' }}
+        />
+      </div>
 
-      <div className="max-w-md mx-auto px-8 py-16">
+      <div ref={textRef as React.RefObject<HTMLDivElement>} className="fade-up max-w-md mx-auto px-8 py-16">
         <div className="w-12 mx-auto mb-6" style={{ height: '1px', background: '#bca38a', opacity: 0.5 }} />
         <p className="text-[10px] tracking-widest mb-4 font-medium" style={{ color: '#bca38a' }}>
           Thank You
