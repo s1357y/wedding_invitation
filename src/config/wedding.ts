@@ -7,7 +7,7 @@ export const wedding = {
     nameFull: '임은총',
     fatherName: '임국재',
     motherName: '김경화',
-    phone: '010-0000-0000',
+    phone: '010-8646-3066',
   },
   bride: {
     name: '김세연',
@@ -67,10 +67,10 @@ export const wedding = {
     '/images/gallery/20.jpg',
   ],
   accounts: [
-    { name: '임은총', role: '신랑', bank: 'OO은행', number: '000-000-000000', phone: '010-0000-0000' },
+    { name: '임은총', role: '신랑', bank: '신한은행', number: '110-395-022780', phone: '010-8646-3066' },
     { name: '김세연', role: '신부', bank: '국민은행', number: '361402-04-282884', phone: '010-8338-6028' },
-    { name: '임국재', role: '신랑측 아버지', bank: 'OO은행', number: '000-000-0000000', phone: '010-0000-0000' },
-    { name: '김경화', role: '신랑측 어머니', bank: 'OO은행', number: '000-000-0000000', phone: '010-0000-0000' },
+    { name: '임국재', role: '신랑측 아버지', bank: '신한은행', number: '581-02-015329', phone: '010-8555-3039' },
+    { name: '김경화', role: '신랑측 어머니', bank: '신한은행', number: '110-229-655618', phone: '010-5285-3066' },
     { name: '김성중', role: '신부측 아버지', bank: '국민은행', number: '208-01-0494-698', phone: '010-2390-6028' },
     { name: '김정옥', role: '신부측 어머니', bank: '하나은행', number: '568-910021-22707', phone: '010-2338-6028' },
   ],
