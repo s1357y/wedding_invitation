@@ -1,11 +1,13 @@
 import { useState } from 'react'
 import { ChevronDown } from 'lucide-react'
 import { wedding } from '../config/wedding'
+import Lightbox from './Lightbox'
 
 const INITIAL_COUNT = 9
 
 export default function Gallery() {
   const [showAll, setShowAll] = useState(false)
+  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null)
   const images = wedding.gallery
   const visible = showAll ? images : images.slice(0, INITIAL_COUNT)
 
@@ -18,11 +20,13 @@ export default function Gallery() {
 
       <div className="grid grid-cols-3 gap-0.5 max-w-md mx-auto">
         {visible.map((src, i) => (
-          <div
+          <button
             key={i}
-            className="overflow-hidden"
+            className="overflow-hidden focus:outline-none"
             style={{ aspectRatio: '1/1', userSelect: 'none' }}
+            onClick={() => setLightboxIndex(i)}
             onContextMenu={(e) => e.preventDefault()}
+            aria-label={`갤러리 사진 ${i + 1} 크게 보기`}
           >
             <img
               src={src}
@@ -37,9 +41,17 @@ export default function Gallery() {
                 el.style.display = 'none'
               }}
             />
-          </div>
+          </button>
         ))}
       </div>
+
+      {lightboxIndex !== null && (
+        <Lightbox
+          images={images}
+          initialIndex={lightboxIndex}
+          onClose={() => setLightboxIndex(null)}
+        />
+      )}
 
       {!showAll && images.length > INITIAL_COUNT && (
         <div className="text-center mt-6">

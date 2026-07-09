@@ -24,9 +24,15 @@ export default function Lightbox({ images, initialIndex, onClose }: LightboxProp
     }
     window.addEventListener('keydown', handleKey)
 
+    function preventPinch(e: TouchEvent) {
+      if (e.touches.length > 1) e.preventDefault()
+    }
+    document.addEventListener('touchmove', preventPinch, { passive: false })
+
     return () => {
       document.body.style.overflow = prev
       window.removeEventListener('keydown', handleKey)
+      document.removeEventListener('touchmove', preventPinch)
     }
   }, [onClose])
 
