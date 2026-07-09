@@ -7,11 +7,14 @@ export default function Footer() {
 
   return (
     <footer className="text-center" style={{ background: '#fdfcf9' }}>
-      {/* 푸터 사진 */}
+      {/* 푸터 영상 */}
       <div ref={imgRef as React.RefObject<HTMLDivElement>} className="fade-up">
-        <img
-          src="/images/footer.jpg"
-          alt="은총 & 세연"
+        <video
+          src="/videos/footer.mp4"
+          autoPlay
+          muted
+          loop
+          playsInline
           style={{ width: '100%', display: 'block', objectFit: 'cover', maxHeight: '320px' }}
         />
       </div>
