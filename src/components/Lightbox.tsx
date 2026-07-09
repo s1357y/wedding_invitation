@@ -68,13 +68,14 @@ export default function Lightbox({ images, initialIndex, onClose }: LightboxProp
           onSlideChange={handleSlideChange}
           onSwiper={(swiper: SwiperType) => setCurrentIndex(swiper.realIndex)}
           className="w-full"
+          style={{ height: '80vh' }}
         >
           {images.map((src, i) => (
-            <SwiperSlide key={i} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <SwiperSlide key={i} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '80vh' }}>
               <img
                 src={src}
                 alt={`갤러리 ${i + 1}`}
-                style={{ maxWidth: '100%', maxHeight: '80vh', objectFit: 'contain', display: 'block', margin: '0 auto' }}
+                style={{ maxWidth: '100%', maxHeight: '80vh', objectFit: 'contain', display: 'block' }}
                 onError={(e) => {
                   const target = e.currentTarget
                   target.style.display = 'none'
