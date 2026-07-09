@@ -1,10 +1,8 @@
 import { useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { Swiper, SwiperSlide } from 'swiper/react'
-import { Navigation } from 'swiper/modules'
 import type { Swiper as SwiperType } from 'swiper'
 import 'swiper/css'
-import 'swiper/css/navigation'
 
 interface LightboxProps {
   images: string[]
@@ -12,8 +10,11 @@ interface LightboxProps {
   onClose: () => void
 }
 
+const ACCENT = '#bca38a'
+
 export default function Lightbox({ images, initialIndex, onClose }: LightboxProps) {
   const overlayRef = useRef<HTMLDivElement>(null)
+  const swiperRef = useRef<SwiperType | null>(null)
   const [currentIndex, setCurrentIndex] = useState(initialIndex)
 
   useEffect(() => {
@@ -22,6 +23,8 @@ export default function Lightbox({ images, initialIndex, onClose }: LightboxProp
 
     function handleKey(e: KeyboardEvent) {
       if (e.key === 'Escape') onClose()
+      if (e.key === 'ArrowLeft') swiperRef.current?.slidePrev()
+      if (e.key === 'ArrowRight') swiperRef.current?.slideNext()
     }
     window.addEventListener('keydown', handleKey)
 
@@ -41,64 +44,68 @@ export default function Lightbox({ images, initialIndex, onClose }: LightboxProp
     if (e.target === overlayRef.current) onClose()
   }
 
-  function handleSlideChange(swiper: SwiperType) {
-    setCurrentIndex(swiper.realIndex)
-  }
-
   return createPortal(
     <div
       ref={overlayRef}
       className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-black/90"
       onClick={handleOverlayClick}
     >
+      {/* 닫기 */}
       <button
         onClick={onClose}
-        className="absolute top-4 right-4 z-10 text-white/80 hover:text-white text-3xl leading-none"
+        className="absolute top-4 right-4 z-10 leading-none"
+        style={{ color: ACCENT, fontSize: '1.5rem' }}
         aria-label="닫기"
       >
         ✕
       </button>
 
+      {/* 이미지 */}
       <div className="w-full max-w-lg px-4" onClick={(e) => e.stopPropagation()}>
         <Swiper
-          modules={[Navigation]}
-          navigation
           initialSlide={initialIndex}
           loop
-          onSlideChange={handleSlideChange}
-          onSwiper={(swiper: SwiperType) => setCurrentIndex(swiper.realIndex)}
+          onSwiper={(swiper) => { swiperRef.current = swiper; setCurrentIndex(swiper.realIndex) }}
+          onSlideChange={(swiper) => setCurrentIndex(swiper.realIndex)}
+          style={{ height: '75vh' }}
           className="w-full"
-          style={{ height: '80vh' }}
         >
           {images.map((src, i) => (
-            <SwiperSlide key={i} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '80vh' }}>
+            <SwiperSlide key={i} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '75vh' }}>
               <img
                 src={src}
                 alt={`갤러리 ${i + 1}`}
-                style={{ maxWidth: '100%', maxHeight: '80vh', objectFit: 'contain', display: 'block' }}
-                onError={(e) => {
-                  const target = e.currentTarget
-                  target.style.display = 'none'
-                }}
+                style={{ maxWidth: '100%', maxHeight: '75vh', objectFit: 'contain', display: 'block' }}
+                onError={(e) => { e.currentTarget.style.display = 'none' }}
               />
             </SwiperSlide>
           ))}
         </Swiper>
       </div>
 
-      {/* 카운터 */}
-      <p
+      {/* 컨트롤: ← 1/32 → */}
+      <div
+        className="flex items-center gap-8 mt-4"
         onClick={(e) => e.stopPropagation()}
-        style={{
-          marginTop: '1rem',
-          color: 'rgba(255,255,255,0.7)',
-          fontSize: '0.85rem',
-          letterSpacing: '0.1em',
-          fontFamily: 'sans-serif',
-        }}
       >
-        {currentIndex + 1} / {images.length}
-      </p>
+        <button
+          onClick={() => swiperRef.current?.slidePrev()}
+          aria-label="이전 사진"
+          style={{ background: 'none', border: 'none', cursor: 'pointer', color: ACCENT, fontSize: '1.4rem', lineHeight: 1, padding: '0.5rem' }}
+        >
+          ‹
+        </button>
+        <span style={{ color: ACCENT, fontSize: '0.85rem', letterSpacing: '0.12em', fontFamily: 'sans-serif', minWidth: '4rem', textAlign: 'center' }}>
+          {currentIndex + 1} / {images.length}
+        </span>
+        <button
+          onClick={() => swiperRef.current?.slideNext()}
+          aria-label="다음 사진"
+          style={{ background: 'none', border: 'none', cursor: 'pointer', color: ACCENT, fontSize: '1.4rem', lineHeight: 1, padding: '0.5rem' }}
+        >
+          ›
+        </button>
+      </div>
     </div>,
     document.body
   )
