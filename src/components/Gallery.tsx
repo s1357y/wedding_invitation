@@ -1,10 +1,13 @@
 import { useState } from 'react'
+import { ChevronDown } from 'lucide-react'
 import { wedding } from '../config/wedding'
-import Lightbox from './Lightbox'
+
+const INITIAL_COUNT = 9
 
 export default function Gallery() {
-  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null)
+  const [showAll, setShowAll] = useState(false)
   const images = wedding.gallery
+  const visible = showAll ? images : images.slice(0, INITIAL_COUNT)
 
   return (
     <section className="py-16 px-0" style={{ background: '#fdfcf9' }}>
@@ -14,35 +17,44 @@ export default function Gallery() {
       </div>
 
       <div className="grid grid-cols-3 gap-0.5 max-w-md mx-auto">
-        {images.map((src, i) => (
-          <button
+        {visible.map((src, i) => (
+          <div
             key={i}
-            className="overflow-hidden focus:outline-none focus-visible:ring-2"
-            style={{ aspectRatio: '1/1' }}
-            onClick={() => setLightboxIndex(i)}
-            aria-label={`갤러리 사진 ${i + 1} 크게 보기`}
+            className="overflow-hidden"
+            style={{ aspectRatio: '1/1', userSelect: 'none' }}
+            onContextMenu={(e) => e.preventDefault()}
           >
             <img
               src={src}
               alt={`갤러리 ${i + 1}`}
-              className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+              className="w-full h-full object-cover"
               loading="lazy"
+              draggable={false}
+              onContextMenu={(e) => e.preventDefault()}
               onError={(e) => {
                 const el = e.currentTarget
                 if (el.parentElement) el.parentElement.style.backgroundColor = '#f0ede9'
                 el.style.display = 'none'
               }}
             />
-          </button>
+          </div>
         ))}
       </div>
 
-      {lightboxIndex !== null && (
-        <Lightbox
-          images={images}
-          initialIndex={lightboxIndex}
-          onClose={() => setLightboxIndex(null)}
-        />
+      {!showAll && images.length > INITIAL_COUNT && (
+        <div className="text-center mt-6">
+          <button
+            onClick={() => setShowAll(true)}
+            className="inline-flex flex-col items-center gap-1"
+            style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#8a7a6a' }}
+            aria-label="사진 더 보기"
+          >
+            <span style={{ fontFamily: "'Gowun Batang', serif", fontSize: '0.78rem', letterSpacing: '0.08em' }}>
+              더 보기
+            </span>
+            <ChevronDown className="w-4 h-4 animate-bounce" style={{ color: '#bca38a' }} />
+          </button>
+        </div>
       )}
     </section>
   )
