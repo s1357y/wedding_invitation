@@ -1,10 +1,10 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { Swiper, SwiperSlide } from 'swiper/react'
-import { Navigation, Pagination } from 'swiper/modules'
+import { Navigation } from 'swiper/modules'
+import type { Swiper as SwiperType } from 'swiper'
 import 'swiper/css'
 import 'swiper/css/navigation'
-import 'swiper/css/pagination'
 
 interface LightboxProps {
   images: string[]
@@ -14,6 +14,7 @@ interface LightboxProps {
 
 export default function Lightbox({ images, initialIndex, onClose }: LightboxProps) {
   const overlayRef = useRef<HTMLDivElement>(null)
+  const [currentIndex, setCurrentIndex] = useState(initialIndex)
 
   useEffect(() => {
     const prev = document.body.style.overflow
@@ -40,10 +41,14 @@ export default function Lightbox({ images, initialIndex, onClose }: LightboxProp
     if (e.target === overlayRef.current) onClose()
   }
 
+  function handleSlideChange(swiper: SwiperType) {
+    setCurrentIndex(swiper.realIndex)
+  }
+
   return createPortal(
     <div
       ref={overlayRef}
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/90"
+      className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-black/90"
       onClick={handleOverlayClick}
     >
       <button
@@ -56,19 +61,20 @@ export default function Lightbox({ images, initialIndex, onClose }: LightboxProp
 
       <div className="w-full max-w-lg px-4" onClick={(e) => e.stopPropagation()}>
         <Swiper
-          modules={[Navigation, Pagination]}
+          modules={[Navigation]}
           navigation
-          pagination={{ clickable: true }}
           initialSlide={initialIndex}
           loop
+          onSlideChange={handleSlideChange}
+          onSwiper={(swiper: SwiperType) => setCurrentIndex(swiper.realIndex)}
           className="w-full"
         >
           {images.map((src, i) => (
-            <SwiperSlide key={i}>
+            <SwiperSlide key={i} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
               <img
                 src={src}
                 alt={`갤러리 ${i + 1}`}
-                className="w-full max-h-[80vh] object-contain"
+                style={{ maxWidth: '100%', maxHeight: '80vh', objectFit: 'contain', display: 'block', margin: '0 auto' }}
                 onError={(e) => {
                   const target = e.currentTarget
                   target.style.display = 'none'
@@ -78,6 +84,20 @@ export default function Lightbox({ images, initialIndex, onClose }: LightboxProp
           ))}
         </Swiper>
       </div>
+
+      {/* 카운터 */}
+      <p
+        onClick={(e) => e.stopPropagation()}
+        style={{
+          marginTop: '1rem',
+          color: 'rgba(255,255,255,0.7)',
+          fontSize: '0.85rem',
+          letterSpacing: '0.1em',
+          fontFamily: 'sans-serif',
+        }}
+      >
+        {currentIndex + 1} / {images.length}
+      </p>
     </div>,
     document.body
   )
