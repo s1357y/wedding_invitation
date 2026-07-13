@@ -86,7 +86,7 @@ export default function Greeting() {
         className="fade-up"
         style={{
           paddingTop: '4rem',
-          paddingBottom: '4rem',
+          paddingBottom: '1rem',
           marginLeft: '-2rem',
           marginRight: '-2rem',
         }}
