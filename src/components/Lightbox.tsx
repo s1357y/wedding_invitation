@@ -4,7 +4,9 @@ import { Swiper, SwiperSlide } from 'swiper/react'
 import { EffectFade } from 'swiper/modules'
 import type { Swiper as SwiperType } from 'swiper'
 import 'swiper/css'
-import 'swiper/modules/effect-fade.css'
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import 'swiper/css/effect-fade'
 
 interface LightboxProps {
   images: string[]
