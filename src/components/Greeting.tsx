@@ -94,7 +94,7 @@ export default function Greeting() {
         <img
           src="/images/greeting.jpg"
           alt="은총 & 세연"
-          style={{ width: '100%', display: 'block', objectFit: 'cover', maxHeight: '600px', objectPosition: 'center top' }}
+          style={{ width: '100%', display: 'block' }}
         />
       </div>
     </section>
