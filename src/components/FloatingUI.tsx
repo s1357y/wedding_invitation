@@ -1,11 +1,65 @@
 import { useEffect, useRef, useState } from 'react'
 import { wedding } from '../config/wedding'
 
+declare global {
+  interface Window {
+    Kakao: {
+      init: (key: string) => void
+      isInitialized: () => boolean
+      Share: {
+        sendDefault: (opts: object) => void
+      }
+    }
+  }
+}
+
 export default function FloatingUI() {
   const audioRef = useRef<HTMLAudioElement>(null)
   const [muted, setMuted] = useState(true)
   const [showScrollTop, setShowScrollTop] = useState(false)
   const [copied, setCopied] = useState(false)
+
+  /* ── 카카오 SDK 로드 ── */
+  useEffect(() => {
+    const key = wedding.kakaoMapAppKey
+    if (!key) return
+    if (window.Kakao?.isInitialized()) return
+
+    const script = document.createElement('script')
+    script.src = 'https://developers.kakao.com/sdk/js/kakao.min.js'
+    script.async = true
+    script.onload = () => {
+      if (window.Kakao && !window.Kakao.isInitialized()) {
+        window.Kakao.init(key)
+      }
+    }
+    document.head.appendChild(script)
+  }, [])
+
+  function handleKakaoShare() {
+    if (!window.Kakao?.Share) return
+    window.Kakao.Share.sendDefault({
+      objectType: 'feed',
+      content: {
+        title: `${wedding.groom.name} ♥ ${wedding.bride.name} 결혼합니다`,
+        description: `${wedding.date.year}년 ${wedding.date.month}월 ${wedding.date.day}일 ${wedding.date.dayOfWeek} ${wedding.date.time} · ${wedding.venue.name}`,
+        imageUrl: 'https://mobileweddinginvitation.vercel.app/images/og.jpg',
+        link: {
+          mobileWebUrl: 'https://mobileweddinginvitation.vercel.app',
+          webUrl: 'https://mobileweddinginvitation.vercel.app',
+        },
+      },
+      buttons: [
+        {
+          title: '모바일 청첩장 보러가기',
+          link: {
+            mobileWebUrl: 'https://mobileweddinginvitation.vercel.app',
+            webUrl: 'https://mobileweddinginvitation.vercel.app',
+          },
+        },
+      ],
+    })
+  }
 
   /* ── 오디오: 음소거로 자동재생 → 첫 터치 시 언뮤트 ── */
   useEffect(() => {
@@ -98,13 +152,26 @@ export default function FloatingUI() {
             )}
           </button>
 
-          {/* 공유 버튼 — 우하단 */}
+          {/* 카카오 공유 + 공유 버튼 — 우하단 */}
           <div className="absolute bottom-4 right-4 flex flex-col items-end gap-2">
             {copied && (
               <span className="pointer-events-none text-xs bg-black/70 text-white px-2 py-1 rounded-full whitespace-nowrap">
                 링크 복사됨
               </span>
             )}
+            {/* 카카오톡 공유 */}
+            <button
+              aria-label="카카오톡으로 공유"
+              onClick={handleKakaoShare}
+              className="pointer-events-auto w-10 h-10 rounded-full flex items-center justify-center shadow-lg transition-opacity hover:opacity-90"
+              style={{ background: '#FEE500' }}
+            >
+              <svg viewBox="0 0 24 24" className="w-5 h-5" fill="#3A1D1D" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 3C6.48 3 2 6.72 2 11.28c0 2.9 1.58 5.46 4 7.02l-.9 3.3 3.78-1.86C9.86 19.9 10.92 20 12 20c5.52 0 10-3.93 10-8.72S17.52 3 12 3z"/>
+              </svg>
+            </button>
+
+            {/* 링크 공유 */}
             <button
               aria-label="공유하기"
               onClick={handleShare}
