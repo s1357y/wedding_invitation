@@ -28,7 +28,9 @@ export default function Footer() {
           모든 분들께 진심으로 감사 인사를 드립니다.<br />
           <br />
           져주는 사람이 이기는 거라 믿으며<br />
-          사랑과 섬김으로 복된 가정을 꾸리겠습니다. <span style={{ fontSize: '0.95rem', lineHeight: 1, display: 'inline-block', transform: 'translateY(1px)' }}>♥︎</span>
+          사랑과 섬김으로 복된 가정을 꾸리겠습니다<span style={{ fontSize: '0.95rem', lineHeight: 1, display: 'inline-block', transform: 'translateY(1px)' }}>♥︎</span><br />
+          <br />
+          <br />
         </p>
       </div>
 
