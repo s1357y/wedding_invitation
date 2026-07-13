@@ -20,7 +20,6 @@ export default function Footer() {
       </div>
 
       <div ref={textRef as React.RefObject<HTMLDivElement>} className="fade-up max-w-md mx-auto px-8 py-16">
-        <div className="w-12 mx-auto mb-6" style={{ height: '1px', background: '#bca38a', opacity: 0.5 }} />
         <p className="text-[10px] tracking-widest mb-4 font-medium" style={{ color: '#bca38a' }}>
           Thank You
         </p>
