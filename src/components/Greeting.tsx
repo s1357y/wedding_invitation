@@ -87,8 +87,6 @@ export default function Greeting() {
         style={{
           paddingTop: '4rem',
           paddingBottom: '4rem',
-          width: '100vw',
-          marginLeft: 'calc(-50vw + 50%)',
         }}
       >
         <img
