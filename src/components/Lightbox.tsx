@@ -1,8 +1,10 @@
 import { useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { Swiper, SwiperSlide } from 'swiper/react'
+import { EffectFade } from 'swiper/modules'
 import type { Swiper as SwiperType } from 'swiper'
 import 'swiper/css'
+import 'swiper/css/effect-fade'
 
 interface LightboxProps {
   images: string[]
@@ -77,6 +79,10 @@ export default function Lightbox({ images, initialIndex, onClose }: LightboxProp
         }}
       >
         <Swiper
+          modules={[EffectFade]}
+          effect="fade"
+          fadeEffect={{ crossFade: true }}
+          speed={400}
           initialSlide={initialIndex}
           loop
           onSwiper={(swiper) => { swiperRef.current = swiper; setCurrentIndex(swiper.realIndex) }}
