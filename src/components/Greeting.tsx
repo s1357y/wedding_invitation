@@ -87,6 +87,8 @@ export default function Greeting() {
         style={{
           paddingTop: '4rem',
           paddingBottom: '4rem',
+          marginLeft: '-2rem',
+          marginRight: '-2rem',
         }}
       >
         <img
