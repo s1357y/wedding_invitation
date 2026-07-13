@@ -19,7 +19,7 @@ export default function Footer() {
         />
       </div>
 
-      <div ref={textRef as React.RefObject<HTMLDivElement>} className="fade-up max-w-md mx-auto px-8 py-16">
+      <div ref={textRef as React.RefObject<HTMLDivElement>} className="fade-up max-w-md mx-auto px-8 pt-6 pb-16">
         <p className="text-[10px] tracking-widest mb-4 font-medium" style={{ color: '#bca38a' }}>
           Thank You
         </p>
@@ -30,7 +30,6 @@ export default function Footer() {
           져주는 사람이 이기는 거라 믿으며<br />
           사랑과 섬김으로 복된 가정을 꾸리겠습니다. <span style={{ fontSize: '0.95rem', lineHeight: 1, display: 'inline-block', transform: 'translateY(1px)' }}>♥︎</span>
         </p>
-        <div className="w-12 mx-auto mt-8" style={{ height: '1px', background: '#bca38a', opacity: 0.3 }} />
       </div>
 
       <p style={{
