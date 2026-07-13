@@ -78,12 +78,21 @@ export default function Greeting() {
 
       </div>
 
-      {/* 커플 사진 */}
-      <div ref={photoRef as React.RefObject<HTMLDivElement>} className="fade-up" style={{ paddingTop: '4rem', paddingBottom: '4rem' }}>
+      {/* 커플 사진 — PC에서 뷰포트 전체 너비로 확장 */}
+      <div
+        ref={photoRef as React.RefObject<HTMLDivElement>}
+        className="fade-up"
+        style={{
+          paddingTop: '4rem',
+          paddingBottom: '4rem',
+          width: '100vw',
+          marginLeft: 'calc(-50vw + 50%)',
+        }}
+      >
         <img
           src="/images/greeting.jpg"
           alt="은총 & 세연"
-          style={{ width: '100%', display: 'block', objectFit: 'cover', maxHeight: '480px', objectPosition: 'center top' }}
+          style={{ width: '100%', display: 'block', objectFit: 'cover', maxHeight: '600px', objectPosition: 'center top' }}
         />
       </div>
     </section>
