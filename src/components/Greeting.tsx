@@ -11,7 +11,7 @@ export default function Greeting() {
   const photoRef = useScrollAnimation(0)
   return (
     <section className="pt-16 px-8 text-center" style={{ background: '#fdfcf9' }}>
-      <div className="max-w-md mx-auto">
+      <div className="max-w-xl mx-auto">
 
         {/* 창세기 말씀 — 박스 없이 크게 */}
         <div ref={verseRef as React.RefObject<HTMLDivElement>} className="fade-up pb-12">

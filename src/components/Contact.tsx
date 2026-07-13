@@ -22,7 +22,7 @@ export default function Contact() {
       className="py-12 px-8 text-center border-t border-b"
       style={{ background: '#ffffff', borderColor: '#f0ede9' }}
     >
-      <div className="max-w-md mx-auto">
+      <div className="max-w-xl mx-auto">
         <div className="max-w-xs mx-auto">
           <div
             className="py-5 px-6 rounded-2xl border space-y-5"

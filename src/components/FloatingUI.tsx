@@ -130,9 +130,9 @@ export default function FloatingUI() {
     <>
       <audio ref={audioRef} src={wedding.audioSrc} preload="metadata" loop />
 
-      {/* fixed 오버레이 — max-w-md 안에 버튼 고정 */}
+      {/* fixed 오버레이 — max-w-xl 안에 버튼 고정 */}
       <div className="fixed inset-x-0 top-0 bottom-0 pointer-events-none z-50">
-        <div className="relative max-w-md h-full mx-auto">
+        <div className="relative max-w-xl h-full mx-auto">
 
           {/* 음악 토글 — 우상단 */}
           <button

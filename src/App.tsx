@@ -70,7 +70,7 @@ export default function App() {
   const handleRsvpPageClose = () => setShowRsvpPage(false)
 
   return (
-    <main className="max-w-md mx-auto" style={{ background: '#fdfcf9' }}>
+    <main className="max-w-xl mx-auto" style={{ background: '#fdfcf9' }}>
       {showModal && (
         <RsvpModal
           onClose={handleModalClose}

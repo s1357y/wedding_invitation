@@ -123,7 +123,7 @@ export default function Map() {
         <p style={{ fontFamily: "'Gowun Batang', serif", fontSize: '0.78rem', color: '#8a7a6a' }}>{address}</p>
       </div>
 
-      <div className="max-w-md mx-auto space-y-6">
+      <div className="max-w-xl mx-auto space-y-6">
 
         {/* 지도 */}
         {appKey ? (

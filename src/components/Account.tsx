@@ -69,7 +69,7 @@ export default function Account() {
     <section className="py-16 px-8" style={{ background: '#fdfcf9' }}>
       <p className="text-lg font-serif-theme font-medium text-center mb-8" style={{ color: '#5a3020' }}>마음 전하실 곳</p>
 
-      <div className="max-w-md mx-auto space-y-3">
+      <div className="max-w-xl mx-auto space-y-3">
         {GROUPS.map(({ short, accounts }) => (
           <div key={short} className="rounded-2xl border overflow-hidden" style={{ borderColor: '#f0ede9' }}>
             <button

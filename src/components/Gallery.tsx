@@ -20,7 +20,7 @@ export default function Gallery() {
         <p className="text-xs font-light" style={{ color: '#8a7a6a' }}>since 2013~</p>
       </div>
 
-      <div className="grid grid-cols-3 gap-0.5 max-w-md mx-auto">
+      <div className="grid grid-cols-3 gap-0.5 max-w-xl mx-auto">
         {visible.map((src, i) => (
           <button
             key={i}
