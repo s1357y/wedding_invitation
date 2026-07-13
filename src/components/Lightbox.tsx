@@ -15,6 +15,7 @@ const ACCENT = '#bca38a'
 export default function Lightbox({ images, initialIndex, onClose }: LightboxProps) {
   const overlayRef = useRef<HTMLDivElement>(null)
   const swiperRef = useRef<SwiperType | null>(null)
+  const touchStartX = useRef<number | null>(null)
   const [currentIndex, setCurrentIndex] = useState(initialIndex)
 
   useEffect(() => {
@@ -61,18 +62,25 @@ export default function Lightbox({ images, initialIndex, onClose }: LightboxProp
       </button>
 
       {/* 이미지 */}
-      <div className="w-full max-w-lg px-4" onClick={(e) => e.stopPropagation()}>
+      <div
+        className="w-full max-w-lg px-4"
+        onClick={(e) => e.stopPropagation()}
+        onTouchStart={(e) => { touchStartX.current = e.touches[0].clientX }}
+        onTouchEnd={(e) => {
+          if (touchStartX.current === null) return
+          const dx = Math.abs(e.changedTouches[0].clientX - touchStartX.current)
+          const x = e.changedTouches[0].clientX
+          touchStartX.current = null
+          if (dx > 10) return
+          if (x > window.innerWidth / 2) swiperRef.current?.slideNext()
+          else swiperRef.current?.slidePrev()
+        }}
+      >
         <Swiper
           initialSlide={initialIndex}
           loop
           onSwiper={(swiper) => { swiperRef.current = swiper; setCurrentIndex(swiper.realIndex) }}
           onSlideChange={(swiper) => setCurrentIndex(swiper.realIndex)}
-          onClick={(swiper, event) => {
-            const x = (event as PointerEvent).clientX
-            const rect = (swiper.el as HTMLElement).getBoundingClientRect()
-            if (x > rect.left + rect.width / 2) swiper.slideNext()
-            else swiper.slidePrev()
-          }}
           style={{ height: '75vh' }}
           className="w-full"
         >
