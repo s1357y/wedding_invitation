@@ -67,6 +67,12 @@ export default function Lightbox({ images, initialIndex, onClose }: LightboxProp
           loop
           onSwiper={(swiper) => { swiperRef.current = swiper; setCurrentIndex(swiper.realIndex) }}
           onSlideChange={(swiper) => setCurrentIndex(swiper.realIndex)}
+          onClick={(swiper, event) => {
+            const x = (event as PointerEvent).clientX
+            const rect = (swiper.el as HTMLElement).getBoundingClientRect()
+            if (x > rect.left + rect.width / 2) swiper.slideNext()
+            else swiper.slidePrev()
+          }}
           style={{ height: '75vh' }}
           className="w-full"
         >
