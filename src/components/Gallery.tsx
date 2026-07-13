@@ -16,7 +16,7 @@ export default function Gallery() {
   return (
     <section className="py-16 px-0" style={{ background: '#fdfcf9' }}>
       <div className="text-center mb-8 px-8">
-        <p className="text-lg font-serif-theme font-medium mb-3" style={{ color: '#5a3020' }}>우리의 시간</p>
+        <p className="text-lg font-serif-theme font-medium mb-3" style={{ color: '#5a3020' }}>우리의 페이지</p>
         <p className="text-xs font-light" style={{ color: '#8a7a6a' }}>since 2013~</p>
       </div>
 
