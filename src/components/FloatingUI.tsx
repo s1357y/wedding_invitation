@@ -42,7 +42,7 @@ export default function FloatingUI() {
       objectType: 'feed',
       content: {
         title: `${wedding.groom.name} ♥ ${wedding.bride.name} 결혼합니다`,
-        description: `${wedding.date.year}년 ${wedding.date.month}월 ${wedding.date.day}일 ${wedding.date.dayOfWeek} ${wedding.date.time} · ${wedding.venue.name}`,
+        description: `${wedding.date.year}년 ${wedding.date.month}월 ${wedding.date.day}일 ${wedding.date.dayOfWeek} ${wedding.date.time}\n${wedding.venue.name}`,
         imageUrl: 'https://mobileweddinginvitation.vercel.app/images/og.jpg',
         link: {
           mobileWebUrl: 'https://mobileweddinginvitation.vercel.app',
