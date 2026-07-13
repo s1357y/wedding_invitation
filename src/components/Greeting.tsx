@@ -5,6 +5,8 @@ import { wedding } from '../config/wedding'
 const { groom, bride, date, venue } = wedding
 
 export default function Greeting() {
+  const verseRef = useScrollAnimation(0)
+  const textRef = useScrollAnimation(400)
   const namesRef = useScrollAnimation(100)
   const photoRef = useScrollAnimation(0)
   return (
@@ -12,7 +14,7 @@ export default function Greeting() {
       <div className="max-w-md mx-auto">
 
         {/* 창세기 말씀 — 박스 없이 크게 */}
-        <div className="pb-12">
+        <div ref={verseRef as React.RefObject<HTMLDivElement>} className="fade-up pb-12">
           <p
             className="font-serif-theme italic leading-relaxed"
             style={{ fontSize: '1.15rem', color: '#6a5a4a' }}
@@ -25,7 +27,7 @@ export default function Greeting() {
         </div>
 
         {/* 인사말 본문 */}
-        <div className="space-y-5 pb-20" style={{ fontFamily: "'Gowun Batang', serif", fontWeight: 400, fontSize: '0.9rem', lineHeight: '2', color: '#5a4a3a' }}>
+        <div ref={textRef as React.RefObject<HTMLDivElement>} className="fade-up space-y-5" style={{ fontFamily: "'Gowun Batang', serif", fontWeight: 400, fontSize: '0.9rem', lineHeight: '2', color: '#5a4a3a', paddingBottom: '8rem' }}>
           <p className="whitespace-pre-line">{wedding.greeting}</p>
         </div>
 

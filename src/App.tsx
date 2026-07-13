@@ -83,7 +83,7 @@ export default function App() {
       )}
       <FloatingUI />
       <Cover />
-      <AnimatedSection delay={100}><Greeting /></AnimatedSection>
+      <Greeting />
 
       {/* 모달 트리거 — Greeting 끝, EventInfo 시작 전 */}
       <div ref={triggerRef} style={{ height: '1px' }} />
