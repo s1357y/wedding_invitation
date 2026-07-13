@@ -2,7 +2,7 @@ import { wedding } from '../config/wedding'
 
 export default function Cover() {
   return (
-    <section className="pb-0">
+    <section className="pb-0" style={{ width: '100vw', marginLeft: 'calc(-50vw + 50%)' }}>
       <div className="w-full overflow-hidden" style={{ height: '100dvh' }}>
         <img
           src={wedding.coverImage}
