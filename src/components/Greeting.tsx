@@ -22,7 +22,7 @@ export default function Greeting() {
             " 이는 내 뼈 중의 뼈요 살 중의 살이라 "
           </p>
           <p className="mt-2" style={{ fontSize: '0.78rem', color: '#a08878', fontFamily: "'Gowun Batang', serif", letterSpacing: '0.05em' }}>
-            (창세기 2:23)
+            - 창세기 2:23 -
           </p>
         </div>
 
