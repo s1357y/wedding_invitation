@@ -2,8 +2,8 @@ import React from 'react'
 import { useScrollAnimation } from '../hooks/useScrollAnimation'
 
 export default function Footer() {
-  const imgRef = useScrollAnimation(0)
-  const textRef = useScrollAnimation(200)
+  const imgRef = useScrollAnimation(200)
+  const textRef = useScrollAnimation(500)
 
   return (
     <footer className="text-center" style={{ background: '#fdfcf9' }}>
