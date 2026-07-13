@@ -42,7 +42,7 @@ export default function Footer() {
         paddingBottom: '1.5rem',
         textAlign: 'center',
       }}>
-        copyright Seyeon Kim with Claude AI. All rights reserved.
+        copyright Seyeon Kim with Claude. All rights reserved.
       </p>
     </footer>
   )
