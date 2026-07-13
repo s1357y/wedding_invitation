@@ -15,19 +15,13 @@ export default function Rsvp() {
       alert('RSVP 설정이 완료되지 않았습니다.')
       return
     }
-    setStatus('loading')
     const data = Object.fromEntries(new FormData(e.currentTarget).entries())
-    try {
-      const res = await fetch(`https://formspree.io/f/${formspreeId}`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-        body: JSON.stringify(data),
-      })
-      if (!res.ok) throw new Error()
-      setStatus('success')
-    } catch {
-      setStatus('error')
-    }
+    setStatus('success')
+    fetch(`https://formspree.io/f/${formspreeId}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+      body: JSON.stringify(data),
+    }).catch(() => {})
   }
 
   return (
