@@ -144,9 +144,11 @@ export default function FloatingUI() {
 
     // 첫 인터랙션에 언뮤트 + muted play가 막혔을 경우 재생도 시작
     function handleFirstInteraction() {
-      audio.muted = false
+      const a = audioRef.current
+      if (!a) return
+      a.muted = false
       setMuted(false)
-      if (audio.paused) audio.play().catch(() => {})
+      if (a.paused) a.play().catch(() => {})
     }
     document.addEventListener('touchstart', handleFirstInteraction, { once: true, passive: true })
     document.addEventListener('click', handleFirstInteraction, { once: true })
