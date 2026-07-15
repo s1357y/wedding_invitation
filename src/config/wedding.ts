@@ -20,7 +20,7 @@ export const wedding = {
   siteUrl,
   shareImagePath,
   share: {
-    title: '임은총 ♥ 김세연 결혼합니다',
+    title: '임은총 ♥ 김세연 결혼합니다.',
     description: '10월 24일 토요일 오후 4시 · 주님의교회 중예배실 루이스홀',
   },
   groom: {
