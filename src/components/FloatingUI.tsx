@@ -8,7 +8,6 @@ declare global {
       isInitialized: () => boolean
       Share?: {
         sendDefault: (opts: object) => void
-        sendScrap?: (opts: object) => void
       }
     }
   }
@@ -23,6 +22,38 @@ function getShareUrl() {
 
 function getShareImageUrl(shareUrl: string) {
   return new URL(wedding.shareImagePath, shareUrl).toString()
+}
+
+function getKakaoSharePayload(shareUrl: string, shareImageUrl: string, shareTitle: string, shareDescription: string) {
+  return {
+    objectType: 'feed',
+    content: {
+      title: shareTitle,
+      description: shareDescription,
+      imageUrl: shareImageUrl,
+      imageWidth: 1200,
+      imageHeight: 630,
+      link: {
+        mobileWebUrl: shareUrl,
+        webUrl: shareUrl,
+      },
+    },
+    social: {
+      likeCount: 0,
+      commentCount: 0,
+      sharedCount: 0,
+    },
+    buttons: [
+      {
+        title: '모바일 청첩장 보러가기',
+        link: {
+          mobileWebUrl: shareUrl,
+          webUrl: shareUrl,
+        },
+      },
+    ],
+    installTalk: true,
+  }
 }
 
 export default function FloatingUI() {
@@ -52,43 +83,12 @@ export default function FloatingUI() {
   }, [])
 
   function handleKakaoShare() {
-    if (window.Kakao?.Share?.sendScrap) {
-      window.Kakao.Share.sendScrap({
-        requestUrl: shareUrl,
-        installTalk: true,
-      })
-      return
-    }
-
     if (!window.Kakao?.Share?.sendDefault) {
       void handleShare()
       return
     }
 
-    window.Kakao.Share.sendDefault({
-      objectType: 'feed',
-      installTalk: true,
-      content: {
-        title: shareTitle,
-        description: shareDescription,
-        imageUrl: shareImageUrl,
-        imageWidth: 1200,
-        imageHeight: 630,
-        link: {
-          mobileWebUrl: shareUrl,
-          webUrl: shareUrl,
-        },
-      },
-      buttons: [
-        {
-          title: '모바일 청첩장 보러가기',
-          link: {
-            mobileWebUrl: shareUrl,
-            webUrl: shareUrl,
-          },
-        },
-      ],
-    })
+    window.Kakao.Share.sendDefault(getKakaoSharePayload(shareUrl, shareImageUrl, shareTitle, shareDescription))
   }
 
   /* ── 오디오: 음소거로 자동재생 → 첫 터치 시 언뮤트 ── */

@@ -54,30 +54,7 @@ describe('FloatingUI', () => {
     expect(mockPlay).toHaveBeenCalled()
   })
 
-  it('카카오 공유 버튼 클릭 시 스크랩 공유를 우선 사용한다', async () => {
-    const sendScrapMock = vi.fn()
-    const sendDefaultMock = vi.fn()
-    window.Kakao = {
-      init: vi.fn(),
-      isInitialized: () => true,
-      Share: { sendScrap: sendScrapMock, sendDefault: sendDefaultMock },
-    }
-
-    render(<FloatingUI />)
-    await act(async () => {
-      fireEvent.click(screen.getByLabelText('카카오톡으로 공유'))
-    })
-
-    expect(sendScrapMock).toHaveBeenCalledWith(
-      expect.objectContaining({
-        requestUrl: getDefaultShareUrl(),
-        installTalk: true,
-      }),
-    )
-    expect(sendDefaultMock).not.toHaveBeenCalled()
-  })
-
-  it('스크랩 공유 미지원 시 기본 템플릿으로 폴백한다', async () => {
+  it('카카오 공유 버튼 클릭 시 공식 feed 템플릿으로 공유한다', async () => {
     const sendDefaultMock = vi.fn()
     window.Kakao = {
       init: vi.fn(),
@@ -105,6 +82,52 @@ describe('FloatingUI', () => {
             webUrl: getDefaultShareUrl(),
           },
         }),
+        social: {
+          likeCount: 0,
+          commentCount: 0,
+          sharedCount: 0,
+        },
+      }),
+    )
+  })
+
+  it('공식 샘플 구조의 버튼 링크를 포함한다', async () => {
+    const sendDefaultMock = vi.fn()
+    window.Kakao = {
+      init: vi.fn(),
+      isInitialized: () => true,
+      Share: { sendDefault: sendDefaultMock },
+    }
+
+    render(<FloatingUI />)
+    await act(async () => {
+      fireEvent.click(screen.getByLabelText('카카오톡으로 공유'))
+    })
+
+    expect(sendDefaultMock).toHaveBeenCalledWith(
+      expect.objectContaining({
+        objectType: 'feed',
+        installTalk: true,
+        content: expect.objectContaining({
+          title: '임은총 ♥ 김세연 결혼합니다',
+          description: '10월 24일 토요일 오후 4시 · 주님의교회 중예배실 루이스홀',
+          imageUrl: getDefaultShareImageUrl(),
+          imageWidth: 1200,
+          imageHeight: 630,
+          link: {
+            mobileWebUrl: getDefaultShareUrl(),
+            webUrl: getDefaultShareUrl(),
+          },
+        }),
+        buttons: [
+          {
+            title: '모바일 청첩장 보러가기',
+            link: {
+              mobileWebUrl: getDefaultShareUrl(),
+              webUrl: getDefaultShareUrl(),
+            },
+          },
+        ],
       }),
     )
   })
