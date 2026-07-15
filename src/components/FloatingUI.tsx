@@ -142,16 +142,18 @@ export default function FloatingUI() {
     // 음소거 자동재생 시도 (iOS 포함 대부분 허용)
     audio.play().catch(() => {})
 
-    const unmute = () => {
+    // 첫 인터랙션에 언뮤트 + muted play가 막혔을 경우 재생도 시작
+    function handleFirstInteraction() {
       audio.muted = false
       setMuted(false)
+      if (audio.paused) audio.play().catch(() => {})
     }
-    document.addEventListener('touchstart', unmute, { once: true, passive: true })
-    document.addEventListener('click', unmute, { once: true })
+    document.addEventListener('touchstart', handleFirstInteraction, { once: true, passive: true })
+    document.addEventListener('click', handleFirstInteraction, { once: true })
 
     return () => {
-      document.removeEventListener('touchstart', unmute)
-      document.removeEventListener('click', unmute)
+      document.removeEventListener('touchstart', handleFirstInteraction)
+      document.removeEventListener('click', handleFirstInteraction)
     }
   }, [])
 
