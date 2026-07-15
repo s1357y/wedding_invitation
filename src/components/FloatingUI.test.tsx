@@ -11,7 +11,7 @@ function getDefaultShareUrl() {
 }
 
 function getDefaultShareImageUrl() {
-  return new URL('/images/og.jpg', getDefaultShareUrl()).toString()
+  return new URL('/images/share.jpg', getDefaultShareUrl()).toString()
 }
 
 beforeEach(() => {
@@ -71,6 +71,8 @@ describe('FloatingUI', () => {
         objectType: 'feed',
         installTalk: true,
         content: expect.objectContaining({
+          title: '임은총 ♥ 김세연 결혼합니다',
+          description: '10월 24일 토요일 오후 4시 · 주님의교회 중예배실 루이스홀',
           imageUrl: getDefaultShareImageUrl(),
           imageWidth: 1200,
           imageHeight: 630,
@@ -79,6 +81,22 @@ describe('FloatingUI', () => {
             webUrl: getDefaultShareUrl(),
           },
         }),
+      }),
+    )
+  })
+
+  it('공유 문구에 연도가 포함되지 않는다', async () => {
+    const shareMock = vi.fn().mockResolvedValue(undefined)
+    vi.stubGlobal('navigator', { ...navigator, share: shareMock })
+
+    render(<FloatingUI />)
+    await act(async () => {
+      fireEvent.click(screen.getByLabelText('공유하기'))
+    })
+
+    expect(shareMock).toHaveBeenCalledWith(
+      expect.objectContaining({
+        text: '10월 24일 토요일 오후 4시 · 주님의교회 중예배실 루이스홀',
       }),
     )
   })

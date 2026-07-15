@@ -10,15 +10,19 @@ function normalizeUrl(value: string | undefined) {
 const kakaoJavaScriptKey = normalizeEnvValue(import.meta.env.VITE_KAKAO_JAVASCRIPT_KEY as string | undefined)
 const kakaoMapAppKey = normalizeEnvValue(import.meta.env.VITE_KAKAO_MAP_APP_KEY as string | undefined)
 const siteUrl = normalizeUrl(normalizeEnvValue(import.meta.env.VITE_SITE_URL as string | undefined))
-const shareImagePath = '/images/og.jpg'
+const shareImagePath = '/images/share.jpg'
 
 export const wedding = {
   coverImage: '/images/cover.jpg',
   audioSrc: '/audio/bgm.mp3',
-  kakaoJavaScriptKey: kakaoJavaScriptKey ?? kakaoMapAppKey,
+  kakaoJavaScriptKey,
   kakaoMapAppKey,
   siteUrl,
   shareImagePath,
+  share: {
+    title: '임은총 ♥ 김세연 결혼합니다',
+    description: '10월 24일 토요일 오후 4시 · 주님의교회 중예배실 루이스홀',
+  },
   groom: {
     name: '임은총',
     nameFull: '임은총',

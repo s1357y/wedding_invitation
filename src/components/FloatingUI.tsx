@@ -31,8 +31,7 @@ export default function FloatingUI() {
   const [showScrollTop, setShowScrollTop] = useState(false)
   const [copied, setCopied] = useState(false)
   const shareUrl = getShareUrl()
-  const shareTitle = `${wedding.groom.name} ♥ ${wedding.bride.name} 결혼합니다`
-  const shareDescription = `${wedding.date.year}년 ${wedding.date.month}월 ${wedding.date.day}일 ${wedding.date.dayOfWeek} ${wedding.date.time}\n${wedding.venue.name}`
+  const { title: shareTitle, description: shareDescription } = wedding.share
   const shareImageUrl = getShareImageUrl(shareUrl)
 
   /* ── 카카오 SDK 로드 ── */
@@ -42,7 +41,7 @@ export default function FloatingUI() {
     if (window.Kakao?.isInitialized()) return
 
     const script = document.createElement('script')
-    script.src = 'https://developers.kakao.com/sdk/js/kakao.min.js'
+    script.src = 'https://t1.kakaocdn.net/kakao_js_sdk/2.8.1/kakao.min.js'
     script.async = true
     script.onload = () => {
       if (window.Kakao && !window.Kakao.isInitialized()) {

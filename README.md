@@ -93,9 +93,22 @@
 ## 환경 변수
 
 ```env
+VITE_SITE_URL=https://mobileweddinginvitation.vercel.app
+VITE_KAKAO_JAVASCRIPT_KEY=카카오_JavaScript_키
 VITE_KAKAO_MAP_APP_KEY=카카오맵_앱키
 VITE_FORMSPREE_ID=Formspree_폼ID
 ```
+
+### 카카오톡 공유 배포 설정
+
+Vercel의 Production 환경 변수에 `VITE_SITE_URL`과 `VITE_KAKAO_JAVASCRIPT_KEY`를 등록한 뒤 재배포합니다. `VITE_KAKAO_JAVASCRIPT_KEY`에는 지도 앱 키가 아닌 Kakao Developers 앱의 **JavaScript 키**를 사용해야 합니다.
+
+Kakao Developers 콘솔의 해당 앱에서 다음 두 항목에 `https://mobileweddinginvitation.vercel.app`를 모두 등록해야 카카오톡 공유 메시지를 친구에게 전송하고, 메시지나 링크를 눌렀을 때 청첩장으로 이동할 수 있습니다.
+
+- **앱 > 플랫폼 > Web > 사이트 도메인**
+- **제품 링크 관리 > 웹 도메인**
+
+공유 카드 이미지는 `https://mobileweddinginvitation.vercel.app/images/share.jpg`입니다. 배포 후 기존 카카오톡 대화방에 남은 카드는 카카오 캐시를 사용하므로 새로 공유한 메시지에서 확인합니다.
 
 ## 로컬 실행
 
