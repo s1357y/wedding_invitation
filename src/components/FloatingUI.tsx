@@ -3,14 +3,26 @@ import { wedding } from '../config/wedding'
 
 declare global {
   interface Window {
-    Kakao: {
+    Kakao?: {
       init: (key: string) => void
       isInitialized: () => boolean
-      Share: {
+      Share?: {
         sendDefault: (opts: object) => void
+        sendScrap?: (opts: object) => void
       }
     }
   }
+}
+
+function getShareUrl() {
+  if (wedding.siteUrl) return wedding.siteUrl
+
+  const { origin, pathname } = window.location
+  return `${origin}${pathname}`.replace(/\/$/, '') || window.location.href
+}
+
+function getShareImageUrl(shareUrl: string) {
+  return new URL(wedding.shareImagePath, shareUrl).toString()
 }
 
 export default function FloatingUI() {
@@ -18,10 +30,14 @@ export default function FloatingUI() {
   const [muted, setMuted] = useState(true)
   const [showScrollTop, setShowScrollTop] = useState(false)
   const [copied, setCopied] = useState(false)
+  const shareUrl = getShareUrl()
+  const shareTitle = `${wedding.groom.name} ♥ ${wedding.bride.name} 결혼합니다`
+  const shareDescription = `${wedding.date.year}년 ${wedding.date.month}월 ${wedding.date.day}일 ${wedding.date.dayOfWeek} ${wedding.date.time}\n${wedding.venue.name}`
+  const shareImageUrl = getShareImageUrl(shareUrl)
 
   /* ── 카카오 SDK 로드 ── */
   useEffect(() => {
-    const key = wedding.kakaoMapAppKey
+    const key = wedding.kakaoJavaScriptKey
     if (!key) return
     if (window.Kakao?.isInitialized()) return
 
@@ -37,24 +53,31 @@ export default function FloatingUI() {
   }, [])
 
   function handleKakaoShare() {
-    if (!window.Kakao?.Share) return
+    if (!window.Kakao?.Share?.sendDefault) {
+      void handleShare()
+      return
+    }
+
     window.Kakao.Share.sendDefault({
       objectType: 'feed',
+      installTalk: true,
       content: {
-        title: `${wedding.groom.name} ♥ ${wedding.bride.name} 결혼합니다`,
-        description: `${wedding.date.year}년 ${wedding.date.month}월 ${wedding.date.day}일 ${wedding.date.dayOfWeek} ${wedding.date.time}\n${wedding.venue.name}`,
-        imageUrl: 'https://mobileweddinginvitation.vercel.app/images/og.jpg',
+        title: shareTitle,
+        description: shareDescription,
+        imageUrl: shareImageUrl,
+        imageWidth: 1200,
+        imageHeight: 630,
         link: {
-          mobileWebUrl: 'https://mobileweddinginvitation.vercel.app',
-          webUrl: 'https://mobileweddinginvitation.vercel.app',
+          mobileWebUrl: shareUrl,
+          webUrl: shareUrl,
         },
       },
       buttons: [
         {
           title: '모바일 청첩장 보러가기',
           link: {
-            mobileWebUrl: 'https://mobileweddinginvitation.vercel.app',
-            webUrl: 'https://mobileweddinginvitation.vercel.app',
+            mobileWebUrl: shareUrl,
+            webUrl: shareUrl,
           },
         },
       ],
@@ -106,18 +129,18 @@ export default function FloatingUI() {
   }
 
   async function handleShare() {
-    const url = window.location.href
     if (navigator.share) {
       try {
         await navigator.share({
-          title: `${wedding.groom.name} ♥ ${wedding.bride.name} 결혼합니다`,
-          url,
+          title: shareTitle,
+          text: shareDescription,
+          url: shareUrl,
         })
       } catch {
         // 사용자가 취소한 경우 무시
       }
     } else {
-      await navigator.clipboard.writeText(url)
+      await navigator.clipboard.writeText(shareUrl)
       setCopied(true)
       setTimeout(() => setCopied(false), 2000)
     }

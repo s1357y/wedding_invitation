@@ -4,6 +4,15 @@ import FloatingUI from './FloatingUI'
 
 const mockPlay = vi.fn().mockResolvedValue(undefined)
 const mockPause = vi.fn()
+const defaultSharePath = '/invitation'
+
+function getDefaultShareUrl() {
+  return `${window.location.origin}${defaultSharePath}`
+}
+
+function getDefaultShareImageUrl() {
+  return new URL('/images/og.jpg', getDefaultShareUrl()).toString()
+}
 
 beforeEach(() => {
   vi.clearAllMocks()
@@ -16,6 +25,8 @@ beforeEach(() => {
     value: mockPause,
   })
   Object.defineProperty(window, 'scrollY', { configurable: true, value: 0 })
+  delete window.Kakao
+  window.history.replaceState({}, '', defaultSharePath)
 })
 
 afterEach(() => {
@@ -25,30 +36,83 @@ afterEach(() => {
 describe('FloatingUI', () => {
   it('음악 토글 버튼이 렌더링된다', () => {
     render(<FloatingUI />)
-    expect(screen.getByLabelText('배경음악 켜기')).toBeInTheDocument()
+    expect(screen.getByLabelText('음소거 해제')).toBeInTheDocument()
   })
 
-  it('공유 버튼이 렌더링된다', () => {
+  it('카카오 공유 버튼과 일반 공유 버튼이 렌더링된다', () => {
     render(<FloatingUI />)
+    expect(screen.getByLabelText('카카오톡으로 공유')).toBeInTheDocument()
     expect(screen.getByLabelText('공유하기')).toBeInTheDocument()
   })
 
   it('음악 버튼 클릭 시 play가 호출된다', async () => {
     render(<FloatingUI />)
     await act(async () => {
-      fireEvent.click(screen.getByLabelText('배경음악 켜기'))
+      fireEvent.click(screen.getByLabelText('음소거 해제'))
     })
     expect(mockPlay).toHaveBeenCalled()
   })
 
-  it('공유 버튼 클릭 시 navigator.share 또는 clipboard.writeText가 호출된다', async () => {
+  it('카카오 공유 버튼 클릭 시 기본 템플릿으로 공유한다', async () => {
+    const sendDefaultMock = vi.fn()
+    window.Kakao = {
+      init: vi.fn(),
+      isInitialized: () => true,
+      Share: { sendDefault: sendDefaultMock },
+    }
+
+    render(<FloatingUI />)
+    await act(async () => {
+      fireEvent.click(screen.getByLabelText('카카오톡으로 공유'))
+    })
+
+    expect(sendDefaultMock).toHaveBeenCalledWith(
+      expect.objectContaining({
+        objectType: 'feed',
+        installTalk: true,
+        content: expect.objectContaining({
+          imageUrl: getDefaultShareImageUrl(),
+          imageWidth: 1200,
+          imageHeight: 630,
+          link: {
+            mobileWebUrl: getDefaultShareUrl(),
+            webUrl: getDefaultShareUrl(),
+          },
+        }),
+      }),
+    )
+  })
+
+  it('카카오 SDK가 없으면 navigator.share로 fallback한다', async () => {
     const shareMock = vi.fn().mockResolvedValue(undefined)
     vi.stubGlobal('navigator', { ...navigator, share: shareMock })
+
+    render(<FloatingUI />)
+    await act(async () => {
+      fireEvent.click(screen.getByLabelText('카카오톡으로 공유'))
+    })
+
+    expect(shareMock).toHaveBeenCalledWith(
+      expect.objectContaining({
+        url: getDefaultShareUrl(),
+      }),
+    )
+  })
+
+  it('공유 버튼 클릭 시 navigator.share가 호출된다', async () => {
+    const shareMock = vi.fn().mockResolvedValue(undefined)
+    vi.stubGlobal('navigator', { ...navigator, share: shareMock })
+
     render(<FloatingUI />)
     await act(async () => {
       fireEvent.click(screen.getByLabelText('공유하기'))
     })
-    expect(shareMock).toHaveBeenCalled()
+
+    expect(shareMock).toHaveBeenCalledWith(
+      expect.objectContaining({
+        url: getDefaultShareUrl(),
+      }),
+    )
   })
 
   it('navigator.share 미지원 시 clipboard.writeText가 호출된다', async () => {
@@ -62,7 +126,7 @@ describe('FloatingUI', () => {
     await act(async () => {
       fireEvent.click(screen.getByLabelText('공유하기'))
     })
-    expect(writeMock).toHaveBeenCalled()
+    expect(writeMock).toHaveBeenCalledWith(getDefaultShareUrl())
   })
 
   it('scrollY가 0이면 스크롤 업 버튼이 숨겨진다', () => {

@@ -1,7 +1,24 @@
+function normalizeEnvValue(value: string | undefined) {
+  const trimmed = value?.replace(/^﻿/, '').trim()
+  return trimmed ? trimmed : undefined
+}
+
+function normalizeUrl(value: string | undefined) {
+  return value?.replace(/\/+$/, '')
+}
+
+const kakaoJavaScriptKey = normalizeEnvValue(import.meta.env.VITE_KAKAO_JAVASCRIPT_KEY as string | undefined)
+const kakaoMapAppKey = normalizeEnvValue(import.meta.env.VITE_KAKAO_MAP_APP_KEY as string | undefined)
+const siteUrl = normalizeUrl(normalizeEnvValue(import.meta.env.VITE_SITE_URL as string | undefined))
+const shareImagePath = '/images/og.jpg'
+
 export const wedding = {
   coverImage: '/images/cover.jpg',
   audioSrc: '/audio/bgm.mp3',
-  kakaoMapAppKey: (import.meta.env.VITE_KAKAO_MAP_APP_KEY as string | undefined)?.replace(/^﻿/, '').trim(),
+  kakaoJavaScriptKey: kakaoJavaScriptKey ?? kakaoMapAppKey,
+  kakaoMapAppKey,
+  siteUrl,
+  shareImagePath,
   groom: {
     name: '임은총',
     nameFull: '임은총',
