@@ -40,7 +40,13 @@ describe('FloatingUI', () => {
     expect(screen.getByLabelText('음소거 해제')).toBeInTheDocument()
   })
 
-  it('카카오 공유 버튼과 일반 공유 버튼이 렌더링된다', () => {
+  it('카카오 SDK가 준비되면 카카오 공유 버튼과 일반 공유 버튼이 렌더링된다', () => {
+    window.Kakao = {
+      init: vi.fn(),
+      isInitialized: () => true,
+      Share: { createDefaultButton: vi.fn(), sendDefault: vi.fn() },
+    }
+
     render(<FloatingUI />)
     expect(screen.getByLabelText('카카오톡으로 공유')).toBeInTheDocument()
     expect(screen.getByLabelText('공유하기')).toBeInTheDocument()
@@ -54,21 +60,21 @@ describe('FloatingUI', () => {
     expect(mockPlay).toHaveBeenCalled()
   })
 
-  it('카카오 공유 버튼 클릭 시 공식 feed 템플릿으로 공유한다', async () => {
-    const sendDefaultMock = vi.fn()
+  it('카카오 공유 버튼을 createDefaultButton으로 바인딩한다', async () => {
+    const createDefaultButtonMock = vi.fn()
     window.Kakao = {
       init: vi.fn(),
       isInitialized: () => true,
-      Share: { sendDefault: sendDefaultMock },
+      Share: { createDefaultButton: createDefaultButtonMock, sendDefault: vi.fn() },
     }
 
-    render(<FloatingUI />)
     await act(async () => {
-      fireEvent.click(screen.getByLabelText('카카오톡으로 공유'))
+      render(<FloatingUI />)
     })
 
-    expect(sendDefaultMock).toHaveBeenCalledWith(
+    expect(createDefaultButtonMock).toHaveBeenCalledWith(
       expect.objectContaining({
+        container: '#kakaotalk-sharing-btn',
         objectType: 'feed',
         installTalk: true,
         content: expect.objectContaining({
@@ -91,20 +97,19 @@ describe('FloatingUI', () => {
     )
   })
 
-  it('공식 샘플 구조의 버튼 링크를 포함한다', async () => {
-    const sendDefaultMock = vi.fn()
+  it('공식 샘플 구조의 버튼 링크를 포함해 바인딩한다', async () => {
+    const createDefaultButtonMock = vi.fn()
     window.Kakao = {
       init: vi.fn(),
       isInitialized: () => true,
-      Share: { sendDefault: sendDefaultMock },
+      Share: { createDefaultButton: createDefaultButtonMock, sendDefault: vi.fn() },
     }
 
-    render(<FloatingUI />)
     await act(async () => {
-      fireEvent.click(screen.getByLabelText('카카오톡으로 공유'))
+      render(<FloatingUI />)
     })
 
-    expect(sendDefaultMock).toHaveBeenCalledWith(
+    expect(createDefaultButtonMock).toHaveBeenCalledWith(
       expect.objectContaining({
         objectType: 'feed',
         installTalk: true,
@@ -148,20 +153,20 @@ describe('FloatingUI', () => {
     )
   })
 
-  it('카카오 SDK가 없으면 navigator.share로 fallback한다', async () => {
-    const shareMock = vi.fn().mockResolvedValue(undefined)
-    vi.stubGlobal('navigator', { ...navigator, share: shareMock })
+  it('카카오 SDK가 없으면 카카오 공유 버튼을 숨긴다', () => {
+    render(<FloatingUI />)
+    expect(screen.queryByLabelText('카카오톡으로 공유')).not.toBeInTheDocument()
+  })
+
+  it('createDefaultButton 미지원 시 카카오 공유 버튼을 숨긴다', () => {
+    window.Kakao = {
+      init: vi.fn(),
+      isInitialized: () => true,
+      Share: { sendDefault: vi.fn() },
+    }
 
     render(<FloatingUI />)
-    await act(async () => {
-      fireEvent.click(screen.getByLabelText('카카오톡으로 공유'))
-    })
-
-    expect(shareMock).toHaveBeenCalledWith(
-      expect.objectContaining({
-        url: getDefaultShareUrl(),
-      }),
-    )
+    expect(screen.queryByLabelText('카카오톡으로 공유')).not.toBeInTheDocument()
   })
 
   it('공유 버튼 클릭 시 navigator.share가 호출된다', async () => {
