@@ -15,7 +15,7 @@ const shareImagePath = '/images/share.jpg'
 export const wedding = {
   coverImage: '/images/cover.jpg',
   audioSrc: '/audio/bgm.mp3',
-  kakaoJavaScriptKey,
+  kakaoJavaScriptKey: kakaoJavaScriptKey ?? kakaoMapAppKey,
   kakaoMapAppKey,
   siteUrl,
   shareImagePath,
