@@ -10,7 +10,7 @@ function normalizeUrl(value: string | undefined) {
 const kakaoJavaScriptKey = normalizeEnvValue(import.meta.env.VITE_KAKAO_JAVASCRIPT_KEY as string | undefined)
 const kakaoMapAppKey = normalizeEnvValue(import.meta.env.VITE_KAKAO_MAP_APP_KEY as string | undefined)
 const siteUrl = normalizeUrl(normalizeEnvValue(import.meta.env.VITE_SITE_URL as string | undefined))
-const shareImagePath = '/images/share.jpg'
+const shareImagePath = '/images/og.jpg'
 
 export const wedding = {
   coverImage: '/images/cover.jpg',

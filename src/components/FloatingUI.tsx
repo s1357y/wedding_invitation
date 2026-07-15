@@ -52,6 +52,14 @@ export default function FloatingUI() {
   }, [])
 
   function handleKakaoShare() {
+    if (window.Kakao?.Share?.sendScrap) {
+      window.Kakao.Share.sendScrap({
+        requestUrl: shareUrl,
+        installTalk: true,
+      })
+      return
+    }
+
     if (!window.Kakao?.Share?.sendDefault) {
       void handleShare()
       return

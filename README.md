@@ -108,7 +108,7 @@ Kakao Developers 콘솔의 해당 앱에서 다음 두 항목에 `https://mobile
 - **앱 > 플랫폼 > Web > 사이트 도메인**
 - **제품 링크 관리 > 웹 도메인**
 
-공유 카드 이미지는 `https://mobileweddinginvitation.vercel.app/images/share.jpg`입니다. 배포 후 기존 카카오톡 대화방에 남은 카드는 카카오 캐시를 사용하므로 새로 공유한 메시지에서 확인합니다.
+카카오 공유 버튼은 웹페이지 메타를 활용하는 스크랩 공유를 우선 사용합니다. 따라서 대표 이미지는 `https://mobileweddinginvitation.vercel.app/images/og.jpg`를 기준으로 노출됩니다. 배포 후 기존 카카오톡 대화방에 남은 카드는 카카오 캐시를 사용할 수 있으므로, 반드시 새로 공유한 메시지에서 이미지를 확인합니다.
 
 ## 로컬 실행
 
