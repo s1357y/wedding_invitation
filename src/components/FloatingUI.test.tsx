@@ -52,6 +52,20 @@ describe('FloatingUI', () => {
     expect(screen.getByLabelText('공유하기')).toBeInTheDocument()
   })
 
+  it('카카오 SDK가 준비되면 카카오 공유 버튼이 숨김 처리되지 않는다', () => {
+    window.Kakao = {
+      init: vi.fn(),
+      isInitialized: () => true,
+      Share: { createDefaultButton: vi.fn(), sendDefault: vi.fn() },
+    }
+
+    render(<FloatingUI />)
+    expect(screen.getByLabelText('카카오톡으로 공유')).not.toHaveStyle({
+      opacity: '0',
+      visibility: 'hidden',
+    })
+  })
+
   it('음악 버튼 클릭 시 play가 호출된다', async () => {
     render(<FloatingUI />)
     await act(async () => {
@@ -153,12 +167,15 @@ describe('FloatingUI', () => {
     )
   })
 
-  it('카카오 SDK가 없으면 카카오 공유 버튼을 숨긴다', () => {
+  it('카카오 SDK가 없으면 카카오 공유 버튼 DOM은 남기고 숨긴다', () => {
     render(<FloatingUI />)
-    expect(screen.queryByLabelText('카카오톡으로 공유')).not.toBeInTheDocument()
+    expect(screen.getByLabelText('카카오톡으로 공유')).toHaveStyle({
+      opacity: '0',
+      visibility: 'hidden',
+    })
   })
 
-  it('createDefaultButton 미지원 시 카카오 공유 버튼을 숨긴다', () => {
+  it('createDefaultButton 미지원 시 카카오 공유 버튼 DOM은 남기고 숨긴다', () => {
     window.Kakao = {
       init: vi.fn(),
       isInitialized: () => true,
@@ -166,7 +183,10 @@ describe('FloatingUI', () => {
     }
 
     render(<FloatingUI />)
-    expect(screen.queryByLabelText('카카오톡으로 공유')).not.toBeInTheDocument()
+    expect(screen.getByLabelText('카카오톡으로 공유')).toHaveStyle({
+      opacity: '0',
+      visibility: 'hidden',
+    })
   })
 
   it('공유 버튼 클릭 시 navigator.share가 호출된다', async () => {

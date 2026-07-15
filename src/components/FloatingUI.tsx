@@ -59,6 +59,16 @@ function getKakaoSharePayload(shareUrl: string, shareImageUrl: string, shareTitl
   }
 }
 
+function getKakaoButtonVisibilityStyle(isKakaoShareReady: boolean) {
+  if (isKakaoShareReady) return undefined
+
+  return {
+    opacity: 0,
+    pointerEvents: 'none' as const,
+    visibility: 'hidden' as const,
+  }
+}
+
 export default function FloatingUI() {
   const audioRef = useRef<HTMLAudioElement>(null)
   const [muted, setMuted] = useState(true)
@@ -220,19 +230,17 @@ export default function FloatingUI() {
               </span>
             )}
             {/* 카카오톡 공유 */}
-            {isKakaoShareReady && (
-              <button
-                id={KAKAO_SHARE_BUTTON_ID}
-                aria-label="카카오톡으로 공유"
-                className="pointer-events-auto w-10 h-10 rounded-full flex items-center justify-center shadow-lg transition-opacity hover:opacity-90"
-                style={{ background: '#FEE500' }}
-                type="button"
-              >
-                <svg viewBox="0 0 24 24" className="w-5 h-5" fill="#3A1D1D" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M12 3C6.48 3 2 6.72 2 11.28c0 2.9 1.58 5.46 4 7.02l-.9 3.3 3.78-1.86C9.86 19.9 10.92 20 12 20c5.52 0 10-3.93 10-8.72S17.52 3 12 3z"/>
-                </svg>
-              </button>
-            )}
+            <button
+              id={KAKAO_SHARE_BUTTON_ID}
+              aria-label="카카오톡으로 공유"
+              className="pointer-events-auto w-10 h-10 rounded-full flex items-center justify-center shadow-lg transition-opacity hover:opacity-90"
+              style={{ background: '#FEE500', ...getKakaoButtonVisibilityStyle(isKakaoShareReady) }}
+              type="button"
+            >
+              <svg viewBox="0 0 24 24" className="w-5 h-5" fill="#3A1D1D" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 3C6.48 3 2 6.72 2 11.28c0 2.9 1.58 5.46 4 7.02l-.9 3.3 3.78-1.86C9.86 19.9 10.92 20 12 20c5.52 0 10-3.93 10-8.72S17.52 3 12 3z"/>
+              </svg>
+            </button>
 
             {/* 링크 공유 */}
             <button
