@@ -41,6 +41,16 @@ body {
   letter-spacing: 0.02em;
 }
 
+/* 커버 켄번스 줌 */
+@keyframes coverZoom {
+  from { transform: scale(1); }
+  to   { transform: scale(1.08); }
+}
+.cover-zoom {
+  animation: coverZoom 8s ease-out forwards;
+  will-change: transform;
+}
+
 /* 스크롤 애니메이션 */
 .fade-up {
   opacity: 0;
