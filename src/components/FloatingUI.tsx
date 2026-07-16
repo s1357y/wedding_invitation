@@ -131,7 +131,7 @@ export default function FloatingUI() {
   }
   */
 
-  /* ── 오디오: 음소거로 자동재생 → 첫 터치 시 언뮤트 ── */
+  /* ── 오디오: 음소거로 자동재생 → 인터랙션 시 즉시 언뮤트 ── */
   useEffect(() => {
     const audio = audioRef.current
     if (!audio) return
@@ -139,24 +139,25 @@ export default function FloatingUI() {
     audio.volume = 0.4
     audio.muted = true
 
-    // 음소거 자동재생 시도 (iOS 포함 대부분 허용)
     audio.play().catch(() => {})
 
-    // 첫 인터랙션에 언뮤트 + muted play가 막혔을 경우 재생도 시작
-    function handleFirstInteraction() {
+    // 언뮤트 + 재생 확인될 때까지 모든 인터랙션에서 재시도
+    function ensureUnmuted() {
       const a = audioRef.current
       if (!a) return
-      a.muted = false
-      setMuted(false)
+      if (!a.muted && !a.paused) { cleanup(); return }
+      if (a.muted) { a.muted = false; setMuted(false) }
       if (a.paused) a.play().catch(() => {})
     }
-    document.addEventListener('touchstart', handleFirstInteraction, { once: true, passive: true })
-    document.addEventListener('click', handleFirstInteraction, { once: true })
 
-    return () => {
-      document.removeEventListener('touchstart', handleFirstInteraction)
-      document.removeEventListener('click', handleFirstInteraction)
+    const EVENTS = ['touchstart', 'touchend', 'click', 'pointerdown', 'scroll']
+    EVENTS.forEach(e => document.addEventListener(e, ensureUnmuted, { passive: true }))
+
+    function cleanup() {
+      EVENTS.forEach(e => document.removeEventListener(e, ensureUnmuted))
     }
+
+    return cleanup
   }, [])
 
   /* ── 스크롤 감지 ── */
