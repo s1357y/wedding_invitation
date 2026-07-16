@@ -27,7 +27,7 @@ async function fetchEntries(): Promise<Entry[]> {
   }
 }
 
-function WriteModal({ onClose, onSubmit }: { onClose: () => void; onSubmit: (name: string, message: string) => Promise<void> }) {
+function WriteModal({ onClose, onSubmit }: { onClose: () => void; onSubmit: (name: string, message: string) => void }) {
   const [name, setName] = useState('')
   const [message, setMessage] = useState('')
   const [status, setStatus] = useState<'idle' | 'loading' | 'success'>('idle')
@@ -41,10 +41,9 @@ function WriteModal({ onClose, onSubmit }: { onClose: () => void; onSubmit: (nam
   async function handleSubmit(e: FormEvent) {
     e.preventDefault()
     if (!name.trim() || !message.trim()) return
-    setStatus('loading')
-    await onSubmit(name.trim(), message.trim())
     setStatus('success')
     setTimeout(onClose, 1200)
+    onSubmit(name.trim(), message.trim())
   }
 
   return createPortal(
@@ -162,15 +161,16 @@ export default function GuestBook() {
 
   useEffect(() => { load() }, [])
 
-  async function handleSubmit(name: string, message: string) {
+  function handleSubmit(name: string, message: string) {
     const entry: Entry = { name, message, ts: Date.now() }
-    await fetch(SHEETS_URL, {
+    setEntries(prev => [entry, ...prev])
+    try { localStorage.setItem(CACHE_KEY, JSON.stringify([entry, ...entries])) } catch {}
+    fetch(SHEETS_URL, {
       method: 'POST',
       mode: 'no-cors',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ type: 'guestbook', ...entry }),
-    })
-    setEntries(prev => [entry, ...prev])
+    }).catch(() => {})
   }
 
   const preview = entries.slice(0, PREVIEW_COUNT)
