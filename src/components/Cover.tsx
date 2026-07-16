@@ -17,7 +17,7 @@ export default function Cover() {
 
   return (
     <section className="pb-0">
-      <div className="w-full overflow-hidden" style={{ height: '100dvh' }}>
+      <div className="w-full overflow-hidden" style={{ height: '100svh' }}>
         <img
           ref={imgRef}
           src={wedding.coverImage}
