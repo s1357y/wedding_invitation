@@ -197,7 +197,7 @@ export default function RsvpPage({ onClose }: Props) {
               <label style={labelStyle}>성함 {requiredDot}</label>
               <input
                 style={inputStyle}
-                placeholder="성함을 입력해주세요"
+                placeholder="성함을 입력해주세요."
                 value={name}
                 onChange={e => setName(e.target.value)}
               />
@@ -208,7 +208,7 @@ export default function RsvpPage({ onClose }: Props) {
               <label style={labelStyle}>동행인 성함</label>
               <input
                 style={inputStyle}
-                placeholder="동행인이 있으시면 입력해주세요"
+                placeholder="동행인이 있으시면 입력해주세요."
                 value={companion}
                 onChange={e => setCompanion(e.target.value)}
               />
@@ -219,7 +219,7 @@ export default function RsvpPage({ onClose }: Props) {
               <label style={labelStyle}>전달사항</label>
               <textarea
                 style={{ ...inputStyle, resize: 'none', minHeight: '7rem' }}
-                placeholder="전달하실 말씀이 있으시면 입력해주세요"
+                placeholder="전달하실 말씀이 있으시면 입력해주세요."
                 value={message}
                 onChange={e => setMessage(e.target.value)}
               />
