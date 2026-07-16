@@ -5,6 +5,7 @@ import GuestBookViewer from './GuestBookViewer'
 
 const SHEETS_URL = import.meta.env.VITE_GOOGLE_SHEETS_URL as string
 const PREVIEW_COUNT = 3
+const CACHE_KEY = 'guestbook_cache'
 
 interface Entry {
   name: string
@@ -143,15 +144,19 @@ function WriteModal({ onClose, onSubmit }: { onClose: () => void; onSubmit: (nam
 }
 
 export default function GuestBook() {
-  const [entries, setEntries] = useState<Entry[]>([])
+  const [entries, setEntries] = useState<Entry[]>(() => {
+    try { return JSON.parse(localStorage.getItem(CACHE_KEY) ?? '[]') } catch { return [] }
+  })
   const [showForm, setShowForm] = useState(false)
   const [showViewer, setShowViewer] = useState(false)
-  const [fetching, setFetching] = useState(true)
+  const [fetching, setFetching] = useState(entries.length === 0)
 
   async function load() {
-    setFetching(true)
     const data = await fetchEntries()
-    if (data.length > 0) setEntries(data)
+    if (data.length > 0) {
+      setEntries(data)
+      try { localStorage.setItem(CACHE_KEY, JSON.stringify(data)) } catch {}
+    }
     setFetching(false)
   }
 
