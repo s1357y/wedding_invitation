@@ -96,14 +96,19 @@ function WriteModal({ onClose, onSubmit }: { onClose: () => void; onSubmit: (nam
               />
             </div>
             <div>
-              <label style={{ fontFamily: "'Gowun Batang', serif", fontSize: '0.9rem', color: '#4a4a4a', display: 'block', marginBottom: '0.5rem' }}>
-                내용
-              </label>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: '0.5rem' }}>
+                <label style={{ fontFamily: "'Gowun Batang', serif", fontSize: '0.9rem', color: '#4a4a4a' }}>
+                  내용
+                </label>
+                <span style={{ fontFamily: "'Gowun Batang', serif", fontSize: '0.75rem', color: message.length >= 450 ? '#c0805a' : '#b0a090' }}>
+                  {message.length} / 500
+                </span>
+              </div>
               <textarea
                 value={message}
                 onChange={e => setMessage(e.target.value)}
-                maxLength={300}
-                rows={8}
+                maxLength={500}
+                rows={10}
                 required
                 style={{
                   width: '100%', padding: '0.75rem 1rem',
