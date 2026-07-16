@@ -7,7 +7,7 @@ export default function Cover() {
         <img
           src={wedding.coverImage}
           alt="웨딩 커버"
-          className="cover-zoom w-full h-full object-cover"
+          className="w-full h-full object-cover"
           style={{ objectPosition: 'center center' }}
           onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = 'none' }}
         />
