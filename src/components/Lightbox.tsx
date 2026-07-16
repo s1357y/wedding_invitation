@@ -52,10 +52,10 @@ export default function Lightbox({ images, initialIndex, onClose }: LightboxProp
   return createPortal(
     <div
       ref={overlayRef}
-      className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-black/90"
+      className="fixed inset-0 z-50 flex flex-col bg-black/90"
       onClick={handleOverlayClick}
     >
-      {/* 닫기 */}
+      {/* 닫기 — 절대 위치 */}
       <button
         onClick={onClose}
         className="absolute top-4 right-4 z-10 leading-none"
@@ -65,9 +65,12 @@ export default function Lightbox({ images, initialIndex, onClose }: LightboxProp
         ✕
       </button>
 
-      {/* 이미지 */}
+      {/* 닫기 버튼 공간 확보 */}
+      <div className="flex-shrink-0 h-14" />
+
+      {/* 이미지 영역 — 남은 공간 전부 차지 */}
       <div
-        className="w-full max-w-lg px-4"
+        className="flex-1 min-h-0 flex items-center w-full px-4"
         onClick={(e) => e.stopPropagation()}
         onTouchStart={(e) => { touchStartX.current = e.touches[0].clientX }}
         onTouchEnd={(e) => {
@@ -89,15 +92,15 @@ export default function Lightbox({ images, initialIndex, onClose }: LightboxProp
           loop
           onSwiper={(swiper) => { swiperRef.current = swiper; setCurrentIndex(swiper.realIndex) }}
           onSlideChange={(swiper) => setCurrentIndex(swiper.realIndex)}
-          style={{ height: '75vh' }}
+          style={{ height: '100%', width: '100%' }}
           className="w-full"
         >
           {images.map((src, i) => (
-            <SwiperSlide key={i} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '75vh' }}>
+            <SwiperSlide key={i} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%' }}>
               <img
                 src={src}
                 alt={`갤러리 ${i + 1}`}
-                style={{ maxWidth: '100%', maxHeight: '75vh', objectFit: 'contain', display: 'block' }}
+                style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'contain', display: 'block' }}
                 onError={(e) => { e.currentTarget.style.display = 'none' }}
               />
             </SwiperSlide>
@@ -105,9 +108,9 @@ export default function Lightbox({ images, initialIndex, onClose }: LightboxProp
         </Swiper>
       </div>
 
-      {/* 컨트롤: ← 1/32 → */}
+      {/* 컨트롤: ← N/32 → */}
       <div
-        className="flex items-center gap-8 mt-4"
+        className="flex-shrink-0 flex items-center justify-center gap-8 py-3"
         onClick={(e) => e.stopPropagation()}
       >
         <button
