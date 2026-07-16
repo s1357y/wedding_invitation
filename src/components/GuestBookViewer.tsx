@@ -1,10 +1,6 @@
 import { useEffect } from 'react'
 import { createPortal } from 'react-dom'
-import { Swiper, SwiperSlide } from 'swiper/react'
-import { Pagination } from 'swiper/modules'
 import { X } from 'lucide-react'
-import 'swiper/css'
-import 'swiper/css/pagination'
 
 interface Entry {
   name: string
@@ -38,9 +34,10 @@ export default function GuestBookViewer({ entries, onClose }: Props) {
         borderBottom: '1px solid #ede4da',
         background: '#fdfcf9',
         flexShrink: 0,
+        position: 'relative',
       }}>
         <span style={{ fontFamily: "'Gowun Batang', serif", fontSize: '0.95rem', fontWeight: 700, color: '#3a2e28', letterSpacing: '0.08em' }}>
-          기도편지함
+          편지함
         </span>
         <button
           onClick={onClose}
@@ -51,66 +48,42 @@ export default function GuestBookViewer({ entries, onClose }: Props) {
         </button>
       </div>
 
-      {/* 카드 슬라이더 */}
-      <div style={{ flex: 1, overflow: 'hidden' }}>
-        <Swiper
-          modules={[Pagination]}
-          pagination={{ clickable: true }}
-          style={{ height: '100%' }}
-        >
+      {/* 스크롤 가능한 리스트 */}
+      <div style={{ flex: 1, overflowY: 'auto', padding: '1.25rem 1.25rem 3rem' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', maxWidth: '480px', margin: '0 auto' }}>
           {entries.map((entry) => (
-            <SwiperSlide key={entry.ts}>
-              <div style={{
-                height: '100%',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                padding: '2rem 2.5rem 4rem',
-              }}>
-                <div style={{
-                  width: '100%',
-                  maxWidth: '320px',
-                  background: '#fff',
-                  border: '1px solid #ede4da',
-                  borderRadius: '20px',
-                  padding: '2.5rem 2rem',
-                  boxShadow: '0 4px 24px rgba(60,40,20,0.06)',
-                  textAlign: 'center',
-                }}>
-                  <p style={{
-                    fontFamily: "'Gowun Batang', serif",
-                    fontSize: '0.88rem',
-                    color: '#5a4a3a',
-                    lineHeight: 2,
-                    marginBottom: '2rem',
-                    whiteSpace: 'pre-wrap',
-                    wordBreak: 'break-word',
-                  }}>
-                    {entry.message}
-                  </p>
-                  <div style={{ borderTop: '1px dashed #ddd0c4', paddingTop: '1rem' }}>
-                    <span style={{
-                      fontFamily: "'Gowun Batang', serif",
-                      fontSize: '0.8rem',
-                      color: '#9a8070',
-                    }}>
-                      — {entry.name}
-                    </span>
-                    <span style={{
-                      display: 'block',
-                      fontFamily: "'Gowun Batang', serif",
-                      fontSize: '0.7rem',
-                      color: '#bca38a',
-                      marginTop: '0.25rem',
-                    }}>
-                      {new Date(entry.ts).toLocaleDateString('ko-KR', { month: 'long', day: 'numeric' })}
-                    </span>
-                  </div>
-                </div>
+            <div
+              key={entry.ts}
+              style={{
+                background: '#fff',
+                border: '1px solid #ede4da',
+                borderRadius: '16px',
+                padding: '1.25rem 1.25rem 1rem',
+                boxShadow: '0 2px 12px rgba(60,40,20,0.04)',
+              }}
+            >
+              <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', marginBottom: '0.75rem' }}>
+                <span style={{ fontFamily: "'Gowun Batang', serif", fontSize: '0.85rem', fontWeight: 700, color: '#7a5a3a' }}>
+                  {entry.name}
+                </span>
+                <span style={{ fontFamily: "'Gowun Batang', serif", fontSize: '0.7rem', color: '#bca38a' }}>
+                  {new Date(entry.ts).toLocaleDateString('ko-KR', { month: 'long', day: 'numeric' })}
+                </span>
               </div>
-            </SwiperSlide>
+              <p style={{
+                fontFamily: "'Gowun Batang', serif",
+                fontSize: '0.85rem',
+                color: '#5a4a3a',
+                lineHeight: 1.9,
+                whiteSpace: 'pre-wrap',
+                wordBreak: 'break-word',
+                margin: 0,
+              }}>
+                {entry.message}
+              </p>
+            </div>
           ))}
-        </Swiper>
+        </div>
       </div>
     </div>,
     document.body
