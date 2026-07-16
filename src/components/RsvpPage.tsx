@@ -187,7 +187,7 @@ export default function RsvpPage({ onClose }: Props) {
               <label style={labelStyle}>식사여부 {requiredDot}</label>
               <div style={{ display: 'flex', gap: '0.6rem' }}>
                 <ToggleBtn selected={meal === 'yes'} onClick={() => setMeal('yes')}>○</ToggleBtn>
-                <ToggleBtn selected={meal === 'no'} onClick={() => setMeal('no')}>×</ToggleBtn>
+                <ToggleBtn selected={meal === 'no'} onClick={() => setMeal('no')}>X</ToggleBtn>
                 <ToggleBtn selected={meal === 'undecided'} onClick={() => setMeal('undecided')}>미정</ToggleBtn>
               </div>
             </div>
