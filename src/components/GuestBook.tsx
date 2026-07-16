@@ -232,7 +232,7 @@ export default function GuestBook() {
               color: '#bca38a', letterSpacing: '0.05em',
             }}
           >
-            더보기
+            더 보기
           </button>
         )}
       </div>
