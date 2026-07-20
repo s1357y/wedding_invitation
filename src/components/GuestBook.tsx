@@ -18,12 +18,12 @@ function formatDate(ts: number) {
   return `${d.getMonth() + 1}월 ${d.getDate()}일`
 }
 
-async function fetchEntries(): Promise<Entry[]> {
+async function fetchEntries(): Promise<Entry[] | null> {
   try {
-    const res = await fetch(`${SHEETS_URL}?type=guestbook`)
+    const res = await fetch(`${SHEETS_URL}?type=guestbook&_=${Date.now()}`)
     return await res.json()
   } catch {
-    return []
+    return null
   }
 }
 
@@ -152,7 +152,7 @@ export default function GuestBook() {
 
   async function load() {
     const data = await fetchEntries()
-    if (data.length > 0) {
+    if (data !== null) {
       setEntries(data)
       try { localStorage.setItem(CACHE_KEY, JSON.stringify(data)) } catch {}
     }
