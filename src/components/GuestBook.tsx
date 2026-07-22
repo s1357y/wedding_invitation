@@ -20,7 +20,7 @@ function formatDate(ts: number) {
 
 async function fetchEntries(): Promise<Entry[] | null> {
   try {
-    const res = await fetch(`${SHEETS_URL}?type=guestbook&_=${Date.now()}`)
+    const res = await fetch(`${SHEETS_URL}?type=guestbook`)
     return await res.json()
   } catch {
     return null
