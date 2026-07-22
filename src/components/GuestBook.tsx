@@ -1,4 +1,4 @@
-import { useState, useEffect, type FormEvent } from 'react'
+import { useState, useEffect, useRef, type FormEvent } from 'react'
 import { createPortal } from 'react-dom'
 import { X } from 'lucide-react'
 import GuestBookViewer from './GuestBookViewer'
@@ -149,6 +149,7 @@ export default function GuestBook() {
   const [showForm, setShowForm] = useState(false)
   const [showViewer, setShowViewer] = useState(false)
   const [fetching, setFetching] = useState(entries.length === 0)
+  const sectionRef = useRef<HTMLElement>(null)
 
   async function load() {
     const data = await fetchEntries()
@@ -159,7 +160,24 @@ export default function GuestBook() {
     setFetching(false)
   }
 
-  useEffect(() => { load() }, [])
+  useEffect(() => {
+    const el = sectionRef.current
+    if (!el || typeof IntersectionObserver === 'undefined') {
+      load()
+      return
+    }
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          load()
+          observer.unobserve(el)
+        }
+      },
+      { rootMargin: '300px 0px' }
+    )
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [])
 
   function handleSubmit(name: string, message: string) {
     const entry: Entry = { name, message, ts: Date.now() }
@@ -176,7 +194,7 @@ export default function GuestBook() {
   const preview = entries.slice(0, PREVIEW_COUNT)
 
   return (
-    <section className="py-16 px-8" style={{ background: '#fdfcf9' }}>
+    <section ref={sectionRef} className="py-16 px-8" style={{ background: '#fdfcf9' }}>
       <div className="max-w-xl mx-auto text-center">
         {/* 헤더 */}
         <p className="text-lg font-serif-theme font-medium mb-2" style={{ color: '#5a3020' }}>편지함</p>
