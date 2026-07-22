@@ -1,15 +1,43 @@
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 import { useScrollAnimation } from '../hooks/useScrollAnimation'
 
 export default function Footer() {
   const imgRef = useScrollAnimation(200)
   const textRef = useScrollAnimation(500)
+  const videoRef = useRef<HTMLVideoElement>(null)
+
+  /* ── 영상: 자동재생 실패 시 화면 진입/인터랙션에서 재시도 ── */
+  useEffect(() => {
+    const video = videoRef.current
+    if (!video) return
+    video.muted = true
+    video.play().catch(() => {})
+
+    function ensurePlaying() {
+      const v = videoRef.current
+      if (v && v.paused) v.play().catch(() => {})
+    }
+
+    const observer = typeof IntersectionObserver !== 'undefined'
+      ? new IntersectionObserver(([entry]) => { if (entry.isIntersecting) ensurePlaying() }, { threshold: 0.25 })
+      : null
+    if (observer) observer.observe(video)
+
+    const EVENTS = ['touchstart', 'touchend', 'click', 'pointerdown', 'scroll']
+    EVENTS.forEach(e => document.addEventListener(e, ensurePlaying, { passive: true }))
+
+    return () => {
+      if (observer) observer.disconnect()
+      EVENTS.forEach(e => document.removeEventListener(e, ensurePlaying))
+    }
+  }, [])
 
   return (
     <footer className="text-center" style={{ background: '#fdfcf9' }}>
       {/* 푸터 영상 */}
       <div ref={imgRef as React.RefObject<HTMLDivElement>} className="fade-up">
         <video
+          ref={videoRef}
           src="/videos/footer.mp4"
           autoPlay
           muted
