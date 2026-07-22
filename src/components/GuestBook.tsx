@@ -194,7 +194,7 @@ export default function GuestBook() {
   const preview = entries.slice(0, PREVIEW_COUNT)
 
   return (
-    <section ref={sectionRef} className="py-16 px-8" style={{ background: '#fdfcf9' }}>
+    <section ref={sectionRef} className="py-10 px-8" style={{ background: '#fdfcf9' }}>
       <div className="max-w-xl mx-auto text-center">
         {/* 헤더 */}
         <p className="text-lg font-serif-theme font-medium mb-2" style={{ color: '#5a3020' }}>편지함</p>

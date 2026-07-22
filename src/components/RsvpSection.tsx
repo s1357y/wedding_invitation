@@ -4,7 +4,7 @@ interface Props {
 
 export default function RsvpSection({ onOpen }: Props) {
   return (
-    <section className="pt-16 pb-32 px-8" style={{ background: '#fdfcf9' }}>
+    <section className="pt-10 pb-16 px-8" style={{ background: '#fdfcf9' }}>
       <div className="max-w-xl mx-auto text-center">
         <p className="text-lg font-serif-theme font-medium mb-2" style={{ color: '#5a3020' }}>참석 여부 전달</p>
 

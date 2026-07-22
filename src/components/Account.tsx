@@ -66,7 +66,7 @@ export default function Account() {
   }
 
   return (
-    <section className="py-16 px-8" style={{ background: '#fdfcf9' }}>
+    <section className="py-10 px-8" style={{ background: '#fdfcf9' }}>
       <p className="text-lg font-serif-theme font-medium text-center mb-8" style={{ color: '#5a3020' }}>마음 전하실 곳</p>
 
       <div className="max-w-xl mx-auto space-y-3">
