@@ -85,11 +85,12 @@ export default function App() {
       <Cover />
       <Greeting />
 
-      {/* 모달 트리거 — Greeting 끝, EventInfo 시작 전 */}
-      <div ref={triggerRef} style={{ height: '1px' }} />
-
       <AnimatedSection delay={100}><EventInfo /></AnimatedSection>
       <AnimatedSection delay={100}><Map /></AnimatedSection>
+
+      {/* 모달 트리거 — Map 끝, Gallery(우리의 페이지) 시작 전 */}
+      <div ref={triggerRef} style={{ height: '1px' }} />
+
       <AnimatedSection delay={100}><Gallery /></AnimatedSection>
       <AnimatedSection delay={100}><Account /></AnimatedSection>
       <AnimatedSection delay={100}><GuestBook /></AnimatedSection>
