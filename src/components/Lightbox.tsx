@@ -52,10 +52,10 @@ export default function Lightbox({ images, initialIndex, onClose }: LightboxProp
   return createPortal(
     <div
       ref={overlayRef}
-      className="fixed inset-0 z-50 flex flex-col bg-black/90"
+      className="fixed inset-0 z-50 flex flex-col bg-black"
       onClick={handleOverlayClick}
     >
-      {/* 닫기 — 절대 위치 */}
+      {/* 닫기 — 이미지 위 오버레이 */}
       <button
         onClick={onClose}
         className="absolute top-4 right-4 z-10 leading-none"
@@ -65,12 +65,9 @@ export default function Lightbox({ images, initialIndex, onClose }: LightboxProp
         ✕
       </button>
 
-      {/* 닫기 버튼 공간 확보 */}
-      <div className="flex-shrink-0 h-14" />
-
-      {/* 이미지 영역 — 남은 공간 전부 차지 */}
+      {/* 이미지 영역 — 화면 전체 차지 */}
       <div
-        className="flex-1 min-h-0 flex items-center w-full px-4"
+        className="flex-1 min-h-0 flex items-center w-full"
         onClick={(e) => e.stopPropagation()}
         onTouchStart={(e) => { touchStartX.current = e.touches[0].clientX }}
         onTouchEnd={(e) => {
@@ -108,9 +105,9 @@ export default function Lightbox({ images, initialIndex, onClose }: LightboxProp
         </Swiper>
       </div>
 
-      {/* 컨트롤: ← N/32 → */}
+      {/* 컨트롤: ← N/32 → — 이미지 위 하단 오버레이 */}
       <div
-        className="flex-shrink-0 flex items-center justify-center gap-8 py-3"
+        className="absolute bottom-4 left-0 right-0 z-10 flex items-center justify-center gap-8"
         onClick={(e) => e.stopPropagation()}
       >
         <button
