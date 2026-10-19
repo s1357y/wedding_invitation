@@ -17,9 +17,16 @@ function buildCalendar(year: number, month: number) {
 function calcCountdown() {
   const diff = WEDDING_DATE.getTime() - Date.now()
   if (diff <= 0) return null
+  const now = new Date()
+  // 날짜(캘린더 일자) 기준으로 남은 일수를 계산한다.
+  // 시/분/초까지 포함한 정확한 diff로 floor하면 예식 시각(16시)을 넘긴 순간
+  // 하루가 통째로 더 빠지는 문제가 있어, 자정 기준 날짜 차이로 계산한다.
+  const startOfToday = new Date(now.getFullYear(), now.getMonth(), now.getDate())
+  const startOfWedding = new Date(date.year, date.month - 1, date.day)
+  const days = Math.round((startOfWedding.getTime() - startOfToday.getTime()) / 86400000)
   const totalSec = Math.floor(diff / 1000)
   return {
-    days: Math.floor(totalSec / 86400),
+    days,
     hours: Math.floor((totalSec % 86400) / 3600),
     minutes: Math.floor((totalSec % 3600) / 60),
     seconds: totalSec % 60,
