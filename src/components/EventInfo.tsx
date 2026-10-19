@@ -125,7 +125,7 @@ export default function EventInfo() {
         {/* 카운트다운 */}
         {countdown ? (
           <p className="text-center text-sm font-light" style={{ fontFamily: "'Gowun Batang', serif", color: '#8a7a6a' }}>
-            결혼 예식까지 {countdown.days}일 남았습니다.
+            {countdown.days === 0 ? '오늘은 예식일입니다.' : `결혼 예식까지 ${countdown.days}일 남았습니다.`}
           </p>
         ) : (
           <p className="text-center text-sm font-serif-theme" style={{ color: '#bca38a' }}>
