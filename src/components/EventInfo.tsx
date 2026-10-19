@@ -15,8 +15,6 @@ function buildCalendar(year: number, month: number) {
 }
 
 function calcCountdown() {
-  const diff = WEDDING_DATE.getTime() - Date.now()
-  if (diff <= 0) return null
   const now = new Date()
   // 날짜(캘린더 일자) 기준으로 남은 일수를 계산한다.
   // 시/분/초까지 포함한 정확한 diff로 floor하면 예식 시각(16시)을 넘긴 순간
@@ -24,7 +22,10 @@ function calcCountdown() {
   const startOfToday = new Date(now.getFullYear(), now.getMonth(), now.getDate())
   const startOfWedding = new Date(date.year, date.month - 1, date.day)
   const days = Math.round((startOfWedding.getTime() - startOfToday.getTime()) / 86400000)
-  const totalSec = Math.floor(diff / 1000)
+  // 예식일(10/24) 당일에는 예식 시각을 넘겨도 다음 날(10/25) 자정 전까지는
+  // "결혼했습니다"로 넘어가지 않고 "오늘은 결혼 예식일입니다"를 유지한다.
+  if (days < 0) return null
+  const totalSec = Math.floor(Math.max(WEDDING_DATE.getTime() - now.getTime(), 0) / 1000)
   return {
     days,
     hours: Math.floor((totalSec % 86400) / 3600),
@@ -125,7 +126,7 @@ export default function EventInfo() {
         {/* 카운트다운 */}
         {countdown ? (
           <p className="text-center text-sm font-light" style={{ fontFamily: "'Gowun Batang', serif", color: '#8a7a6a' }}>
-            {countdown.days === 0 ? '오늘은 예식일입니다.' : `결혼 예식까지 ${countdown.days}일 남았습니다.`}
+            {countdown.days === 0 ? '오늘은 결혼 예식일입니다.' : `결혼 예식까지 ${countdown.days}일 남았습니다.`}
           </p>
         ) : (
           <p className="text-center text-sm font-serif-theme" style={{ color: '#bca38a' }}>
